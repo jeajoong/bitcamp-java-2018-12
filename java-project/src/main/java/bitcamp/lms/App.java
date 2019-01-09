@@ -34,21 +34,20 @@ public class App {
       System.out.print("일수업시간?");
       datime[i] = sc.nextInt();
       
-      System.out.println("계속 입력하시겠습니까?(y/n)");
+      System.out.print("\n계속 입력하시겠습니까?(Y/n)");
       String answer = sc.next();
                     
-      if(!(answer.equals("y"))) {
+      if(! answer.equalsIgnoreCase("y") && answer.length() > 0) {  // y도 아니여야 하고 n도 아니여야할때 // !answer.length() > 0
       break; 
-      }        
-      
       }
+          
+        }
       sc.close();
       System.out.println();
       
-      
-      for (int j = 0; j <= i; j++) {
+      for (int j=0; j <= i; j++) {
         System.out.printf("%d, %s, %d ~ %d, %d\n", no[j], title[j], sdate[j], edate[j],totime[j]);
-        
         }
       }
     }
+
