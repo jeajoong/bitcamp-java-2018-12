@@ -1,15 +1,13 @@
-//10번 -> 11번 도전 //패키지로 클래스 분류
+//9번 -> 10번 도전 //클래스로 메서드를 분류하기
 package com.bitcamp.lms;
 
 import java.util.Scanner;
-import com.bitcamp.lms.handler.*;
 
+public class App {
 
- public class App {
-
-  public static Scanner keyboard = new Scanner(System.in);
+  static Scanner keyboard = new Scanner(System.in);
   
-  public static final int LENGTH = 10;
+  static final int LENGTH = 10;
   
   public static void main(String[] args) {
     
