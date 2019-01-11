@@ -1,4 +1,5 @@
-package com.eomcs.lms;
+
+package com.bitcamp.lms;
 
 import java.sql.Date;
 import java.util.Scanner;
