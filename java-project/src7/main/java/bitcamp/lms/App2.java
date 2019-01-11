@@ -1,5 +1,4 @@
-//project 06
-package bitcamp.lms;
+package com.eomcs.lms;
 
 import java.sql.Date;
 import java.util.Scanner;
@@ -7,41 +6,58 @@ import java.util.Scanner;
 public class App2 {
 
   public static void main(String[] args) {
-    Scanner sc = new Scanner(System.in);
     
-    Member members = new Member();
-    int i;
+    Scanner keyboard = new Scanner(System.in);
+
+    final int LENGTH = 10;
     
-    for( i = 0; i < 100; i++) {
+    Member[] members = new Member[LENGTH];
     
-    System.out.print("번호?");
-    members.no[i] = sc.nextInt();
-    System.out.print("이름?");
-    members.name[i] = sc.next();
-    System.out.print("이메일?");
-    members.email[i] = sc.next();
-    System.out.print("암호?");
-    members.pw[i] = sc.nextInt();
-    System.out.print("사진?");
-    members.file[i] = sc.next();
-    System.out.print("전화?");
-    members.call[i] = sc.next();
-    
-    members.registeredDate[i] = new Date(System.currentTimeMillis());
-    //Date형 변수에 시스템 시간 넣어줌
-    
-    System.out.print("계속 입력하시겠습니까?(y/n)");
-    String answer = sc.next();
-    
-    if(!(answer.equals("y"))) {
-      break;
+    int i = 0;
+    while (i < LENGTH) {
+      Member member = new Member();
+      
+      System.out.print("번호? ");
+      member.no = Integer.parseInt(keyboard.nextLine());
+      
+      System.out.print("이름? ");
+      member.name = keyboard.nextLine();
+      
+      System.out.print("이메일? ");
+      member.email = keyboard.nextLine();
+      
+      System.out.print("암호? ");
+      member.password = keyboard.nextLine();
+  
+      System.out.print("사진? ");
+      member.photo = keyboard.nextLine();
+  
+      System.out.print("전화? ");
+      member.tel = keyboard.nextLine();
+  
+      member.registeredDate = new Date(System.currentTimeMillis()); 
+      
+      members[i] = member;
+      i++;
+      
+      System.out.print("\n계속 입력하시겠습니까?(Y/n) ");
+      String answer = keyboard.nextLine().toLowerCase();
+      
+      if (!answer.equals("y") && answer.length() > 0) {
+        break;
+      }
+
+      System.out.println();
     }
     
-    }
+    keyboard.close();
+    
     System.out.println();
     
-    for (int j = 0; j <= i; j++) {
-      System.out.printf("%d, %s , %s, %s, %s\n", members.no[j],members.name[j], members.email[j], members.call[j],members.registeredDate[j]);  
+    for (int j = 0; j < i; j++) {
+      System.out.printf("%3d, %-4s, %-20s, %-15s, %s\n", 
+          members[j].no, members[j].name, members[j].email, 
+          members[j].tel, members[j].registeredDate);
     }
   }
 }

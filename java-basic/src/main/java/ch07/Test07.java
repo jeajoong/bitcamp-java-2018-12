@@ -25,7 +25,7 @@ public class Test07 {
     int sum;
     float aver;
     
-    // 다음과 같이 초기화시키지 않은 로컬 변수를 사용하려고 하면 컴파일 오류가 발생한다!
+    // 다음과 같이 초기화시키지 않은(값이 없는) 로컬 변수를 사용하려고 하면 컴파일 오류가 발생한다!
     //System.out.println(name); // 컴파일 오류!
     
     // 힙에 생성되는 인스턴스 필드(변수)는 자동으로 초기화된다.
@@ -42,19 +42,4 @@ public class Test07 {
     System.out.println(s.aver);
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

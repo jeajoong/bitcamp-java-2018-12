@@ -1,4 +1,4 @@
-package bitcamp.lms;
+package com.eomcs.lms;
 
 import java.sql.Date;
 import java.util.Scanner;
@@ -16,9 +16,6 @@ public class App {
     
     Member[] members = new Member[LENGTH];
     int memberIdx = 0;
-    
-    Board[] boards = new Board[LENGTH];
-    int boardIdx = 0;
 
     while (true) {
       System.out.print("명령> ");
@@ -94,30 +91,6 @@ public class App {
           System.out.printf("%3d, %-4s, %-20s, %-15s, %s\n", 
               members[j].no, members[j].name, members[j].email, 
               members[j].tel, members[j].registeredDate);
-        }
-        
-      } else if (command.equals("/board/add")) {
-        Board board = new Board();
-        
-        System.out.print("번호? ");
-        board.no = Integer.parseInt(keyboard.nextLine());
-        
-        System.out.print("내용? ");
-        board.contents = keyboard.nextLine();
-        
-        board.createdDate = new Date(System.currentTimeMillis()); 
-        
-        board.viewCount = 0;
-        
-        boards[boardIdx] = board;
-        boardIdx++;
-        
-        System.out.println("저장하였습니다.");
-        
-      } else if (command.equals("/board/list")) {
-        for (int j = 0; j < boardIdx; j++) {
-          System.out.printf("%3d, %-20s, %s, %d\n", 
-              boards[j].no, boards[j].contents, boards[j].createdDate, boards[j].viewCount);
         }
         
       } else if (command.equals("quit")) {
