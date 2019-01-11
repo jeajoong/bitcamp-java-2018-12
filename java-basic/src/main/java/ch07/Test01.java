@@ -19,6 +19,7 @@ public class Test01 {
     float aver = sum / 3f;
     
     System.out.printf("%s: %d, %d, %d, %d, %f\n", name, kor, eng, math, sum, aver);
+    // 음.. 할만하다!
   }
   
 }
