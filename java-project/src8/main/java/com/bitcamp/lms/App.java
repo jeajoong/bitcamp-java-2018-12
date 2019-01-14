@@ -1,4 +1,4 @@
-//7번 ->8번 도전
+//7번 ->8번
 package com.bitcamp.lms;
 
 import java.sql.Date;

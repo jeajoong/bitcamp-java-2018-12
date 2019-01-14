@@ -1,4 +1,4 @@
-//12번 -> 13번 각 Handler static 제거해서 인스턴스 메서드로 만들기?
+//11번 -> 12번
 package com.bitcamp.lms;
 
 import java.util.Scanner;
@@ -10,30 +10,27 @@ public class App {
     public final static int LENGTH = 10;
     
     public static void main(String[] args) {
-      LessonHandler lH = new LessonHandler();
-      MemberHandler mH = new MemberHandler();
-      BoardHandler bH1 = new BoardHandler();
-      BoardHandler bH2 = new BoardHandler();
+
     while (true) { 
       System.out.print("명령> ");
       String command = keyboard.nextLine().toLowerCase();
 
       if (command.equals("/lesson/add")) {
-        lH.addlesson();
+        LessonHandler.addlesson();
       } else if (command.equals("/lesson/list")) {
-        lH.listlesson();
+        LessonHandler.listlesson();
       } else if (command.equals("/member/add")) {
-        mH.addmember();
+        MemberHandler.addmember();
       } else if (command.equals("/member/list")) {
-        mH.listmamber();
+        MemberHandler.listmamber();
       } else if (command.equals("/board/add")) {
-        bH1.addboard();
+        BoardHandler.addboard();
       } else if (command.equals("/board/list")) {
-        bH1.listborad();
+        BoardHandler.listborad();
       } else if (command.equals("/board2/add")) {
-        bH2.addboard();
+        BoardHandler2.addboard();
       } else if (command.equals("/board2/list")) {
-        bH2.listborad();
+        BoardHandler2.listborad();
       } else if (command.equals("quit")) {
         System.out.println("안녕!");
         break;
