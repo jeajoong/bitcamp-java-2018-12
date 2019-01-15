@@ -14,7 +14,8 @@ public class App {
       MemberHandler mH = new MemberHandler();
       BoardHandler bH1 = new BoardHandler();
       BoardHandler bH2 = new BoardHandler();
-    while (true) { 
+      
+    while (true) {
       System.out.print("명령> ");
       String command = keyboard.nextLine().toLowerCase();
 
