@@ -5,40 +5,43 @@ import java.util.Scanner;
 import com.bitcamp.lms.App;
 import com.bitcamp.lms.domain.*;
 
-
+//static에는 this를 사용할수 없다
 public class BoardHandler {
-  Board[] boards = new Board[App.LENGTH];
-  int boardIdx = 0;
   
-    Scanner keyboard;
-    public BoardHandler(Scanner keyboard){
-      this.keyboard = keyboard;
+  Scanner keyboard;
+  BoardList list;
+  
+  public BoardHandler(Scanner keyboard) {
+    this.keyboard = keyboard;
+    this.list = new BoardList(20); // List 배열주소값을 list에
+  }
+  
+  public void listBoard() {
+    Board[] boards = list.toArray(); 
+    
+    for (Board board : boards) {
+      System.out.printf("%3d, %-20s, %s, %d\n", 
+          board.getNo(), board.getContents(), 
+          board.getCreatedDate(), board.getViewCount());
     }
+  }
 
-  public void addboard() {
-    Board board = new Board();
+  public void addBoard() {
+    Board board = new Board(); 
     
     System.out.print("번호? ");
-    board.no = Integer.parseInt(this.keyboard.nextLine());
+    board.setNo(Integer.parseInt(keyboard.nextLine()));
     
     System.out.print("내용? ");
-    board.contents = this.keyboard.nextLine();
+    board.setContents(keyboard.nextLine());
     
-    board.createdDate = new Date(System.currentTimeMillis()); 
+    board.setCreatedDate(new Date(System.currentTimeMillis())); 
     
-    board.viewCount = 0;
+    board.setViewCount(0);
     
-    boards[boardIdx] = board;
-    boardIdx++;
+    list.add(board);//  
     
     System.out.println("저장하였습니다.");
-    
   }
-  public void listborad() {
-    
-  for (int j = 0; j < boardIdx; j++) {
-    System.out.printf("%3d, %-20s, %s, %d\n", 
-        boards[j].no, boards[j].contents, boards[j].createdDate, boards[j].viewCount);
-  }
-  }
+
 }

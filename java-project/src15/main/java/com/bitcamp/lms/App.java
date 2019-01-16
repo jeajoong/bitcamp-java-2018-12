@@ -6,58 +6,44 @@ import com.bitcamp.lms.Handler.*;
 
 public class App {
 
-  static Scanner keyboard = new Scanner(System.in);
-
-  public static void main(String[] args) {
+    public static Scanner keyboard = new Scanner(System.in);
+    public final static int LENGTH = 10;
     
-    LessonHandler lessonHandler = new LessonHandler(keyboard);
-    MemberHandler memberHandler = new MemberHandler(keyboard);
-    BoardHandler boardHandler1 = new BoardHandler(keyboard);
-    BoardHandler boardHandler2 = new BoardHandler(keyboard);
-    
+    public static void main(String[] args) {
+      LessonHandler lH = new LessonHandler(keyboard);
+      MemberHandler mH = new MemberHandler(keyboard);
+      BoardHandler bH1 = new BoardHandler(keyboard);
+      BoardHandler bH2 = new BoardHandler(keyboard);
+      
     while (true) {
-      String command = prompt();
+      System.out.print("명령> ");
+      String command = keyboard.nextLine().toLowerCase();
 
       if (command.equals("/lesson/add")) {
-        lessonHandler.addLesson();
-        
+        lH.addlesson();
       } else if (command.equals("/lesson/list")) {
-        lessonHandler.listLesson();
-      
+        lH.listlesson();
       } else if (command.equals("/member/add")) {
-        memberHandler.addMember();
-        
+        mH.addmember();
       } else if (command.equals("/member/list")) {
-        memberHandler.listMember();
-        
+        mH.listmamber();
       } else if (command.equals("/board/add")) {
-        boardHandler1.addBoard();
-        
+        bH1.addboard();
       } else if (command.equals("/board/list")) {
-        boardHandler1.listBoard();
-        
+        bH1.listborad();
       } else if (command.equals("/board2/add")) {
-        boardHandler2.addBoard();
-        
+        bH2.addboard();
       } else if (command.equals("/board2/list")) {
-        boardHandler2.listBoard();
-        
+        bH2.listborad();
       } else if (command.equals("quit")) {
         System.out.println("안녕!");
         break;
-        
       } else {
         System.out.println("실행할 수 없는 명령입니다.");
       }
-      
       System.out.println(); // 결과 출력 후 빈 줄 출력
     }
-
     keyboard.close();
   }
-
-  private static String prompt() {
-    System.out.print("명령> ");
-    return keyboard.nextLine().toLowerCase();
-  }
+    
 }

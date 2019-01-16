@@ -7,51 +7,50 @@ import com.bitcamp.lms.domain.*;
 
 public class MemberHandler {
   
-   Member[] members = new Member[App.LENGTH];
-   int memberIdx = 0;
+  Scanner keyboard;
+  MemberList list;
   
-   Scanner keyboard;
-   public MemberHandler (Scanner keyboard) {
-     this.keyboard = keyboard;
-   }
-   
-   
-  public void addmember() {
+  public MemberHandler(Scanner keyboard) {
+    this.keyboard = keyboard;
+    this.list = new MemberList(20);
+  }
+  
+  public void listMember() {
+    Member[] members = list.toArray();
     
+    for (Member member : members) {
+      System.out.printf("%3d, %-4s, %-20s, %-15s, %s\n", 
+          member.getNo(), member.getName(), 
+          member.getEmail(), member.getTel(), member.getRegisteredDate());
+    }
+  }
+
+  public void addMember() {
     Member member = new Member();
     
     System.out.print("번호? ");
-    member.no = Integer.parseInt(this.keyboard.nextLine());
+    member.setNo(Integer.parseInt(keyboard.nextLine()));
     
     System.out.print("이름? ");
-    member.name = this.keyboard.nextLine();
+    member.setName(keyboard.nextLine());
     
     System.out.print("이메일? ");
-    member.email = this.keyboard.nextLine();
+    member.setEmail(keyboard.nextLine());
     
     System.out.print("암호? ");
-    member.password = this.keyboard.nextLine();
-
+    member.setPassword(keyboard.nextLine());
+  
     System.out.print("사진? ");
-    member.photo = this.keyboard.nextLine();
-
+    member.setPhoto(keyboard.nextLine());
+  
     System.out.print("전화? ");
-    member.tel = this.keyboard.nextLine();
-
-    member.registeredDate = new Date(System.currentTimeMillis()); 
+    member.setTel(keyboard.nextLine());
+  
+    member.setRegisteredDate(new Date(System.currentTimeMillis())); 
     
-    members[memberIdx] = member;
-    memberIdx++;
+    list.add(member);
     
     System.out.println("저장하였습니다.");
-    
-  }
-    public  void listmamber() {
-  for (int j = 0; j < memberIdx; j++) {
-    System.out.printf("%3d, %-4s, %-20s, %-15s, %s\n", 
-        members[j].no, members[j].name, members[j].email, 
-        members[j].tel, members[j].registeredDate);
-}
-  }
   }
 
+}

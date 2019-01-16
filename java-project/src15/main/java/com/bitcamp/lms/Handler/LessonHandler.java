@@ -7,16 +7,16 @@ import com.bitcamp.lms.domain.*;
 
 public class LessonHandler {
   
-  Scanner keyboard;
-  LessonList list;
+  Lesson[] lessons = new Lesson[App.LENGTH];
+  int lessonIdx = 0;
   
+  Scanner keyboard;
   public LessonHandler(Scanner keyboard) {
     this.keyboard = keyboard;
-    list = new LessonList();
   }
   
   
-  public void addLesson() {
+  public void addlesson() {
 
     Lesson lesson = new Lesson(); 
   
@@ -42,19 +42,19 @@ public class LessonHandler {
   lesson.setDayHours(Integer.parseInt(this.keyboard.nextLine()));
 
   // i 번째 배열에 수업 정보를 담고 있는 Lesson 객체(의 주소)를 보관한다.
-  list.add(lesson);
+  lessons[lessonIdx] = lesson;
+  lessonIdx++;
 
   System.out.println("저장하였습니다.");
   
 }
 
-  public void listLesson() {
-    Lesson[] lessons = list.toArray();
-    for (Lesson lesson : lessons) {
-      System.out.printf("%3d, %-15s, %10s ~ %10s, %4d\n", 
-          lesson.getNo(), lesson.getTitle(), 
-          lesson.getStartDate(), lesson.getEndDate(), lesson.getTotalHours());
-    }
+public void listlesson() {
+  for (int j = 0; j < lessonIdx; j++) {
+    System.out.printf("%3d, %-15s, %10s ~ %10s, %4d\n", 
+        lessons[j].getNo(), lessons[j].getTitle(), lessons[j].getStartDate(), 
+        lessons[j].getEndDate(), lessons[j].getTotalHours());
   }
+}
 
 }

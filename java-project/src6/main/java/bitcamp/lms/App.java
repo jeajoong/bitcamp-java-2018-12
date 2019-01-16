@@ -40,7 +40,6 @@ public class App {
       if(!(answer.equals("y"))) {
       break; 
       }        
-      
       }
       sc.close();
       System.out.println();
