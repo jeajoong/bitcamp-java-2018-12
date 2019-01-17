@@ -2,6 +2,7 @@ package com.bitcamp.lms.Handler;
 
 import java.sql.Date;
 import java.util.Scanner;
+import com.bitcamp.lms.App;
 import com.bitcamp.lms.domain.*;
 
 public class MemberHandler {

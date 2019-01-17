@@ -3,7 +3,7 @@ package com.bitcamp.lms.Handler;
 import java.util.Arrays;
 import com.bitcamp.lms.domain.Board;
 
-public class BoardList {
+public class ArrayList {
   static final int LENGTH = 3;
   Board[] arr = new Board[LENGTH]; //
   int size = 0;
