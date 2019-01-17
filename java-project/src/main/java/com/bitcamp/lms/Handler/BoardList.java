@@ -4,13 +4,10 @@ import java.util.Arrays;
 import com.bitcamp.lms.domain.Board;
 
 public class BoardList {
-  static final int DEFAULT_CAPACITY = 10;
-  Board[] list; // 
+  static final int DEFAULT_CAPACITY = 3;
+  Board[] list = new Board[DEFAULT_CAPACITY]; //
   int size = 0;
 
-  public BoardList() { 
-    list  = new Board[DEFAULT_CAPACITY];
-  }
 
   public BoardList(int initialCapacity) { // this.list = new BoardList(20);
     if (initialCapacity > DEFAULT_CAPACITY) // initialCapacity = 20

@@ -6,7 +6,7 @@ public class Board {
   private int no;
   private String contents;
   private Date createdDate;
-  private int viewCount;
+  private int viewCount;// 우클릭 source에 게터세터
   
   public int getNo() {
     return no;

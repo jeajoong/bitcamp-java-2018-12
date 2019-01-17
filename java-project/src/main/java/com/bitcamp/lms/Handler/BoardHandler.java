@@ -2,7 +2,6 @@ package com.bitcamp.lms.Handler;
 
 import java.sql.Date;
 import java.util.Scanner;
-import com.bitcamp.lms.App;
 import com.bitcamp.lms.domain.*;
 
 //static에는 this를 사용할수 없다
@@ -13,11 +12,11 @@ public class BoardHandler {
   
   public BoardHandler(Scanner keyboard) {
     this.keyboard = keyboard;
-    this.list = new BoardList(20); // List 배열주소값을 list에
+    this.list = new BoardList(2); // List 배열주소값을 list에
   }
   
   public void listBoard() {
-    Board[] boards = list.toArray(); 
+    Board[] boards = list.toArray(); // 목록을 배열로
     
     for (Board board : boards) {
       System.out.printf("%3d, %-20s, %s, %d\n", 
