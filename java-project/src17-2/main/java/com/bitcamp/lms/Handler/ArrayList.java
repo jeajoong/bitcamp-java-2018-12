@@ -21,7 +21,7 @@ public class ArrayList<E> {
 
   @SuppressWarnings("unchecked")
   public E[] toArray(E[] sampleArr) {
-    return (E[]) Arrays.copyOf(list, size, sampleArr.getClass()); //리스트의 크기배열에서 size만큼의 sampleArr배열을 돌려준다
+    return (E[]) Arrays.copyOf(list, size, sampleArr.getClass());
     /*
     E[] arr = Arrays.copyOf(sampleArr, size);
     for (int i = 0; i < size; i++) {
@@ -42,13 +42,15 @@ public class ArrayList<E> {
   }
   
   public E get(int index) {
-    return (E) list[index];
+    // index : 값을 꺼낼 배열의 항목 위치
+    return null;
   }
   
   public E set(int index, E value) {
-    E old = (E) list[index];
-    list[index] = value;
-    return old;
+    // index : 값을 변경할 배열의 항목 위치
+    // value : 해당 위치에 있는 값을 대체할 값 
+    // 리턴 값 : 대체되기 전의 기존 값
+    return null;
   }
   
   public E remove(int index) {

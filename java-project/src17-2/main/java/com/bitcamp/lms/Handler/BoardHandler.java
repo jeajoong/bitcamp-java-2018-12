@@ -42,9 +42,6 @@ public class BoardHandler {
   }
 
   public void detailBoard() {
-    System.out.println("번호? ");
-    int no = keyboard.nextInt();
-    
     
   }
   
@@ -53,17 +50,6 @@ public class BoardHandler {
   }
   
   public void deleteBoard() {
-    
-  }
-  
-  private int indexB(int no) {
-    for (int i = 0; i < list.size; i++) {
-      Board b = list.get(i);
-      if(b.getNo() == no)
-        return i;
-      
-    }
-    return 0; 
     
   }
 }
