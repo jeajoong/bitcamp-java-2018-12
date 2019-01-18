@@ -41,29 +41,30 @@ public class ArrayList<E> {
     list[size++] = obj;
   }
   
-  public E get(int index) {
+  
+  public E get(int index) { // 값을 꺼낼 배열의 항목 위치
     return (E) list[index];
   }
   
-  public E set(int index, E value) {
-    E old = (E) list[index];
-    list[index] = value;
-    return old;
+  
+  
+  
+  public E set(int index, E value) { // index 값을 변경할 배열의 항목 위치
+    E old = (E) list[index]; // value 해당 위치에 있는 값을 대체할 값
+    list[index] = value;  
+    return old; // 대체되기 전의 기존 값
   }
   
-  public E remove(int index) {
-    // index : 삭제할 배열의 항목 위치
+  
+  
+  public E remove(int index) {//삭제할 배열의 항목 위치
+    E old=(E) list[index]; 
+    
     // 리턴값: 삭제된 이전 값
     // 힌트: System.arraycopy() 참고! 
     return null;
   }
 }
-
-
-
-
-
-
 
 
 
