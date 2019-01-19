@@ -58,7 +58,7 @@ public class MemberHandler {
     
     int index = indexM(no);
     if (index == -1) {
-      System.out.println("게시글을 찾을 수 없습니다.");
+      System.out.println("회원을 찾을 수 없습니다.");
       return;
     }
     Member member = list.get(index);
@@ -73,8 +73,48 @@ public class MemberHandler {
   }
   
   public void updateMember() {
+    System.out.println("번호? ");
+    int no = keyboard.nextInt();
+  
+    int index = indexM(no);
+    if (index == -1) {
+      System.out.println("회원을 찾을수 없습니다.");
+    }
+    
+    Member member = list.get(index);
+    
+    try {
+      Member temp = member.clone();
+      
+      System.out.printf("이름(%s)? ", member.getName());
+      String input = keyboard.next();
+      if (input.length() > 0)
+        temp.setName(input);
+      
+      System.out.printf("이메일(%s)? ", member.getEmail());
+      if ((input = keyboard.nextLine()).length() > 0)
+        temp.setEmail(input);
+      
+      System.out.printf("암호(********)? ");
+      if ((input = keyboard.nextLine()).length() > 0)
+        temp.setPassword(input);
+      
+      System.out.printf("사진(%s)? ", member.getPhoto());
+      if ((input = keyboard.nextLine()).length() > 0)
+        temp.setPhoto(input);
+      
+      System.out.printf("전화(%s)? ", member.getTel());
+      if ((input = keyboard.nextLine()).length() > 0)
+        temp.setTel(input);
+      
+      list.set(index, temp);
+      
+    } catch (Exception e) {
+      System.out.println("변경 중 오류 발생!");
+    }
     
   }
+  
   
   public void deleteMember() {
     

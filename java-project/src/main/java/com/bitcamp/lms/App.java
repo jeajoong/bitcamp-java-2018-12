@@ -1,4 +1,4 @@
-//13번 -> 14번 각 Handler에 기본 생성자 대신에 파라미터로 keyboard를 받는 생성자를 추가한다
+
 package com.bitcamp.lms;
 
 import java.util.Scanner;
@@ -13,34 +13,42 @@ public class App {
     LessonHandler lessonHandler = new LessonHandler(keyboard);
     MemberHandler memberHandler = new MemberHandler(keyboard);
     BoardHandler boardHandler1 = new BoardHandler(keyboard);
-    BoardHandler boardHandler2 = new BoardHandler(keyboard);
     
     while (true) {
       String command = prompt();
 
       if (command.equals("/lesson/add")) {
         lessonHandler.addLesson();
-        
       } else if (command.equals("/lesson/list")) {
         lessonHandler.listLesson();
+      } else if (command.equals("/lesson/detail")) {
+        lessonHandler.detailLesson();
+      } else if (command.equals("/lesson/update")) {
+        lessonHandler.updateLesson();
+      } else if (command.equals("/lesson/delete")) {
+        lessonHandler.deleteLesson();
       
       } else if (command.equals("/member/add")) {
         memberHandler.addMember();
-        
       } else if (command.equals("/member/list")) {
         memberHandler.listMember();
-        
+      } else if (command.equals("/member/detail")) {
+        memberHandler.detailMember();
+      } else if (command.equals("/member/update")) {
+        memberHandler.updateMember();
+      } else if (command.equals("/member/delete")) {
+        memberHandler.deleteMember();
+
       } else if (command.equals("/board/add")) {
         boardHandler1.addBoard();
-        
       } else if (command.equals("/board/list")) {
         boardHandler1.listBoard();
-        
-      } else if (command.equals("/board2/add")) {
-        boardHandler2.addBoard();
-        
-      } else if (command.equals("/board2/list")) {
-        boardHandler2.listBoard();
+      } else if (command.equals("/board/detail")) {
+        boardHandler1.detailBoard();
+      } else if (command.equals("/board/update")) {
+        boardHandler1.updateBoard();
+      } else if (command.equals("/board/delete")) {
+        boardHandler1.deleteBoard();
         
       } else if (command.equals("quit")) {
         System.out.println("안녕!");
