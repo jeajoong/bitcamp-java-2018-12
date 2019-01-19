@@ -51,6 +51,46 @@ public class MemberHandler {
     System.out.println("저장하였습니다.");
   }
 
+  public void detailMember() {
+    System.out.println("번호? ");
+    int no = keyboard.nextInt();
+    // no를 입력하고 no에 맞는 배열 주소 값 한개를 Member변수에 가져와서 프린트해야한다
+    
+    int index = indexM(no);
+    if (index == -1) {
+      System.out.println("게시글을 찾을 수 없습니다.");
+      return;
+    }
+    Member member = list.get(index);
+    
+    System.out.printf("이름: %s\n", member.getName());
+    System.out.printf("이메일: %s\n", member.getEmail());
+    System.out.printf("암호: %s\n", member.getPassword());
+    System.out.printf("사진: %s\n", member.getPhoto());
+    System.out.printf("전화: %s\n", member.getTel());
+    System.out.printf("가입일: %s\n", member.getRegisteredDate());
+    
+  }
+  
+  public void updateMember() {
+    
+  }
+  
+  public void deleteMember() {
+    
+  }
+  
+  
+  public int indexM(int no) {
+    for (int i = 0; i < list.size; i++) {
+      Member m = list.get(i);
+      if(m.getNo() == no)
+        return i;
+    }
+    return -1;
+    
+  }
+  
 }
 
 

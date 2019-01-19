@@ -45,15 +45,15 @@ public class BoardHandler {
     System.out.println("번호? ");
     int no = keyboard.nextInt();
     
-    int index = indexB(no); // index변수 만들어서 indexB의 i리턴값 넣어줌
+    int index = indexB(no); // indexB 메소드를 호출하면 반드시 파라미터의 형태와 같은 형태의 변수에 담아줘야함
     if (index == -1) {
-      System.out.println("해당 게시글을 찾을 수 없습니다.");
-      return;
+      System.out.println("게시물을 찾을 수 없습니다");
+    return;
     }
-    Board board = list.get(index); // board변수에 list배열변수에 i 값 넣어줌
-                                                       // board변수에 값을 넣어주고 내용을 읽어야 하니까
+    Board board = list.get(index);
     System.out.printf("내용: %s\n", board.getContents());
     System.out.printf("작성일: %s\n", board.getCreatedDate());
+    
   }
   
   
@@ -69,16 +69,15 @@ public class BoardHandler {
   }
   
   
-  //indexB의 역할 : 만들어져있는 게시판의 개수와 no값이 같으면 i반환
-  public int indexB(int no) { // 번호를 입력했을때 값을 넘겨주고
-    for (int i = 0; i < list.size; i++) { 
-      Board b = list.get(i);  // 보드변수 b <= 배열리스트에 get 메소드 사용해 배열 항목 빼낸다
-      if(b.getNo() == no) // 보드변수 b의 번호get메소드가 처음입력한 숫자와 같으면
-        return i; // 숫자가 있다는 뜻이므로 i값을 돌려준다
+  public int indexB(int no) {
+    for (int i = 0; i < list.size; i++) {
+      Board b = list.get(i); 
+      if (b.getNo() == no)
+        return i;
     }
-    return -1;  // 아니면 -1을 리턴
-    
+    return -1;
   }
+  
 }
 
 

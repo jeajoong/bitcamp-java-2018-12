@@ -5,12 +5,8 @@ import java.util.Arrays;
 public class ArrayList<E> {
   
   static final int DEFAULT_CAPACITY = 10;
-  Object[] list;
+  Object[] list = new Object[DEFAULT_CAPACITY];
   int size = 0;
-
-  public ArrayList() {
-    list = new Object[DEFAULT_CAPACITY];
-  }
 
   public ArrayList(int initialCapacity) {
     if (initialCapacity > DEFAULT_CAPACITY)
@@ -59,6 +55,9 @@ public class ArrayList<E> {
   
   public E remove(int index) {//삭제할 배열의 항목 위치
     E old=(E) list[index]; 
+    
+    
+    
     
     // 리턴값: 삭제된 이전 값
     // 힌트: System.arraycopy() 참고! 

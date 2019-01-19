@@ -11,7 +11,7 @@ public class LessonHandler {
   
   public LessonHandler(Scanner keyboard) {
     this.keyboard = keyboard;
-    list = new ArrayList<>();
+    this.list = new ArrayList<>();
   }
   
   public void listLesson() {
@@ -51,4 +51,43 @@ public class LessonHandler {
 
     System.out.println("저장하였습니다.");
   }
-}
+  
+  public void detailLesson() {
+    System.out.println("번호? ");
+    int no = keyboard.nextInt();
+    
+    int index = indexL(no); // indexL을 호출하면 반드시 int형에 담을 무언가 필요하다
+    if(index == -1) {
+      System.out.println("게시글을 찾을 수 없습니다.");
+      return;
+    }
+    
+    Lesson lesson = list.get(index);
+    System.out.printf("수업명: %s\n", lesson.getTitle());
+    System.out.printf("설명: %s\n", lesson.getContents());
+    System.out.printf("기간: %s ~ %s\n", lesson.getStartDate(), lesson.getEndDate());
+    System.out.printf("총수업시간: %d\n", lesson.getTotalHours());
+    System.out.printf("일수업시간: %d\n", lesson.getDayHours());
+    
+  }
+  
+  public void updateLesson() {
+    
+  }
+  public void deleteLesson() {
+    
+  }
+  
+  public int indexL(int no) {
+    for (int i = 0; i < list.size; i++) {
+      Lesson l = list.get(i);
+      if (l.getNo()==no)
+        return i;
+    }
+return -1;
+  }
+
+    
+  }
+  
+
