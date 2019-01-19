@@ -11,6 +11,11 @@ public class Member {
   private String tel;
   private Date registeredDate;
   
+  @Override
+  public Member clone() throws CloneNotSupportedException{
+    return (Member) super.clone();
+  }
+  
   public int getNo() {
     return no;
   }

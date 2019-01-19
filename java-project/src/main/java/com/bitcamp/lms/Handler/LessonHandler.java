@@ -72,6 +72,28 @@ public class LessonHandler {
   }
   
   public void updateLesson() {
+    System.out.println("번호? ");
+    int no = keyboard.nextInt();
+    
+    int index = indexL(no);
+    if ( index == -1) {
+      System.out.println("게시글을 찾을 수 없습니다.");
+      return;
+    }
+    Lesson lesson = list.get(index);
+    
+    try {
+      Lesson temp = lesson.clone();
+      
+      System.out.println("수업명?");
+      String input= keyboard.next();
+      if (input.length() >0 )
+        temp.setTitle(input);
+      
+      
+      
+    } catch (Exception e) {
+    }
     
   }
   public void deleteLesson() {

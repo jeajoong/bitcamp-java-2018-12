@@ -11,6 +11,11 @@ public class Lesson {
   private int totalHours;
   private int dayHours;
   
+  @Override
+  public Lesson clone() throws CloneNotSupportedException {
+    return (Lesson) super.clone();
+  }
+  
   public int getNo() {
     return no;
   }

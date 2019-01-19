@@ -44,7 +44,7 @@ public class ArrayList<E> {
   
   
   
-  
+  //대체되기 전의 값을 돌려주는 set
   public E set(int index, E value) { // index 값을 변경할 배열의 항목 위치
     E old = (E) list[index]; // value 해당 위치에 있는 값을 대체할 값
     list[index] = value;  

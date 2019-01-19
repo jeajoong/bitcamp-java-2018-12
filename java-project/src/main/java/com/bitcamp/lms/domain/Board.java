@@ -8,6 +8,11 @@ public class Board {
   private Date createdDate;
   private int viewCount;
   
+  @Override
+  public Board clone() throws CloneNotSupportedException {
+    return (Board) super.clone();
+  }
+  
   public int getNo() {
     return no;
   }

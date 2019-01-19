@@ -59,7 +59,29 @@ public class BoardHandler {
   
   
   public void updateBoard() {
+    System.out.println("번호? ");
+    int no = keyboard.nextInt();
     
+    int index = indexB(no);
+    if(index == -1) {
+      System.out.println("게시글을 찾을 수 없습니다.");
+      return;
+    }
+    Board board = list.get(index);
+   try {
+     Board temp = board.clone(); // board게시물을 복제하는 clone메서드
+     
+     System.out.println("내용? ");
+     String input = keyboard.next();
+     if (input.length() > 0)
+       temp.setContents(input);
+     
+     list.set(index, temp);
+     System.out.println("게시글을 변경했습니다.");
+    
+  } catch (Exception e) {
+  System.out.println("변경 중 오류 발생!");
+  } 
   }
   
   
