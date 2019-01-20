@@ -54,41 +54,41 @@ public class MemberHandler {
   public void detailMember() {
     System.out.println("번호? ");
     int no = keyboard.nextInt();
-    // no를 입력하고 no에 맞는 배열 주소 값 한개를 Member변수에 가져와서 프린트해야한다
     
     int index = indexM(no);
-    if (index == -1) {
+    if(index == -1) {
       System.out.println("회원을 찾을 수 없습니다.");
       return;
     }
     Member member = list.get(index);
     
+    System.out.printf("");
     System.out.printf("이름: %s\n", member.getName());
     System.out.printf("이메일: %s\n", member.getEmail());
     System.out.printf("암호: %s\n", member.getPassword());
     System.out.printf("사진: %s\n", member.getPhoto());
     System.out.printf("전화: %s\n", member.getTel());
     System.out.printf("가입일: %s\n", member.getRegisteredDate());
-    
   }
   
   public void updateMember() {
     System.out.println("번호? ");
     int no = keyboard.nextInt();
-  
-    int index = indexM(no);
-    if (index == -1) {
-      System.out.println("회원을 찾을수 없습니다.");
-    }
     
+    int index = indexM(no);
+    if(index == -1) {
+      System.out.println(" 회원을 찾을 수 없습니다.");
+      return;
+    }
     Member member = list.get(index);
     
     try {
+      
       Member temp = member.clone();
       
       System.out.printf("이름(%s)? ", member.getName());
-      String input = keyboard.next();
-      if (input.length() > 0)
+      String input = keyboard.nextLine();
+      if (input.length() > 0) 
         temp.setName(input);
       
       System.out.printf("이메일(%s)? ", member.getEmail());
@@ -108,9 +108,9 @@ public class MemberHandler {
         temp.setTel(input);
       
       list.set(index, temp);
-      
+      System.out.println("회원을 변경했습니다.");
     } catch (Exception e) {
-      System.out.println("변경 중 오류 발생!");
+      System.out.println("오류가 발생했습니다.");
     }
     
   }
@@ -119,16 +119,14 @@ public class MemberHandler {
   public void deleteMember() {
     
   }
-  
-  
-  public int indexM(int no) {
+  private int indexM(int no) {// 번호 입력했을때 리스트에서 주소값 하나 빼내려고 
     for (int i = 0; i < list.size; i++) {
       Member m = list.get(i);
-      if(m.getNo() == no)
+      if ( m.getNo() == no) {
         return i;
+      }
     }
     return -1;
-    
   }
   
 }
