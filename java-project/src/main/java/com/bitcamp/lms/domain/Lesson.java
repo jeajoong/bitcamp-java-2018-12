@@ -1,5 +1,4 @@
 package com.bitcamp.lms.domain;
-
 import java.sql.Date;
 
 public class Lesson {
@@ -10,7 +9,6 @@ public class Lesson {
   private Date endDate;
   private int totalHours;
   private int dayHours;
-  
   
   public int getNo() {
     return no;
@@ -54,4 +52,6 @@ public class Lesson {
   public void setDayHours(int dayHours) {
     this.dayHours = dayHours;
   }
+  
+  
 }
