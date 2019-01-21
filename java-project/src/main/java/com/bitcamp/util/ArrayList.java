@@ -44,10 +44,20 @@ public class ArrayList<E> {
     }
   
   public E set(int index, E value) {
-    return null;
+    E old = (E) list[index];
+    list[index] = value;
+    return old;
   }
   
-  public E remove() {
-    return null;
+  public E remove(int index) {
+    E obj = (E) list[index];
+    
+    for (int i = index; i < size - 1; i++) // i 는 배열부터 배열 사이즈 -1까지 범위고
+      list[i] = list[i + 1]; // 한칸씩 배열 위치를 땡겨준다
+
+    size--; // 배열을 땡겼으니 빈 배열이 생겨서 그걸 매꾸기 위해 -1 
+
+    return obj;
+  
   }
 }
