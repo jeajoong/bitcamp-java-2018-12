@@ -1,12 +1,16 @@
-package com.bitcamp.lms.Handler;
+package com.bitcamp.util;
 
 import java.util.Arrays;
 
 public class ArrayList<E> {
   
   static final int DEFAULT_CAPACITY = 10;
-  Object[] list = new Object[DEFAULT_CAPACITY];
-  int size = 0;
+  Object[] list;
+  public int size = 0;
+  
+  public ArrayList() {
+    list = new Object[DEFAULT_CAPACITY];
+  }
 
   public ArrayList(int initialCapacity) {
     if (initialCapacity > DEFAULT_CAPACITY)
@@ -38,11 +42,17 @@ public class ArrayList<E> {
   
   
   public E get(int index) {  // 배열의 위치 값을 돌려줌 (한 배열의 값을?)
+    if (index < 0 || index >= size)
+    return null;
+  
     return (E) list[index];
   }
   
   // set(이전 값, 새로운 값)  이전값을 새로운값으로 바꿔줌
   public E set(int index, E value) {
+    if (index < 0 || index >= size)
+      return null;
+    
     E old =  (E) list[index];
     list[index] = value;
     return old;
@@ -50,12 +60,17 @@ public class ArrayList<E> {
   
   
   public E remove(int index) {//삭제할 배열의 항목 위치
-    E old=(E) list[index]; 
-    
-    
-    // 리턴값: 삭제된 이전 값
-    // 힌트: System.arraycopy() 참고! 
+    if (index < 0 || index >= size)
     return null;
+    
+    E obj = (E) list[index];
+    
+    for (int i = index; i < size -1; i++) {
+      list[i] = list[i + 1];
+      
+      size--;
+    }
+    return obj;
   }
 }
 
