@@ -50,7 +50,7 @@ public class ArrayList {
     if (this.size == arr.length)
       increase();
     
-    for (int i = size -1; i >= index; i--)  // size-1 이유 : 배열은 0부터
+    for (int i = size -1; i >= index; i--)  // size-1 이유 : 배열은 0부터니까 
       this.arr[i + 1] = this.arr[i];
         
       this.arr[index] = value;
@@ -87,7 +87,7 @@ public class ArrayList {
     for (int i = index; i < size-1; i++)  // 배열 마지막 크기는 size-1
       this.arr[i] = this.arr[i+1];
     
-    size--;
+    size--; // 배열 전체의 크기를 감소
     return old;
   }
   
