@@ -29,7 +29,7 @@ public class ArrayList {
   public void add(Object value) {
     if (this.size == arr.length)
       increase();
-    /* increase() 메소드 만들기 전!!!!!  
+    /* increase() 메소드(배열을 늘려주는 메소드) 만들기 전!!!!!  
       int originSize = arr.length;
       int newSize = originSize + (originSize >> 1);
       Object[] temp = new Object[newSize];
@@ -98,11 +98,11 @@ public class ArrayList {
   private void increase() {
     int originSize = arr.length;
     int newSize = originSize + (originSize >> 1);
-    Object[] temp = new Object[newSize];
-    for (int i = 0; i < this.arr.length; i++) {
+    Object[] temp = new Object[newSize]; // temp에 새로운 배열 크기를 정한 상태고
+    for (int i = 0; i < this.arr.length; i++) { // 현재 arr에 있는 값들을 temp 배열에 넣어주기 위해 필요하다.
       temp[i] = this.arr[i];
     }
-    arr = temp;
+    arr = temp; // 그리고 나서 현재배열의 값과 새로운 크기를 가진 temp 배열을 arr에 넣어준다.!
   }
   
 }
