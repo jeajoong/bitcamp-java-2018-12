@@ -17,7 +17,7 @@ public class ArrayList {
     else 
       arr = new Object[DEFAULT_SIZE];
   }
-  ////////////////////////////////////////////////////해볼것
+  
   public Object[] toArray() {
     Object[] list = new Object[this.size];
     for (int i = 0; i < this.size; i++) {
@@ -27,38 +27,28 @@ public class ArrayList {
   }
   
   public void add(Object value) {
-    if (this.size == arr.length)
+    if (this.size == arr.length) 
       increase();
-    /* increase() 메소드(배열을 늘려주는 메소드) 만들기 전!!!!!  
-      int originSize = arr.length;
-      int newSize = originSize + (originSize >> 1);
-      Object[] temp = new Object[newSize];
-      for (int i = 0; i < this.arr.length; i++) {
-        temp[i] = this.arr[i];
-      }
-      arr = temp;
-      */
+    
     arr[this.size++] = value;
   }
-  // 현재 배열이 꽉 찼다면 현재 배열 크기의 50% 만큼 증가시켜라.
-  // 유효 인덱스(현재 배열에 데이터가 저장된 방 번호)가 아니면 저장하지 말라.
-  // 삽입할 위치의 항목부터 이후의 항목들을 뒤로 밀어라. 
+  
   public int insert(int index, Object value) {
     if (index < 0 || index >= size)
       return -1;
-
-    if (this.size == arr.length)
+    
+    if (this.size == arr.length) 
       increase();
     
-    for (int i = size -1; i >= index; i--)  // size-1 이유 : 배열은 0부터니까 
+    for (int i = size - 1; i >= index; i--)
       this.arr[i + 1] = this.arr[i];
-        
-      this.arr[index] = value;
-      size++;
     
-      return 0;
+    this.arr[index] = value;
+    size++;
+    
+    return 0;
   }
-  // 유효 인덱스(현재 배열에 데이터가 저장된 방 번호)가 아니면 null을 리턴하라. 
+  
   public Object get(int index) {
     if (index < 0 || index >= size)
       return null;
@@ -66,7 +56,6 @@ public class ArrayList {
     return this.arr[index];
   }
   
-  // 유효 인덱스(현재 배열에 데이터가 저장된 방 번호)가 아니면 변경하지 말라. 리턴 값은 null이다.
   public Object set(int index, Object value) {
     if (index < 0 || index >= size)
       return null;
@@ -76,18 +65,17 @@ public class ArrayList {
     return old;
   }
   
-  // 유효 인덱스(현재 배열에 데이터가 저장된 방 번호)가 아니면 삭제하지 말라.
-  // 삭제한 후 다음 항목을 앞으로 당긴다.
   public Object remove(int index) {
     if (index < 0 || index >= size)
       return null;
     
-    Object old = this.arr[index]; //지울방을 복사
+    Object old = this.arr[index];
     
-    for (int i = index; i < size-1; i++)  // 배열 마지막 크기는 size-1
+    for (int i = index; i < size - 1; i++) 
       this.arr[i] = this.arr[i+1];
     
-    size--; // 배열 전체의 크기를 감소
+    size--;
+    
     return old;
   }
   
@@ -98,11 +86,17 @@ public class ArrayList {
   private void increase() {
     int originSize = arr.length;
     int newSize = originSize + (originSize >> 1);
-    Object[] temp = new Object[newSize]; // temp에 새로운 배열 크기를 정한 상태고
-    for (int i = 0; i < this.arr.length; i++) { // 현재 arr에 있는 값들을 temp 배열에 넣어주기 위해 필요하다.
+    Object[] temp = new Object[newSize];
+    for (int i = 0; i < this.arr.length; i++) {
       temp[i] = this.arr[i];
     }
-    arr = temp; // 그리고 나서 현재배열의 값과 새로운 크기를 가진 temp 배열을 arr에 넣어준다.!
+    arr = temp;
   }
-  
 }
+
+
+
+
+
+
+
