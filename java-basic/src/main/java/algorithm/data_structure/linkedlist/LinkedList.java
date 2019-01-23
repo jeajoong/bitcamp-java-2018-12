@@ -16,7 +16,7 @@ public class LinkedList {
   // => 그러나 값 이외에 다음 노드와 이전 노드의 주소를 담기 위해 추가로 메모리를 사용한다.
   //
   public void add(Object value) {
-    tail.value = value;
+    tail.value = value; // 현 tail의 노드는 값이 없는 빈 노드이므로 value를 넣어준다
     
     // 새 노드를 준비한다.
     Node node = new Node();
@@ -29,6 +29,7 @@ public class LinkedList {
     
     // tail이 새로 추가된 노드를 가리키게 한다.
     tail = node;
+    
     
     // 항목 개수를 증가시킨다.
     size++;
@@ -46,7 +47,7 @@ public class LinkedList {
     
     Node cursor = head; // 
     
-    // 해당 인덱스로 이동한다.
+    // 해당 인덱스로 이동한다. // i가 0부터가 아닌이유 add()에서 값을 넣고 사이즈가 1이 되어서
     for (int i = 1; i <= index; i++) {
       cursor = cursor.next;
     }
@@ -56,7 +57,7 @@ public class LinkedList {
     return cursor.value;
   }
   
-  public Object[] toArray() {
+  public Object[] toArray() { // 노드들을 그냥 배열에 넣고 배열값을 돌려주는?
     Object[] arr = new Object[size()];
     
     Node cursor = head; // 커서를 처음 Node에 두고
@@ -116,14 +117,16 @@ public class LinkedList {
     node.next = cursor;
     
     //찾은 노드의 이전 노드 주소를 새 노드의 이전 노드 주소로 설정한다.
-    node.prev = cursor.prev;
+    node.prev = cursor.prev; 
+    // 새로운 노드부터 ! 주소 설정해야함!!!!
+    
     
     //찾은 노드의 이전 노드로 새 노드를 가리키게 한다.
     cursor.prev = node;
     
     if (node.prev != null) { // if 없이 처음자리에 새 노드를 넣으면 오류발생되기에.. 
     //이전 노드의 다음 노드로 새 노드를 가리키게 한다.
-    node.prev.next = node; // node.prev.next => 새 노드기준  이전 노드의 next값에  새 노드를 넣어준다.
+    node.prev.next = node; // node.prev.next => 새 노드기준  이전 노드의 next값에  새 노드를 넣어준다. (node.prev).next느낌..?
     } else {
       // 맨 앞에 노드를 추가할 때는 head를 변경해야 한다.
       head = node;
@@ -147,10 +150,9 @@ public class LinkedList {
       cursor = cursor.next;
     }
     
-    
     if (cursor.prev != null) { // 이전 노드가 있을때만...
     //찾은 노드의 이전 노드가 다음 노드를 가리키게 한다.
-    cursor.prev.next = cursor.next;
+    cursor.prev.next = cursor.next; // 찾은 노드의 주소를 비우는 과정
     } else {
       //맨 처음 노드를 삭제할 때
       head = cursor.next;
@@ -174,10 +176,5 @@ public class LinkedList {
     
   }
 }
-
-
-
-
-
 
 
