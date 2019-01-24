@@ -1,4 +1,4 @@
-package com.eomcs.util;
+package com.bitcamp.util;
 
 import java.util.Arrays;
 

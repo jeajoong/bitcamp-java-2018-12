@@ -1,8 +1,8 @@
-package com.eomcs.lms.handler;
+package com.bitcamp.lms.handler;
 import java.sql.Date;
 import java.util.Scanner;
-import com.eomcs.lms.domain.Member;
-import com.eomcs.util.ArrayList;
+import com.bitcamp.lms.domain.Member;
+import com.bitcamp.util.ArrayList;
 
 public class MemberHandler {
   

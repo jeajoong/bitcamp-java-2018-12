@@ -1,9 +1,9 @@
-package com.eomcs.lms;
+package com.bitcamp.lms;
 
 import java.util.Scanner;
-import com.eomcs.lms.handler.BoardHandler;
-import com.eomcs.lms.handler.LessonHandler;
-import com.eomcs.lms.handler.MemberHandler;
+import com.bitcamp.lms.handler.BoardHandler;
+import com.bitcamp.lms.handler.LessonHandler;
+import com.bitcamp.lms.handler.MemberHandler;
 
 public class App {
 

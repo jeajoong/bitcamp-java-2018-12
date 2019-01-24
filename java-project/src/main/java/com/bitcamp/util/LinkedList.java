@@ -64,46 +64,15 @@ public class LinkedList<E> {
     return cursor.value;
   }
   
-  public Object[] toArray() {
-    Object[] arr = new Object[size()];
+  public E[] toArray(E[] a) {
+    if (a.length < this.size)
+      a = (E[]) Array.newInstance(a.getClass().getComponentType(), this.size);
     
-    Node<E> cursor = head;
-    
-    int i = 0; 
-    while (cursor != tail) {
-      arr[i++] = cursor.value;
-      cursor = cursor.next;
+    int i = 0;
+    for (Node<E> node = head; node != null; node = node.next) {
+      a[i++] = node.value;
     }
-    
-    return arr;
-  }
-  
-  // T 라는 타입이 있다고 가정하자!
-  // 
-  @SuppressWarnings("unchecked")
-  public <T> T[] toArray(T[] a) {
-    
-    T[] arr = null;
-    if (a.length >= size()) {
-     // 파라미터로 받은 배열의 크기가 리스트의 모든 항목을 담을 만큼 크다면
-      // 배열을 새로 만들지 않고 그대로 사용한다.
-      arr = a; 
-    } else {
-      // 만약 파라미터로 받은 배열의 크기가 리스트의 항목 크기보다 작다면 새로 배열을 만든다.
-      arr = (T[]) Array.newInstance(
-          a.getClass() // getClass()의 리턴 값은 T 가 아니라 T[] 이다.
-          .getComponentType(), // getComponentType()의 리턴 값은 배열의 항목 타입이다. 즉 T.
-          this.size());
-    }
-    Node<E> cursor = head;
-    
-    int i = 0; 
-    while (cursor != tail) {
-      arr[i++] = (T) cursor.value;
-      cursor = cursor.next;
-    }
-    
-    return arr;
+    return a;
   }
   
   public E set(int index, E value) {

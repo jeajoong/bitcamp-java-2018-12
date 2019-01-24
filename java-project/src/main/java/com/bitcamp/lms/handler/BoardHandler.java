@@ -2,10 +2,11 @@ package com.bitcamp.lms.handler;
 import java.sql.Date;
 import java.util.Scanner;
 import com.bitcamp.lms.domain.Board;
+import com.bitcamp.util.ArrayList;
 import com.bitcamp.util.LinkedList;
 
 public class BoardHandler {
-   
+  
   Scanner keyboard;
   LinkedList<Board> list;
   

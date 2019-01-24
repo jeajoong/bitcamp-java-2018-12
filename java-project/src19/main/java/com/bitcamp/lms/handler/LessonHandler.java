@@ -1,8 +1,8 @@
-package com.eomcs.lms.handler;
+package com.bitcamp.lms.handler;
 import java.sql.Date;
 import java.util.Scanner;
-import com.eomcs.lms.domain.Lesson;
-import com.eomcs.util.ArrayList;
+import com.bitcamp.lms.domain.Lesson;
+import com.bitcamp.util.ArrayList;
 
 public class LessonHandler {
 
