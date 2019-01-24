@@ -1,17 +1,17 @@
-package com.bitcamp.lms.handler;
+package com.eomcs.lms.handler;
 import java.sql.Date;
 import java.util.Scanner;
-import com.bitcamp.lms.domain.Board;
-import com.bitcamp.util.LinkedList;
+import com.eomcs.lms.domain.Board;
+import com.eomcs.util.ArrayList;
 
 public class BoardHandler {
-   
+  
   Scanner keyboard;
-  LinkedList<Board> list;
+  ArrayList<Board> list;
   
   public BoardHandler(Scanner keyboard) {
     this.keyboard = keyboard;
-    this.list = new LinkedList<>();
+    this.list = new ArrayList<>(20);
   }
   
   public void listBoard() {
@@ -51,7 +51,7 @@ public class BoardHandler {
       return;
     }
 
-    Board board = (Board) list.get(index);
+    Board board = list.get(index);
 
     System.out.printf("내용: %s\n", board.getContents());
     System.out.printf("작성일: %s\n", board.getCreatedDate());
@@ -67,7 +67,7 @@ public class BoardHandler {
       return;
     }
     
-    Board board = (Board) list.get(index);
+    Board board = list.get(index);
     
     try {
       // 기존 값 복제
@@ -104,7 +104,7 @@ public class BoardHandler {
   
   private int indexOfBoard(int no) {
     for (int i = 0; i < list.size(); i++) {
-      Board b = (Board) list.get(i);
+      Board b = list.get(i);
       if (b.getNo() == no)
         return i;
     }

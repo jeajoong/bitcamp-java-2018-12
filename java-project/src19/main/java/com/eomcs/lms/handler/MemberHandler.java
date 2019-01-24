@@ -1,18 +1,17 @@
-package com.bitcamp.lms.handler;
+package com.eomcs.lms.handler;
 import java.sql.Date;
 import java.util.Scanner;
-import com.bitcamp.lms.domain.Member;
-import com.bitcamp.util.ArrayList;
-import com.bitcamp.util.LinkedList;
+import com.eomcs.lms.domain.Member;
+import com.eomcs.util.ArrayList;
 
 public class MemberHandler {
   
   Scanner keyboard;
-  LinkedList<Member> list;
+  ArrayList<Member> list;
   
   public MemberHandler(Scanner keyboard) {
     this.keyboard = keyboard;
-    this.list = new LinkedList<>();
+    this.list = new ArrayList<>(20);
   }
   
   public void listMember() {

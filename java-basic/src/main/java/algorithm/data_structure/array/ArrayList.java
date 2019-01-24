@@ -3,6 +3,7 @@ package algorithm.data_structure.array;
 public class ArrayList {
   
   static final int DEFAULT_SIZE = 5;
+  
   Object[] arr;
   int size;
   
@@ -85,7 +86,7 @@ public class ArrayList {
   private void increase() {
     int originSize = arr.length;
     int newSize = originSize + (originSize >> 1);
-    Object[] temp = new Object[arr.length + (arr.length >> 1)];
+    Object[] temp = new Object[newSize];
     for (int i = 0; i < this.arr.length; i++) {
       temp[i] = this.arr[i];
     }
