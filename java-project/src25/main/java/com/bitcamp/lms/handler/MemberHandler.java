@@ -1,8 +1,8 @@
 package com.bitcamp.lms.handler;
 import java.sql.Date;
+import java.util.List;
 import java.util.Scanner;
 import com.bitcamp.lms.domain.Member;
-import com.bitcamp.util.List;
 
 public class MemberHandler {
   

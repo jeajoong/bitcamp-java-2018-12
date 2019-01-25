@@ -1,6 +1,7 @@
 // static nested class를 응용하여 상수를 관리할 때 이점
 package ch19.d;
 
+
 public class Test01 {
 
   public static void main(String[] args) {
