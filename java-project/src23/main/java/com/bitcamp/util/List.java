@@ -8,7 +8,7 @@ public interface List<E> {
   <T> T[] toArray(T[] a);
   void add(E obj);
   E get(int index);
-  E set(int index, E obj);기
+  E set(int index, E obj);
   E remove(int index);
   int size();
 }

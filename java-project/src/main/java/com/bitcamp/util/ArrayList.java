@@ -1,9 +1,8 @@
-// List 사용 규칙에 따라 ArrayList를 만든다.
 package com.bitcamp.util;
 
 import java.util.Arrays;
 
-public class ArrayList<E> implements List<E> {
+public class ArrayList<E> implements Cloneable, List<E> {
   private static final int DEFAULT_CAPACITY = 10;
   private Object[] list;
   private int size = 0;
@@ -21,11 +20,10 @@ public class ArrayList<E> implements List<E> {
   
   public Object[] toArray() {
     Object[] temp = new Object[this.size];
-    System.arraycopy(list, 0, temp, 0, size);
+    System.arraycopy(list, 0, temp, 0, size); // list 0번부터 temp 0번까지 사이즈만큼
     return temp;
   }
   
-  @SuppressWarnings("unchecked")
   public <T> T[] toArray(T[] a) {
     if (a.length < size) {
       return (T[]) Arrays.copyOf(list, size, a.getClass());

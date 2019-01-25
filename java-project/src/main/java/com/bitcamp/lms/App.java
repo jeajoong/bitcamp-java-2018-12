@@ -1,11 +1,10 @@
 package com.bitcamp.lms;
-
+//22 => 23
 import java.util.Scanner;
 import com.bitcamp.lms.handler.BoardHandler;
 import com.bitcamp.lms.handler.LessonHandler;
 import com.bitcamp.lms.handler.MemberHandler;
 import com.bitcamp.util.ArrayList;
-import com.bitcamp.util.Iterator;
 import com.bitcamp.util.LinkedList;
 import com.bitcamp.util.Queue;
 import com.bitcamp.util.Stack;
@@ -20,13 +19,22 @@ public class App {
 
   public static void main(String[] args) {
     
-    // 핸들러가 필요로 하는 의존 객체를 이 클래스에서 만들어 주입해 준다.
-    // => "의존 객체 주입(Dependency Injection; DI)"이라 한다.
-    //
+    /*
+    ArrayList<Lesson> lessonList = new ArrayList<>();
+    ArrayList<Member> memberList = new ArrayList<>();
+    LinkedList<Board> boardList1 = new LinkedList<>();
+    LinkedList<Board> boardList2 = new LinkedList<>();
+    */       //필요 없음
+    
+    //핸들러가 필요로 하는 의존 객체를 이 클래스에서 만들어 주입해 준다.
+    // => "의존 객체 주입(Dependency Injection; DI)" 이라 한다.
+    
     LessonHandler lessonHandler = new LessonHandler(keyboard, new ArrayList<>());
     MemberHandler memberHandler = new MemberHandler(keyboard, new ArrayList<>());
     BoardHandler boardHandler1 = new BoardHandler(keyboard, new LinkedList<>());
     BoardHandler boardHandler2 = new BoardHandler(keyboard, new LinkedList<>());
+    
+    Queue<String> commandHistory2 = new Queue<>();
     
     while (true) {
       String command = prompt();
@@ -34,7 +42,7 @@ public class App {
       // 사용자가 입력한 명령을 스택에 보관한다.
       commandHistory.push(command);
       
-      // 사용자가 입력한 명령을 큐에 보관한다.
+      //사용자가 입력한 명령을 큐에 보관한다.
       commandHistory2.offer(command);
       
       if (command.equals("/lesson/add")) {
@@ -102,10 +110,10 @@ public class App {
         break;
         
       } else if (command.equals("history")) {
-        printCommandHistory(commandHistory.iterator());
+        printCommandHistory();
         
       } else if (command.equals("history2")) {
-        printCommandHistory(commandHistory2.iterator());
+        printCommandHistory2();
         
       } else {
         System.out.println("실행할 수 없는 명령입니다.");
@@ -117,15 +125,35 @@ public class App {
     keyboard.close();
   }
 
-  private static void printCommandHistory(Iterator<String> iterator) {
+  private static void printCommandHistory() {
     try {
+      // 명령어가 보관된 스택에서 명령어를 꺼내기 전에 복제한다.
+      Stack<String> temp = commandHistory.clone();
       int count = 0;
-      while (iterator.hasNext()) {
-        System.out.println(iterator.next());
-        if (++count % 5 == 0) {
+      while (!temp.empty()) {
+        System.out.println(temp.pop());
+        if(++count % 5 == 0) {
           System.out.print(":");
           String input = keyboard.nextLine();
-          if (input.equalsIgnoreCase("q"))
+          if(input.equalsIgnoreCase("q"))
+    break;
+      }
+        }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+  private static void printCommandHistory2() {
+    try {
+      // 명령어가 보관된 큐에서 명령어를 꺼내기 전에 복제한다.
+      Queue<String> temp = commandHistory2.clone();
+      int count = 0;
+      while (!temp.empty()) {
+        System.out.println(temp.poll());
+        if(++count % 5 == 0) {
+          System.out.print(":");
+          String input = keyboard.nextLine();
+          if(input.equalsIgnoreCase("q"))
             break;
         }
       }
@@ -134,6 +162,9 @@ public class App {
     }
   }
   
+  
+  
+
   private static String prompt() {
     System.out.print("명령> ");
     return keyboard.nextLine().toLowerCase();
