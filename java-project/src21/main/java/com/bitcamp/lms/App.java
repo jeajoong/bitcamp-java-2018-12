@@ -4,7 +4,6 @@ import java.util.Scanner;
 import com.bitcamp.lms.handler.BoardHandler;
 import com.bitcamp.lms.handler.LessonHandler;
 import com.bitcamp.lms.handler.MemberHandler;
-import com.bitcamp.util.Queue;
 import com.bitcamp.util.Stack;
 
 public class App {
@@ -13,7 +12,6 @@ public class App {
 
   // 사용자가 입력한 명령을 보관할 스택 준비
   static Stack<String> commandHistory = new Stack<>();
-  static Queue<String> commandHistory2 = new Queue<>();
 
   public static void main(String[] args) {
     
@@ -27,7 +25,6 @@ public class App {
 
       // 사용자가 입력한 명령을 스택에 보관한다.
       commandHistory.push(command);
-      commandHistory2.offer(command);
       
       if (command.equals("/lesson/add")) {
         lessonHandler.addLesson();
@@ -96,9 +93,6 @@ public class App {
       } else if (command.equals("history")) {
         printCommandHistory();
         
-      } else if (command.equals("history2")) {
-        printCommandHistory2();
-        
       } else {
         System.out.println("실행할 수 없는 명령입니다.");
       }
@@ -123,25 +117,6 @@ public class App {
     break;
       }
         }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
-  
-  private static void printCommandHistory2() {
-    try {
-      // 명령어가 보관된 큐에서
-      Queue<String> temp = commandHistory2.clone();
-      int count = 0;
-      while (!temp.empty()) {
-        System.out.println(temp.poll());
-        if(++count % 5 == 0) {
-          System.out.print(":");
-          String input = keyboard.nextLine();
-          if(input.equalsIgnoreCase("q"))
-            break;
-        }
-      }
     } catch (Exception e) {
       e.printStackTrace();
     }

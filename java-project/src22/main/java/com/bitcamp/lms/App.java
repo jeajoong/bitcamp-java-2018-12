@@ -22,11 +22,15 @@ public class App {
     BoardHandler boardHandler1 = new BoardHandler(keyboard);
     BoardHandler boardHandler2 = new BoardHandler(keyboard);
     
+    Queue<String> commandHistory2 = new Queue<>();
+    
     while (true) {
       String command = prompt();
 
       // 사용자가 입력한 명령을 스택에 보관한다.
       commandHistory.push(command);
+      
+      //사용자가 입력한 명령을 큐에 보관한다.
       commandHistory2.offer(command);
       
       if (command.equals("/lesson/add")) {
@@ -127,10 +131,9 @@ public class App {
       e.printStackTrace();
     }
   }
-  
   private static void printCommandHistory2() {
     try {
-      // 명령어가 보관된 큐에서
+      // 명령어가 보관된 큐에서 명령어를 꺼내기 전에 복제한다.
       Queue<String> temp = commandHistory2.clone();
       int count = 0;
       while (!temp.empty()) {
@@ -146,6 +149,9 @@ public class App {
       e.printStackTrace();
     }
   }
+  
+  
+  
 
   private static String prompt() {
     System.out.print("명령> ");
