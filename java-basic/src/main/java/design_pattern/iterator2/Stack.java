@@ -41,9 +41,26 @@ public class Stack<E> {
   
   // 자신이 보유한 데이터를 대신 꺼내주는 일을 하는 객체를 리턴한다.
   public Iterator<E> iterator() {
-    return new StackIterator<>(this);
-  }
+    return new Iterator<>() {
+      
+        int index = 0;
+        @Override
+        public boolean hasNext() {
+          return index < size();
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public E next() {
+          int lastIndex = size - 1;
+          return (E) list[lastIndex - (index++)];
+        }
+        
+      };
+    }
 }
+
+
 
 
 
