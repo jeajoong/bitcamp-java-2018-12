@@ -129,11 +129,12 @@ public class App {
   }
 }
 
+//중요한것같은 라인..
 //HashMap<String,Command> commandMap = new HashMap<>(); 커맨드맵은 해시맵 형태로 선언했고 그것은 String과 Command형태를 받는다
 
-//Command commandHandler = commandMap.get(command); 이 라인에서
-//commandMap.put(~~~~) put을 사용해 커맨드맵 커맨드에 값을 지정해 줬고
-// 커맨드핸들러는 이 값을 보유하게 된다!
-// 보유한 상태에서 if 문으로 (commandHandler == null) 이게 되면 실행하지 않고 
-// commandHandler.execute(); 이면 실행하게 된다?
+//Command commandHandler = commandMap.get(command); // 인터페이스 공부....
+//commandMap.put(~~~~) 
+//
+// 
+// 
 
