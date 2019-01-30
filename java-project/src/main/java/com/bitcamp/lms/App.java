@@ -3,7 +3,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -196,8 +195,7 @@ public class App {
   }
   
   private static void saveMemberDate() {
-    try {
-      FileWriter out = new FileWriter("member.csv");
+    try(FileWriter out = new FileWriter("member.csv");) {
       for (Member member : memberList) {
         out.write(String.format("%d,%s,%s,%s,%s,%s,%s\n",
         member.getNo(),
@@ -215,9 +213,9 @@ public class App {
   
   
   private static void loadBoardDate() {
-    try {
-      FileReader in = new FileReader("board.csv");
+    try (FileReader in = new FileReader("board.csv");
       Scanner in2 = new Scanner(in);
+        ) {
       while (true) {
         boardList.add(Board.valueOf(in2.nextLine()));
       }
@@ -232,8 +230,7 @@ public class App {
   }
   
   private static void saveBoardDate() {
-    try {
-      FileWriter out = new FileWriter("board.csv");
+    try(FileWriter out = new FileWriter("board.csv");) {
       for (Board board : boardList) {
         out.write(String.format("%d,%s,%s,%d\n",
             board.getNo(),
