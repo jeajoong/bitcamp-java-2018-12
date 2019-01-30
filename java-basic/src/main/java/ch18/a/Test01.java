@@ -7,10 +7,10 @@ public class Test01 {
     
     // 어떤 규칙에 따르는 도구인지 
     // => A 규칙에 따라 만든 도구를 사용하겠다. 
-    A tool;
+    A tool; // 이거 신경 ㄴㄴ 안써도 됨 
     
     // A 규칙에 따라 만든 도구를 사용한다.
-    use(new ToolA());
+    use(new ToolA()); 
     use(new ToolB());
     
     // A 규칙을 따르지 않은 객체를 파라미터에 넘길 수 없다.

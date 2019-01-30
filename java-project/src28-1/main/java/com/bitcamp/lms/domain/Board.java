@@ -36,16 +36,6 @@ public class Board implements Cloneable {
   public void setViewCount(int viewCount) {
     this.viewCount = viewCount;
   }
-
-  public static Board valueOf(String csv) {
-    String[] values = csv.split(",");
-    Board board = new Board();
-    board.setNo(Integer.valueOf(values[0]));
-    board.setContents(values[1]);
-    board.setCreatedDate(Date.valueOf(values[2]));
-    board.setViewCount(Integer.valueOf(values[3]));
-    return board;
-  }
   
   
 }

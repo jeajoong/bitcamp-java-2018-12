@@ -39,16 +39,14 @@ public class App {
   static Queue<String> commandHistory2 = new LinkedList<>();
   
   static ArrayList<Lesson> lessonList = new ArrayList<>(); // 222-1
-  static LinkedList<Member> memberList = new LinkedList<>();
-  static ArrayList<Board> boardList = new ArrayList<>();
   
   public static void main(String[] args) {
     
     //데이터 로딩 
     loadLessonDate();
-    loadMemberDate();
-    loadBoardDate();
     
+    LinkedList<Member> memberList = new LinkedList<>();
+    ArrayList<Board> boardList = new ArrayList<>();
 
     Map<String,Command> commandMap = new HashMap<>();
     commandMap.put("/lesson/add", new LessonAddCommand(keyboard, lessonList));
@@ -132,31 +130,30 @@ public class App {
     System.out.print("명령> ");
     return keyboard.nextLine().toLowerCase();
   }
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////
-  private static void quit() { // 444 save 마무리
+  
+  private static void quit() { // 444
     saveLessonDate();
-    saveMemberDate();
-    saveBoardDate();
     System.out.println("안녕!");
   }
   
   private static void loadLessonDate() { // 111
-    try (FileReader in =new FileReader("lesson.csv");   // 555 -> Lesson.java
+    try (FileReader in =new FileReader("lesson.csv");   // 555
         Scanner in2 = new Scanner(in);
         ) {
       while (true) {
-        String line = in2.nextLine(); // 번호, 제목, 내용, 시작일, 종료일, 총강의시간,일강의시간 //666 내용 위치 밑으로
-        lessonList.add(Lesson.valueOf(line)); // 666위치 내용 위로
+        String line = in2.nextLine(); // 번호, 제목, 내용, 시작일, 종료일, 총강의시간,일강의시간 //666 위치 밑으로
+        lessonList.add(Lesson.valueOf(line));
       }
     } catch (FileNotFoundException e) {
       e.printStackTrace();
+      
     } catch (IOException e) {
       e.printStackTrace();
+      
     } catch(NoSuchElementException e) {
       System.out.println("수업 데이터 로딩 완료!");
     }
   }
-  
   private static void saveLessonDate() { // 111
     try (FileWriter out = new FileWriter("lesson.csv");) { // 222-2
       for (Lesson lesson : lessonList) {
@@ -172,78 +169,6 @@ public class App {
     }catch (Exception e) {
       e.printStackTrace();
     }
-  }
-  
-  
-  
-  
-  private static void loadMemberDate() {
-    try(FileReader in = new FileReader("member.csv"); 
-      Scanner in2 = new Scanner(in);
-      ) {
-      while (true) {
-         // 번호, 제목, 내용, 시작일, 종료일, 총강의시간,일강의시간 //666 위치 밑으로
-        memberList.add(Member.valueOf(in2.nextLine()));
-      }
-        
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }catch (NoSuchElementException e){
-      System.out.println("수업 데이터 로딩 완료!");
-    }
-  }
-  
-  private static void saveMemberDate() {
-    try {
-      FileWriter out = new FileWriter("member.csv");
-      for (Member member : memberList) {
-        out.write(String.format("%d,%s,%s,%s,%s,%s,%s\n",
-        member.getNo(),
-        member.getName(),
-        member.getEmail(),
-        member.getPassword(),
-        member.getPhoto(),
-        member.getTel(),
-        member.getRegisteredDate() ));
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
-  
-  
-  private static void loadBoardDate() {
-    try {
-      FileReader in = new FileReader("board.csv");
-      Scanner in2 = new Scanner(in);
-      while (true) {
-        boardList.add(Board.valueOf(in2.nextLine()));
-      }
-      
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }catch (NoSuchElementException e){
-      System.out.println("수업 데이터 로딩 완료!");
-    }
-  }
-  
-  private static void saveBoardDate() {
-    try {
-      FileWriter out = new FileWriter("board.csv");
-      for (Board board : boardList) {
-        out.write(String.format("%d,%s,%s,%d\n",
-            board.getNo(),
-            board.getContents(),
-            board.getCreatedDate(),
-            board.getViewCount() ));
-      }
-    } catch (IOException e) {
-      e.printStackTrace();
-    } 
   }
   
 }
