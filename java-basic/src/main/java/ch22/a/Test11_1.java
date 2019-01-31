@@ -15,7 +15,6 @@ public class Test11_1 {
       else 
         return false;
     }
-    
   }
   
   public static void main(String[] args) throws Exception {
