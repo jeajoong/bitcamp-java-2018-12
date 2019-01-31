@@ -26,7 +26,7 @@ public class Removebin {
     }
     dir.delete();
   }
-}
+}// isFile : 이 추상 경로 이름으로 표시된 파일이 있고 일반 파일인 경우에만 true
 
 
 

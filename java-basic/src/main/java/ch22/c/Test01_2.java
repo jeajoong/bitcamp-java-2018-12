@@ -14,7 +14,7 @@ public class Test01_2 {
       
       long start = System.currentTimeMillis();
       
-      byte[] buf = new byte[1000]; // 데이터를 읽는 크기를 늘려서 한번에 처리 
+      byte[] buf = new byte[100]; // 데이터를 읽는 크기를 늘려서 한번에 처리 
       int len = 0;
       while ((len = in.read(buf)) != -1) { // read를 오버라이딩해서 
       }
