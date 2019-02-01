@@ -14,8 +14,10 @@ public class Test02_2 {
       System.out.println("데이터 쓰는 중...");
       
       long start = System.currentTimeMillis();
+      
       byte[] buf = new byte[1024];
       int size = 0;
+      
       for (int i = 0; i < 1000000; i++) {
         // 일단 바이트 버퍼에 저장한다.
         buf[size++] = 0x55;
@@ -45,5 +47,11 @@ public class Test02_2 {
     System.out.println("출력 완료!");
   }
 }
+
+
+
+
+
+
 
 

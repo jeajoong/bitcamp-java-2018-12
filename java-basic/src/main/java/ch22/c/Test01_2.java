@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 
 public class Test01_2 {
   public static void main(String[] args) {
+    
     try {
       FileInputStream in = new FileInputStream("jls11.pdf");
       
@@ -18,6 +19,7 @@ public class Test01_2 {
       while ((len = in.read(buf)) != -1) {
         //
       }
+      
       long end = System.currentTimeMillis();
       System.out.println(end - start);
       
@@ -30,4 +32,11 @@ public class Test01_2 {
     System.out.println("출력 완료!");
   }
 }
+
+
+
+
+
+
+
 

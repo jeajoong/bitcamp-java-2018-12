@@ -18,10 +18,12 @@ public class Test01_1 {
       while ((b = in.read()) != -1) {
         //
       }
+      
       long end = System.currentTimeMillis();
       System.out.println(end - start);
       
       in.close();
+      
     } catch (Exception e) {
       e.printStackTrace();
     }

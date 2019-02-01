@@ -28,6 +28,7 @@ public class BufferedOutputStream extends OutputStream {
       size = 0; // 다시 버퍼를 쓸 수 있도록 size를 0으로 초기화 한다. 
     }
   }
+  
   // 버퍼에 남아있는 데이터를 출력할 때 호출한다.
   @Override
   public void flush() throws IOException {
