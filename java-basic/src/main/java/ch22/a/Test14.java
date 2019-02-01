@@ -3,7 +3,7 @@ package ch22.a;
 
 import java.io.File;
 
-public class Listbin {
+public class Test14 {
 
   public static void main(String[] args) throws Exception {
     // 클래스 이름을 출력할 때 패키지 이름을 포함해야 한다.
@@ -22,13 +22,12 @@ public class Listbin {
       (pathname.isFile() && pathname.getName().endsWith(".class")) ?
           true : false);
     
-    for (File file : files) {// true로 걸러진것들만 배열에?....
-      if (file.isFile()) { 
+    for (File file : files) {
+      if (file.isFile()) {
         System.out.printf("%s%s\n", 
             packageName, 
             file.getName().replace(".class", ""));
       } else {
-        
         findClass(file, packageName + file.getName() + ".");
       }
     }

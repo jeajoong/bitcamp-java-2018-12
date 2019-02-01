@@ -3,7 +3,7 @@ package ch22.a;
 
 import java.io.File;
 
-public class Removebin {
+public class Test13 {
 
   public static void main(String[] args) throws Exception {
     // bin의 하위 폴더와 파일을 모두 삭제해야만 bin 폴더를 삭제할 수 있다.
@@ -26,7 +26,7 @@ public class Removebin {
     }
     dir.delete();
   }
-}// isFile : 이 추상 경로 이름으로 표시된 파일이 있고 일반 파일인 경우에만 true
+}
 
 
 
