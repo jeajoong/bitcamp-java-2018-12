@@ -32,43 +32,40 @@ import com.bitcamp.lms.listener.MemberDataLoaderListener;
 
 public class App {
 
-  // 애플리케이션의 상태 변경을 보고 받을 옵저버 목록
   static ArrayList<ApplicationListener> observers = new ArrayList<>();
   
-  // 애플리케이션에서 사용할 객체를 보관하는 보관소 
   static HashMap<String,Object> context = new HashMap<>();
   
   static {
-    // 애플리케이션에서 사용할 객체를 준비하여 보관소에 저장한다.
-    context.put("keyboard", new Scanner(System.in));
-    context.put("commandHistory", new Stack<String>());
-    context.put("commandHistory2", new LinkedList<String>());
-    context.put("lessonList", new ArrayList<Lesson>());
-    context.put("memberList", new LinkedList<Member>());
-    context.put("boardList", new ArrayList<Board>());
+    
+  context.put("keyboard", new Scanner(System.in));
+  context.put("commandHistory", new Stack<String>());
+  context.put("commandHistory2", new LinkedList<String>());
+  context.put("lessonList",new ArrayList<Lesson>());
+  context.put("memberList",new ArrayList<Member>());
+  context.put("boardList",new ArrayList<Board>());
   }
   
   static void addApplicationListener(ApplicationListener listener) {
     observers.add(listener);
   }
   
-  @SuppressWarnings("unchecked")
   public static void main(String[] args) {
-    // 애플리케이션의 상태가 변경되었을 때 보고 받을 리스너(옵저버)를 등록한다.
     addApplicationListener(new BoardDataLoaderListener());
     addApplicationListener(new MemberDataLoaderListener());
     addApplicationListener(new LessonDataLoaderListener());
     
-    // 애플리케이션이 시작될 때 등록된 리스너(옵저버)에게 보고한다.
     for (ApplicationListener observer : observers) {
       try {
         observer.startApplication(context);
-      } catch (Exception e) {}
+      } catch (Exception e) {} 
     }
-
+    
     Scanner keyboard = (Scanner) context.get("keyboard");
     ArrayList<Lesson> lessonList = 
-        (ArrayList<Lesson>) context.get("lessonList"); 
+        (ArrayList<Lesson>) context.get("lessonList");
+    //lessonList 객체를 만들어야 하는데 ArrayList에 저장되있으니 <Lesson>형태만 받게끔만들고
+    //"lessonList"키의 값을 new ArrayList<Lesson>()라고 했으니 그 값을 불러와 객체에 저장
     Map<String,Command> commandMap = new HashMap<>();
     commandMap.put("/lesson/add", new LessonAddCommand(keyboard, lessonList));
     commandMap.put("/lesson/list", new LessonListCommand(keyboard, lessonList));
@@ -92,10 +89,8 @@ public class App {
     commandMap.put("/board/update", new BoardUpdateCommand(keyboard, boardList));
     commandMap.put("/board/delete", new BoardDeleteCommand(keyboard, boardList));
     
-    Stack<String> commandHistory = 
-        (Stack<String>) context.get("commandHistory");
-    Queue<String> commandHistory2 = 
-        (Queue<String>) context.get("commandHistory2");
+    Stack<String> commandHistory = (Stack<String>) context.get("commandHistory");
+    Queue<String> commandHistory2 = (Queue<String>) context.get("commandHistory2");
     
     while (true) {
       String command = prompt();
@@ -133,8 +128,7 @@ public class App {
     }
 
     keyboard.close();
-    
-    // 애플리케이션이 종료될 때 다시 등록된 리스너(옵저버)를 꺼내 보고한다.
+    //애플리케이션 종료될때 리스너를 호출
     for (ApplicationListener observer : observers) {
       try {
         observer.endApplication(context);
@@ -144,6 +138,7 @@ public class App {
 
   @SuppressWarnings("unchecked")
   private static void printCommandHistory() {
+    
     Stack<String> commandHistory = 
         (Stack<String>) context.get("commandHistory");
     Stack<String> temp = (Stack<String>) commandHistory.clone();
@@ -170,5 +165,4 @@ public class App {
     return keyboard.nextLine().toLowerCase();
   }
   
-
 }

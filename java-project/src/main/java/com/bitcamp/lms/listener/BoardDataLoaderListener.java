@@ -11,10 +11,7 @@ import java.util.Map;
 import com.bitcamp.lms.context.ApplicationListener;
 import com.bitcamp.lms.domain.Board;
 
-// 애플리케이션의 상태를 보고 받고 싶다면 
-// ApplicationListener 규칙에 따라 클래스를 작성해야 한다.
-//
-public class BoardDataLoaderListener implements ApplicationListener {
+public class BoardDataLoaderListener implements ApplicationListener{
 
   @Override
   public void startApplication(Map<String, Object> context) {
@@ -27,7 +24,7 @@ public class BoardDataLoaderListener implements ApplicationListener {
       context.put("boardList", in.readObject());
       
     } catch (Exception e) {
-      System.out.println("게시글 데이터를 읽는 중 오류 발생: " + e.toString());
+      System.out.println("게시글 데이터를 읽는 중 오류 발생 : " + e.toString());
       context.put("boardList", new ArrayList<Board>());
     }
   }
@@ -38,10 +35,10 @@ public class BoardDataLoaderListener implements ApplicationListener {
     try (ObjectOutputStream out = new ObjectOutputStream(
         new BufferedOutputStream(
             new FileOutputStream("board3.data")))) {
-    
+      
       out.writeObject(context.get("boardList"));
       
-    } catch (Exception e) {
+    }catch(Exception e) {
       System.out.println("게시글 데이터를 쓰는 중 오류 발생: " + e.toString());
     }
   }
