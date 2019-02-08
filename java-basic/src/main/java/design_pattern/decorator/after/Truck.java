@@ -7,6 +7,4 @@ public class Truck extends Car {
   public void run() {
     System.out.println("덜컬덜컹 달린다!");
   }
-  
-
 }

@@ -1,4 +1,4 @@
-package design_pattern.decorator.composite;
+package design_pattern.composite;
 
 public abstract class Node {
   protected String title;
@@ -7,5 +7,6 @@ public abstract class Node {
     return this.title;
   }
   
-  public abstract void getfileInfo();
+  public abstract void getFileInfo();
+  
 }

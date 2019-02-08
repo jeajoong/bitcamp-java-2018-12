@@ -37,7 +37,6 @@ public class App {
   static HashMap<String,Object> context = new HashMap<>();
   
   static {
-    
   context.put("keyboard", new Scanner(System.in));
   context.put("commandHistory", new Stack<String>());
   context.put("commandHistory2", new LinkedList<String>());
