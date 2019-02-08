@@ -18,10 +18,13 @@ import java.util.Scanner;
  예) 23 + 7 <==== 서버의 응답 
 >  23 + 7 <==== 사용자의 입력. '>' 문자는 클라이언트에서 출력한다.
 결과는 30 입니다. <==== 서버의 응답 
+
 > 23 ^ 7 <==== 사용자의 입력. '>' 문자는 클라이언트에서 출력한다.
 ^ 연산자를 지원하지 않습니다. <==== 서버의 응답 
+
 > ok + yes <==== 사용자의 입력. '>' 문자는 클라이언트에서 출력한다.
 식의 형식이 잘못되었습니다. <==== 서버의 응답 
+
 > quit <==== 사용자의 입력. '>' 문자는 클라이언트에서 출력한다.
 안녕히 가세요! <==== 서버의 응답
  */
@@ -36,26 +39,19 @@ public class CalculatoerClient {
         DataOutputStream out = new DataOutputStream(
             new BufferedOutputStream(socket.getOutputStream()));
         Scanner in = new Scanner(socket.getInputStream());
-        ) {
-      
-      String respons1 = in.nextLine();
-      String respons2 = in.nextLine();
-      String respons3 = in.nextLine();
-
-      
+       ) {
       
       while (true) {
         String prompt = command();
+        out.writeInt(in.nextInt());
+        out.writeUTF(in.next());
+        out.writeInt(in.nextInt());
         if (prompt.equals("quit")) {
+          out.writeUTF("quit");
           break;
         }
-      
     }
-      
-      
-      
   }catch (Exception e) {
-  
 }
 }
    private static String command() {
