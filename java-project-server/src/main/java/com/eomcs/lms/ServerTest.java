@@ -1,18 +1,21 @@
-// 2단계: 서버 실행 테스트
 package com.eomcs.lms;
 
-import java.io.PrintWriter;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.Scanner;
 import com.eomcs.lms.domain.Member;
 
 public class ServerTest {
-
+  static Socket socket;
+  static ObjectOutputStream out;
+  static ObjectInputStream in;
+  
   public static void main(String[] args) {
     
-    try (Socket socket = new Socket("localhost", 8888);
-        PrintWriter out = new PrintWriter(socket.getOutputStream());
-        Scanner in = new Scanner(socket.getInputStream())) {
+    try {socket = new Socket("localhost", 8888);
+        out = new ObjectOutputStream(socket.getOutputStream());
+         in = new ObjectInputStream(socket.getInputStream());
+             
       
       System.out.println("서버와 연결되었음.");
       
@@ -23,18 +26,37 @@ public class ServerTest {
       member.setPassword("1111");
       member.setPassword("hong.gif");
       member.setTel("1111-1111");
+      member.setRegisteredDate(null);
       
-      // Member 객체를 서버로 serialize하라!
-      out.println("Hello!");
-      out.flush();
+      add(member);
       
-      // 또한 서버에서 serialize한 Member 객체를 받아라. 
-      System.out.println(in.nextLine());
+      member = new Member();
+      member.setNo(2);
+      member.setName("임꺽정");
+      member.setEmail("leem@test.com");
+      member.setPassword("1111");
+      member.setPhoto("leem.jpeg");
+      member.setTel("1111-3333");
+      member.setRegisteredDate(null);
+      
+      add(member);
+      
+      
+      
+      System.out.println(in.readObject());
       
     } catch (Exception e) {
       e.printStackTrace();
     }
+    try {in.close();} catch (Exception e) {}
+    try {out.close();} catch (Exception e) {}
+    try {socket.close();} catch (Exception e) {}
     System.out.println("서버와의 연결을 끊었음.");
+  }
+
+  private static void add(Object obj) throws Exception {
+    out.writeObject(obj);
+    out.flush();
   }
 
 }

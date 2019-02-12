@@ -24,6 +24,8 @@ public class CalculatorClient {
     
     Scanner keyboard = new Scanner(System.in);
     
+    long sessionID = 0;
+    
     while (true) {
       System.out.print("> ");
       String input = keyboard.nextLine();
@@ -43,9 +45,14 @@ public class CalculatorClient {
         
         System.out.println("서버와 연결됨! 서버에게 계산 작업을 요청함!");
         
+        out.println(sessionID);
         out.println(input);
         out.flush();
 
+        if (sessionID == 0) {
+          sessionID = Long.parseLong(in.readLine());
+          System.out.printf("발급받은 세션 ID: %d\n", sessionID);
+        }
         String response = in.readLine();
         System.out.println(response);
 
