@@ -20,8 +20,9 @@ public class CalculatorServer {
     } catch (Exception e) {
       e.printStackTrace();
     }
-  }
+  } // main 끝
   
+   /////////////////////// 소켓에 값을 담고 출력하는 과정
   static void processRequest(Socket socket) {
     BufferedReader in = null;
     PrintStream out = null;
@@ -50,14 +51,22 @@ public class CalculatorServer {
       try {socket.close();} catch (Exception e) {}
     }
   }
+  /////////////////////// 계산하는 메서드 끝
   
+  
+  
+  ///////////////// 서버 연결후 첫메세지 출력 메서드
   static void sendGreeting(PrintStream out) {
     out.println("계산기 서버에 오신 걸 환영합니다!");
     out.println("계산식을 입력하세요!");
     out.println("예) 23 + 7");
     out.println();
   }
+  ///////////////// 서버 연결후 첫메세지 출력 메서드
   
+  
+  
+  ///////////////// 연산만 도와주는 메서드
   static void calculate(String request, PrintStream out) {
     try {
       String[] input = request.split(" ");
@@ -89,7 +98,9 @@ public class CalculatorServer {
       } catch (Exception e2) {}
     }
   }
+  ////////////// 연산만 도와주는 메서드
   
+  /////////// 프로그램 종료 명령
   static boolean isQuit(String request, PrintStream out) {
     if (request.equalsIgnoreCase("quit")) {
       out.println("안녕히 가세요!");
