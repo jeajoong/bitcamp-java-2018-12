@@ -1,5 +1,5 @@
 // Stateless 클라이언트 만들기
-package ch23.test;
+package ch23.test2;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

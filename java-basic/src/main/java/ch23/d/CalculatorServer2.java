@@ -26,8 +26,8 @@ public class CalculatorServer2 {
           
           System.out.println("클라이언트와 연결됨!");
           
-          while (true) {
-            String request = in.readLine();
+          while (true) { 
+            String request = in.readLine(); // 여기서 계속 연결유지
             System.out.println("요청 처리함.");
             
             if (request.equalsIgnoreCase("quit")) {
