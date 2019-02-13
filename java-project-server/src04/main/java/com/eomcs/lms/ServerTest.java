@@ -1,10 +1,9 @@
+// 4단계: 서버 실행 테스트
 package com.eomcs.lms;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.Scanner;
 import com.eomcs.lms.domain.Member;
 
 public class ServerTest {
@@ -13,8 +12,7 @@ public class ServerTest {
     
     try (Socket socket = new Socket("localhost", 8888);
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
-        ObjectInputStream in = new ObjectInputStream(socket.getInputStream())
-            ) {
+        ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
       
       System.out.println("서버와 연결되었음.");
       

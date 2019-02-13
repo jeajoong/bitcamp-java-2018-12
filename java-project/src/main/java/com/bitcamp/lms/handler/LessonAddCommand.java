@@ -11,7 +11,6 @@ public class LessonAddCommand implements Command {
 
   public LessonAddCommand(Scanner keyboard, List<Lesson> list) {
     this.keyboard = keyboard;
-    this.list = list;
   }
 
   @Override

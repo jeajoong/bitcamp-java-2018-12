@@ -1,7 +1,7 @@
 package ch22.f;
 
 import java.io.Serializable;
-
+ 
 // java.io.Serializable
 // => serialize를 허락하고 싶다면 이 인터페이스를 구현한다.
 // => 자바는 기본적으로 보안을 위해서 자동으로 serialize 하는 것을 허락하지 않는다.

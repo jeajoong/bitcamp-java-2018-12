@@ -1,0 +1,20 @@
+19 -> 20 Arraylist를 활용하지 않고
+베이직에서 LinkedList 활용
+
+
+    11 LinkedList<Board> list; 바꿔준다
+
+
+
+
+    15 this.list = new LinkedList<>(); 바꿔준다
+
+	
+listBoard에서 
+
+    19 Board[] boards = list.toArray(new Board[] {});
+
+toArray에 에러가 생긴다
+
+LinkedList에서 toArray 형태가 다르기 때문이다
+toArray()를 바꿔준다

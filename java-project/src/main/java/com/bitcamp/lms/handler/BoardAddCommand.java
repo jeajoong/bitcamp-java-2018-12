@@ -9,9 +9,8 @@ public class BoardAddCommand implements Command {
   Scanner keyboard;
   List<Board> list;
   
-  public BoardAddCommand(Scanner keyboard, List<Board> list) {
+  public BoardAddCommand(Scanner keyboard) {
     this.keyboard = keyboard;
-    this.list = list;
   }
   
   @Override
