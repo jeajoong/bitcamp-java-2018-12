@@ -1,5 +1,6 @@
 package com.eomcs.lms;
 
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
@@ -28,19 +29,28 @@ public class ServerApp {
         ServerApp.in = in;
         ServerApp.out = out;
         
-        while (true) {
+     loop: while (true) {
           String request = in.readUTF();
           System.out.println(request);
           
-          loop: switch (request) {
+          switch (request) {
             case "quit":
               quit();
               break loop;
-            case "add":
+            case "/member/add":
               add();
               break;
-            case "list":
+            case "/member/list":
               list();
+              break;
+            case "/member/detail":
+              detail();
+              break;
+            case "/member/update":
+              update();
+              break;
+            case "/member/delete":
+              delete();
               break;
               default:
                 out.writeUTF("이 명령을 처리할 수 없음!");
@@ -55,14 +65,57 @@ public class ServerApp {
     }
   }
 
-  private static void list() throws Exception {
-    out.writeObject(members);
-  }
-
   private static void add() throws Exception {
-    members.add((Member) in.readObject());
+    members.add((Member) in.readObject()); // add => List의 add임
     out.writeUTF("OK");
   }
+  
+  private static void list() throws Exception {
+   out.writeUTF("OK"); 
+    out.writeObject(members);
+  }
+  
+  private static void delete() throws Exception {
+    int no = in.readInt(); 
+    
+    int index = 0; 
+    for(Member m : members) {
+      if(m.getNo() == no) {
+        members.remove(index); 
+        out.writeUTF("OK");
+        return;
+      }
+      index++;
+    }
+    out.writeUTF("Fail");
+  }
+
+  private static void update() throws Exception {
+    Member member = (Member) in.readObject();
+    int index = 0;
+    for (Member m : members) {
+      if(m.getNo() == member.getNo()) {
+        members.set(index, member);
+        out.writeUTF("OK");
+        return;
+      }
+      index++;
+    }
+    out.writeUTF("fail");
+  }
+  private static void detail() throws IOException {
+    int no = in.readInt();
+    
+    for (Member m : members) {
+      if(m.getNo() == no) {
+        out.writeUTF("OK");
+        out.writeObject(m);
+        return;
+      }
+    }
+    out.writeUTF("fail");
+    }
+    
 
   private static void quit() throws Exception {
     out.writeUTF("종료함!");
