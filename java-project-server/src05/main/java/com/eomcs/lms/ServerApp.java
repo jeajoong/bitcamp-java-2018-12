@@ -16,7 +16,6 @@ public class ServerApp {
   
   public static void main(String[] args) {
     
-    
     try (ServerSocket serverSocket = new ServerSocket(8888)) {
       System.out.println("서버 시작!");
       
@@ -29,7 +28,6 @@ public class ServerApp {
           members.clear();
           ServerApp.in = in;
           ServerApp.out = out;
-          
           
           loop: while (true) {
               String request = in.readUTF();
