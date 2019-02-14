@@ -10,17 +10,15 @@ import com.eomcs.lms.domain.Lesson;
 public class LessonListCommand implements Command {
   
   Scanner keyboard;
-  LessonAgent lessonAgent;
 
-  public LessonListCommand(Scanner keyboard, LessonAgent lessonAgent) {
+  public LessonListCommand(Scanner keyboard) {
     this.keyboard = keyboard;
-    this.lessonAgent = lessonAgent;
   }
   
   @Override
-  public void execute() {
+  public void execute(ObjectInputStream in, ObjectOutputStream out) {
     try {
-      List<Lesson> lessons = lessonAgent.list();
+      List<Lesson> lessons = LessonAgent.list(in, out);
       for (Lesson lesson : lessons) {
         System.out.printf("%3d, %-15s, %10s ~ %10s, %4d\n", 
             lesson.getNo(), lesson.getTitle(), 

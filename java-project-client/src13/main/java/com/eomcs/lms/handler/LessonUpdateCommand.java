@@ -9,20 +9,18 @@ import com.eomcs.lms.domain.Lesson;
 public class LessonUpdateCommand implements Command {
 
   Scanner keyboard;
-  LessonAgent lessonAgent;
 
-  public LessonUpdateCommand(Scanner keyboard, LessonAgent lessonAgent) {
+  public LessonUpdateCommand(Scanner keyboard) {
     this.keyboard = keyboard;
-    this.lessonAgent = lessonAgent;
   }
 
   @Override
-  public void execute() {
+  public void execute(ObjectInputStream in, ObjectOutputStream out) {
     System.out.print("번호? ");
     int no = Integer.parseInt(keyboard.nextLine());
 
     try {
-      Lesson lesson = lessonAgent.get(no);
+      Lesson lesson = LessonAgent.get(no, in, out);
     
       Lesson temp = lesson.clone();
       
@@ -51,7 +49,7 @@ public class LessonUpdateCommand implements Command {
       if ((input = keyboard.nextLine()).length() > 0)
         temp.setDayHours(Integer.parseInt(input));
       
-      lessonAgent.update(temp);
+      LessonAgent.update(temp, in, out);
       System.out.println("변경했습니다.");
       
     } catch (Exception e) {

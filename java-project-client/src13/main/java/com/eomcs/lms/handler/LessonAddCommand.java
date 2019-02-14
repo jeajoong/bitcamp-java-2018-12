@@ -3,22 +3,19 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.sql.Date;
 import java.util.Scanner;
-import com.eomcs.lms.agent.BoardAgent;
 import com.eomcs.lms.agent.LessonAgent;
 import com.eomcs.lms.domain.Lesson;
 
 public class LessonAddCommand implements Command {
 
   Scanner keyboard;
-  LessonAgent lessonAgent;
 
-  public LessonAddCommand(Scanner keyboard, LessonAgent lessonAgent) {
+  public LessonAddCommand(Scanner keyboard) {
     this.keyboard = keyboard;
-    this.lessonAgent = lessonAgent;
   }
 
   @Override
-  public void execute() {
+  public void execute(ObjectInputStream in, ObjectOutputStream out) {
     Lesson lesson = new Lesson();
 
     System.out.print("번호? ");
@@ -43,7 +40,7 @@ public class LessonAddCommand implements Command {
     lesson.setDayHours(Integer.parseInt(keyboard.nextLine()));
 
     try {
-      lessonAgent.add(lesson);
+      LessonAgent.add(lesson, in, out);
       System.out.println("저장하였습니다.");
       
     } catch (Exception e) {
