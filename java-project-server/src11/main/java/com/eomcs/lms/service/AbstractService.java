@@ -1,4 +1,4 @@
-// 11단계: 서비스 클래스의 일반화(상속)를 수행한다.
+// 10단계: 데이터를 파일로 관리한다.
 package com.eomcs.lms.service;
 
 import java.io.BufferedInputStream;
@@ -9,9 +9,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import com.eomcs.lms.domain.Board;
 
-public abstract class AbstractService<E> { // 타입을 변수화 시킨다<E>
+public abstract class AbstractService<E> {
 
   List<E> list;
 
@@ -55,4 +54,10 @@ public abstract class AbstractService<E> { // 타입을 변수화 시킨다<E>
   public abstract void execute(String request) throws Exception;
 
 }
+
+
+
+
+
+
 

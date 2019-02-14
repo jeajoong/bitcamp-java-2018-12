@@ -1,73 +1,26 @@
-// 11단계: 서비스 클래스의 일반화(상속)를 수행한다.
+// 11단계: AbstractService 상속 받기
 package com.eomcs.lms.service;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.List;
 import com.eomcs.lms.domain.Board;
 
 public class BoardService extends AbstractService<Board> {
 
-  List<Board> lists;
-
-  ObjectInputStream in;
-  ObjectOutputStream out;
-  String filepath;
-
-  public void init(ObjectInputStream in, ObjectOutputStream out) {
-    this.in = in;
-    this.out = out;
-  }
-  
-  @SuppressWarnings("unchecked")
-  public void loadData(String filepath) {
-    this.filepath = filepath;
-    
-    try (ObjectInputStream in = new ObjectInputStream(
-        new BufferedInputStream(
-            new FileInputStream(this.filepath)))) {
-      
-      lists = (List<Board>) in.readObject();
-      
-    } catch (Exception e) {
-      lists = new ArrayList<Board>();
-      throw new RuntimeException("게시글 파일 로딩 오류!", e);
-    }
-  }
-  
-  public void saveData() throws Exception {
-    try (ObjectOutputStream out = new ObjectOutputStream(
-        new BufferedOutputStream(
-            new FileOutputStream(this.filepath)))) {
-    
-      out.writeObject(lists);
-      
-    } catch (Exception e) {
-      throw new Exception("게시글 파일 저장 오류!", e);
-    }
-  }
-  
   public void execute(String request) throws Exception {
 
     switch (request) {
-      case "/list/add":
+      case "/board/add":
         add();
         break;
-      case "/list/list":
+      case "/board/list":
         list();
         break;
-      case "/list/detail":
+      case "/board/detail":
         detail();
         break;
-      case "/list/update":
+      case "/board/update":
         update();
         break;
-      case "/list/delete":
+      case "/board/delete":
         delete();
         break;  
       default:
@@ -79,7 +32,7 @@ public class BoardService extends AbstractService<Board> {
   private void add() throws Exception {
     out.writeUTF("OK");
     out.flush();
-    lists.add((Board)in.readObject());
+    list.add((Board)in.readObject());
     out.writeUTF("OK");
   }
 
@@ -87,7 +40,19 @@ public class BoardService extends AbstractService<Board> {
     out.writeUTF("OK");
     out.flush();
     out.writeUTF("OK");
-    out.writeObject(lists);
+    
+    //ArrayList를 출력하기 위해 serialize 하여 바이트 배열을 만든다.
+    // 내부적으로 이렇게 생성된 객체의 주소를 보관한다.
+    // 다음에 또 같은 객체에 대해서 serialize를 수행하면
+    //성능향상을 위해 이전에 만든 객체를 그대로 사용한다.
+    // 문제는 ArrayList에 항목이 변경되어도 이전에 생성한 것을 그대로 사용하기 때문에
+    // 변경된 데이터가 새로 serialize 되지 않는다.
+    //out.writeObject(list);
+    
+    //그러나 writeUnshared()를 사용하면
+    // 무조건 해당 인스턴스에 대해 새로 serialize를 수행한다.
+    // 그리고 그 바이트 배열을 출력한다.
+    out.writeUnshared(list);
   }
 
   private void detail() throws Exception {
@@ -95,7 +60,7 @@ public class BoardService extends AbstractService<Board> {
     out.flush();
     int no = in.readInt();
 
-    for (Board b : lists) {
+    for (Board b : list) {
       if (b.getNo() == no) {
         out.writeUTF("OK");
         out.writeObject(b);
@@ -109,12 +74,12 @@ public class BoardService extends AbstractService<Board> {
   private void update() throws Exception {
     out.writeUTF("OK");
     out.flush();
-    Board list = (Board) in.readObject();
+    Board board = (Board) in.readObject();
 
     int index = 0;
-    for (Board b : lists) {
-      if (b.getNo() == list.getNo()) {
-        lists.set(index, list);
+    for (Board b : list) {
+      if (b.getNo() == board.getNo()) {
+        list.set(index, board);
         out.writeUTF("OK");
         return;
       }
@@ -130,9 +95,9 @@ public class BoardService extends AbstractService<Board> {
     int no = in.readInt();
 
     int index = 0;
-    for (Board b : lists) {
+    for (Board b : list) {
       if (b.getNo() == no) {
-        lists.remove(index);
+        list.remove(index);
         out.writeUTF("OK");
         return;
       }

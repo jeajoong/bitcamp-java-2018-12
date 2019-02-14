@@ -50,6 +50,7 @@ public class ServerApp {
       try {
         boardService = new BoardService(); 
         boardService.loadData("board.bin");
+        
       } catch (Exception e) {
         System.out.println("게시물 데이터 로딩 중 오류 발생!");
         //e.printStackTrace();
@@ -111,14 +112,14 @@ public class ServerApp {
     }
     
     try {
-      lessonService.saveData(); //따로따로 try로 묶는 이유 : 첫번째가 오류가 발생하면 오류로 전체 넘어가게 되기때문에
+      memberService.saveData();
     } catch (Exception e) {
       System.out.println(e.getMessage());
-     // e.printStackTrace();
+      //e.printStackTrace();
     }
     
     try {
-      memberService.saveData();
+      lessonService.saveData();
     } catch (Exception e) {
       System.out.println(e.getMessage());
       //e.printStackTrace();

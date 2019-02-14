@@ -1,27 +1,36 @@
-// 11단계: AbstractService 상속 받기
 package com.eomcs.lms.service;
 
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
 
-public class BoardService extends AbstractService<Board> {
+public class BoardService implements Service {
 
-  public void execute(String request) throws Exception {
-
+  // BoardService가 작업을 수행할 때 사용할 객체(의존 객체; dependency)
+  BoardDao boardDao;
+  
+  public BoardService(BoardDao boardDao) {
+    this.boardDao = boardDao;
+  }
+  
+  public void execute(String request, ObjectInputStream in, ObjectOutputStream out) throws Exception {
+    
     switch (request) {
       case "/board/add":
-        add();
+        add(in, out);
         break;
       case "/board/list":
-        list();
+        list(in, out);
         break;
       case "/board/detail":
-        detail();
+        detail(in, out);
         break;
       case "/board/update":
-        update();
+        update(in, out);
         break;
       case "/board/delete":
-        delete();
+        delete(in, out);
         break;  
       default:
         out.writeUTF("FAIL");
@@ -29,82 +38,59 @@ public class BoardService extends AbstractService<Board> {
     out.flush();
   }
 
-  private void add() throws Exception {
+  private void add(ObjectInputStream in, ObjectOutputStream out) throws Exception {
     out.writeUTF("OK");
     out.flush();
-    list.add((Board)in.readObject());
+    boardDao.insert((Board)in.readObject());
     out.writeUTF("OK");
   }
 
-  private void list() throws Exception {
+  private void list(ObjectInputStream in, ObjectOutputStream out) throws Exception {
     out.writeUTF("OK");
     out.flush();
     out.writeUTF("OK");
-    
-    //ArrayList를 출력하기 위해 serialize 하여 바이트 배열을 만든다.
-    // 내부적으로 이렇게 생성된 객체의 주소를 보관한다.
-    // 다음에 또 같은 객체에 대해서 serialize를 수행하면
-    //성능향상을 위해 이전에 만든 객체를 그대로 사용한다.
-    // 문제는 ArrayList에 항목이 변경되어도 이전에 생성한 것을 그대로 사용하기 때문에
-    // 변경된 데이터가 새로 serialize 되지 않는다.
-    //out.writeObject(list);
-    
-    //그러나 writeUnshared()를 사용하면
-    // 무조건 해당 인스턴스에 대해 새로 serialize를 수행한다.
-    // 그리고 그 바이트 배열을 출력한다.
-    out.writeUnshared(list);
+    out.writeUnshared(boardDao.findAll());
   }
 
-  private void detail() throws Exception {
+  private void detail(ObjectInputStream in, ObjectOutputStream out) throws Exception {
     out.writeUTF("OK");
     out.flush();
     int no = in.readInt();
 
-    for (Board b : list) {
-      if (b.getNo() == no) {
-        out.writeUTF("OK");
-        out.writeObject(b);
-        return;
-      }
+    Board obj = boardDao.findByNo(no);
+    if (obj == null) { 
+      out.writeUTF("FAIL");
+      return;
     }
 
-    out.writeUTF("FAIL");
+    out.writeUTF("OK");
+    out.writeObject(obj);
   }
 
-  private void update() throws Exception {
+  private void update(ObjectInputStream in, ObjectOutputStream out) throws Exception {
     out.writeUTF("OK");
     out.flush();
     Board board = (Board) in.readObject();
 
-    int index = 0;
-    for (Board b : list) {
-      if (b.getNo() == board.getNo()) {
-        list.set(index, board);
-        out.writeUTF("OK");
-        return;
-      }
-      index++;
+    if (boardDao.update(board) == 0) {
+      out.writeUTF("FAIL");
+      return;
     }
-
-    out.writeUTF("FAIL");
+    
+    out.writeUTF("OK");
   }
 
-  private void delete() throws Exception {
+  private void delete(ObjectInputStream in, ObjectOutputStream out) throws Exception {
     out.writeUTF("OK");
     out.flush();
     int no = in.readInt();
 
-    int index = 0;
-    for (Board b : list) {
-      if (b.getNo() == no) {
-        list.remove(index);
-        out.writeUTF("OK");
-        return;
-      }
-      index++;
+    if (boardDao.delete(no) == 0) {
+      out.writeUTF("FAIL");    
+      return;
     }
-
-    out.writeUTF("FAIL");    
+    
+    out.writeUTF("OK");
   }
 
 }

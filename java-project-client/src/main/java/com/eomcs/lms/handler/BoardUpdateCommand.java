@@ -1,37 +1,25 @@
 package com.eomcs.lms.handler;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.Scanner;
+import com.eomcs.lms.agent.BoardAgent;
 import com.eomcs.lms.domain.Board;
 
 public class BoardUpdateCommand implements Command {
   
   Scanner keyboard;
+  BoardAgent boardAgent;
   
-  public BoardUpdateCommand(Scanner keyboard) {
+  public BoardUpdateCommand(Scanner keyboard, BoardAgent boardAgent) {
     this.keyboard = keyboard;
+    this.boardAgent = boardAgent;
   }
   
   @Override
-  public void execute(ObjectInputStream in, ObjectOutputStream out) {
+  public void execute() {
     System.out.print("번호? ");
     int no = Integer.parseInt(keyboard.nextLine());
 
     try {
-      out.writeUTF("/board/detail");
-      out.flush();
-      if (!in.readUTF().equals("OK"))
-        throw new Exception("서버에서 해당 명령어를 처리하지 못합니다.");
-      
-      out.writeInt(no);
-      out.flush();
-      
-      String status = in.readUTF();
-      
-      if (!status.equals("OK")) 
-        throw new Exception("서버에서 게시글 가져오기 실패!");
-      
-      Board board = (Board) in.readObject();
+      Board board = boardAgent.get(no);
     
       // 기존 값 복제
       Board temp = board.clone();
@@ -41,22 +29,12 @@ public class BoardUpdateCommand implements Command {
       if (input.length() > 0) 
         temp.setContents(input);
       
-      out.writeUTF("/board/update");
-      out.flush();
-      if (!in.readUTF().equals("OK"))
-        throw new Exception("서버에서 해당 명령어를 처리하지 못합니다.");
+      boardAgent.update(temp);
       
-      out.writeObject(temp);
-      out.flush();
-      
-      status = in.readUTF();
-      if (!status.equals("OK")) 
-        throw new Exception("서버에서 게시글 변경하기 실패!");
-      
-      System.out.println("게시글을 변경했습니다.");
+      System.out.println("변경했습니다.");
       
     } catch (Exception e) {
-      System.out.println("변경 중 오류 발생!");
+      System.out.printf("실행 오류! : %s\n", e.getMessage());
     }
   }
 }
