@@ -127,10 +127,8 @@ public class ServerApp {
       }
       index++;
     }
-    
     out.writeUTF("FAIL");    
   }
-
 }
 
 
