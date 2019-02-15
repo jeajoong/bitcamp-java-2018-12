@@ -1,102 +1,110 @@
+// 9단계 : Service 패키지로 옮기기
 package com.eomcs.lms.service;
 
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import com.eomcs.lms.dao.MemberDao;
+import java.util.ArrayList;
 import com.eomcs.lms.domain.Member;
 
-public class MemberService implements Service {
+public class MemberService {
 
-  MemberDao memberDao;
+  static ArrayList<Member> members = new ArrayList<>();
   
-  public MemberService(MemberDao memberDao) {
-    this.memberDao = memberDao;
+  static ObjectInputStream in;
+  static ObjectOutputStream out;
+  
+  public MemberService(ObjectInputStream in, ObjectOutputStream out) {
+    this.in = in;
+    this.out = out;
   }
   
-  public void execute(String request, ObjectInputStream in, ObjectOutputStream out) throws Exception {
-
-    switch (request) {
-      case "/member/add":
-        add(in, out);
-        break;
-      case "/member/list":
-        list(in, out);
-        break;
-      case "/member/detail":
-        detail(in, out);
-        break;
-      case "/member/update":
-        update(in, out);
-        break;
-      case "/member/delete":
-        delete(in, out);
-        break;  
-      default:
-        out.writeUTF("FAIL");
-    }
-    out.flush();
-  }
-
-  private void add(ObjectInputStream in, ObjectOutputStream out) throws Exception {
+    public void execute(String request) throws Exception {
+          
+          switch (request) {
+            case "/member/add":
+              add();
+              break;
+            case "/member/list":
+              list();
+              break;
+            case "/member/detail":
+              detail();
+              break;
+            case "/member/update":
+              update();
+              break;
+            case "/member/delete":
+              delete();
+              break;
+              default:
+                out.writeUTF("FAIL");
+          }
+          out.flush();
+        }
+  
+  static void add() throws Exception {
     out.writeUTF("OK");
     out.flush();
-    memberDao.insert((Member)in.readObject());
+    members.add((Member) in.readObject()); // add => List의 add임
     out.writeUTF("OK");
   }
-
-  private void list(ObjectInputStream in, ObjectOutputStream out) throws Exception {
-    out.writeUTF("OK");
-    out.flush();
-    out.writeUTF("OK");
-    out.writeUnshared(memberDao.findAll());
+  
+   static void list() throws Exception {
+   out.writeUTF("OK"); 
+   out.flush();
+   out.writeUTF("OK");
+    out.writeObject(members);
   }
-
-  private void detail(ObjectInputStream in, ObjectOutputStream out) throws Exception {
+  
+   static void detail() throws IOException {
     out.writeUTF("OK");
     out.flush();
     int no = in.readInt();
-
-    Member obj = memberDao.findByNo(no);
-    if (obj == null) { 
-      out.writeUTF("FAIL");
-      return;
+    
+    for (Member m : members) {
+      if(m.getNo() == no) {
+        out.writeUTF("OK");
+        out.writeObject(m);
+        return;
+      }
     }
-
-    out.writeUTF("OK");
-    out.writeObject(obj);
+    out.writeUTF("fail");
   }
-
-  private void update(ObjectInputStream in, ObjectOutputStream out) throws Exception {
+  
+  static void update() throws Exception {
     out.writeUTF("OK");
     out.flush();
+    
     Member member = (Member) in.readObject();
-
-    if (memberDao.update(member) == 0) {
-      out.writeUTF("FAIL");
-      return;
-    }
     
-    out.writeUTF("OK");
+    int index = 0;
+    for (Member m : members) {
+      if(m.getNo() == member.getNo()) { 
+        members.set(index, member); 
+        out.writeUTF("OK");
+        return;
+      }
+      index++; // 0번째 부터 훑음.. 조건식이 맞다면 결국엔 index의 값도 리스트.getno 값이다
+    }
+    out.writeUTF("fail");
   }
-
-  private void delete(ObjectInputStream in, ObjectOutputStream out) throws Exception {
+  
+  static void delete() throws Exception {
     out.writeUTF("OK");
     out.flush();
-    int no = in.readInt();
-
-    if (memberDao.delete(no) == 0) {
-      out.writeUTF("FAIL");    
-      return;
-    }
     
-    out.writeUTF("OK");
+    int no = in.readInt(); 
+    
+    int index = 0; 
+    for(Member m : members) {
+      if(m.getNo() == no) {
+        members.remove(index); 
+        out.writeUTF("OK");
+        return;
+      }
+      index++;
+    }
+    out.writeUTF("Fail");
   }
-
 }
-
-
-
-
-
-
-
