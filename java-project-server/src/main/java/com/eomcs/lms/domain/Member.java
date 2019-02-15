@@ -13,7 +13,6 @@ public class Member implements Cloneable, Serializable {
   private String tel;
   private Date registeredDate;
   
-  
   public Member() {
   }
   
