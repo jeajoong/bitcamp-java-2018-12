@@ -102,21 +102,18 @@ public class ServerApp {
       boardDao.saveData();
     } catch (Exception e) {
       System.out.println(e.getMessage());
-      //e.printStackTrace();
     }
     
     try {
       memberDao.saveData();
     } catch (Exception e) {
       System.out.println(e.getMessage());
-      //e.printStackTrace();
     }
     
     try {
       lessonDao.saveData();
     } catch (Exception e) {
       System.out.println(e.getMessage());
-      //e.printStackTrace();
     }
     out.writeUTF("종료함!");
     out.flush();

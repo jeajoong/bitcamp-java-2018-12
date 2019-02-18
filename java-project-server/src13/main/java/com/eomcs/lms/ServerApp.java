@@ -17,9 +17,9 @@ import com.eomcs.lms.service.Service;
 
 public class ServerApp {
 
-  static BoardDao boardDao = null; 
-  static MemberDao memberDao = null;
-  static LessonDao lessonDao = null;
+  static BoardDao boardDao; 
+  static MemberDao memberDao;
+  static LessonDao lessonDao;
 
   public static void main(String[] args) {
     

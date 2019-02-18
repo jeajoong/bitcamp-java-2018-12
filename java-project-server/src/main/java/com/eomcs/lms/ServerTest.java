@@ -1,4 +1,3 @@
-// 8단계: 서버 실행 테스트
 package com.eomcs.lms;
 
 import java.io.ObjectInputStream;
@@ -20,13 +19,13 @@ public class ServerTest {
       ServerTest.in = in;
       ServerTest.out = out;
       
-      //new MemberTest(out, in).test();
+      new MemberTest(out, in).test();
       System.out.println("----------------------------");
       
-      //new LessonTest(out, in).test();
+      new LessonTest(out, in).test();
       System.out.println("----------------------------");
       
-      //new BoardTest(out, in).test();
+      new BoardTest(out, in).test();
       System.out.println("----------------------------");
       
       quit();
