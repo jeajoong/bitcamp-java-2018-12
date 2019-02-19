@@ -1,4 +1,3 @@
-// 10단계: 데이터를 파일로 관리한다.
 package com.eomcs.lms.dao;
 
 import java.io.BufferedInputStream;
@@ -12,17 +11,17 @@ import java.util.List;
 
 public abstract class AbstractDao<E> {
 
-  List<E> list;
-  String filepath;
+  protected List<E> list;
+  protected String filepath;
 
   @SuppressWarnings("unchecked")
   public void loadData() {
-    this.filepath = filepath;
-    
     try (ObjectInputStream in = new ObjectInputStream(
         new BufferedInputStream(
             new FileInputStream(this.filepath)))) {
+      
       list = (List<E>) in.readObject();
+      
     } catch (Exception e) {
       list = new ArrayList<E>();
       throw new RuntimeException("데이터 파일 로딩 오류!", e);
@@ -40,7 +39,6 @@ public abstract class AbstractDao<E> {
       throw new Exception("데이터 파일 저장 오류!", e);
     }
   }
-
 }
 
 

@@ -1,22 +1,17 @@
-// 데이터 처리 관련 코드를 별도의 클래스로 분리
+// 11단계: AbstractService 상속 받기
 package com.eomcs.lms.dao;
 
 import java.util.List;
 import com.eomcs.lms.domain.Lesson;
 
-public class LessonDaoImpl extends AbstractDao<Lesson> implements LessonDao {
+public class LessonDao extends AbstractDao<Lesson> {
 
-  public LessonDaoImpl(String filepath) {
+  public LessonDao(String filepath) {
     this.filepath = filepath;
   }
   
-  public void insert(Lesson lesson){
+  public void insert(Lesson lesson) {
     list.add(lesson);
-    try {
-      this.saveData();
-    } catch (Exception e) {
-      throw new RuntimeException(e);
-    }
   }
 
   public List<Lesson> findAll() {
@@ -32,16 +27,11 @@ public class LessonDaoImpl extends AbstractDao<Lesson> implements LessonDao {
     return null;
   }
 
-  public int update(Lesson lesson){
+  public int update(Lesson lesson) {
     int index = 0;
     for (Lesson obj : list) {
       if (obj.getNo() == lesson.getNo()) {
         list.set(index, lesson);
-        try {
-          this.saveData();
-        } catch (Exception e) {
-          throw new RuntimeException(e);
-        }
         return 1;
       }
       index++;
@@ -54,11 +44,6 @@ public class LessonDaoImpl extends AbstractDao<Lesson> implements LessonDao {
     for (Lesson obj : list) {
       if (obj.getNo() == no) {
         list.remove(index);
-        try {
-          this.saveData();
-        } catch (Exception e) {
-          throw new RuntimeException(e);
-        }
         return 1;
       }
       index++;
