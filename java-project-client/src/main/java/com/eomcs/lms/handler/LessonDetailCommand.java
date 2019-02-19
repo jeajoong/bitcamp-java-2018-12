@@ -8,7 +8,7 @@ public class LessonDetailCommand implements Command {
   Scanner keyboard;
   LessonDao lessonDao;
 
-  public LessonDetailCommand(Scanner keyboard, LessonDao lessonDao) {
+  public LessonDetailCommand(Scanner keyboard,  LessonDao lessonDao) {
     this.keyboard = keyboard;
     this.lessonDao = lessonDao;
   }

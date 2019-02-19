@@ -1,4 +1,4 @@
-// 데이터 처리 관련 코드를 별도의 클래스로 분리
+// 11단계: AbstractService 상속 받기
 package com.eomcs.lms.dao;
 
 import java.util.List;

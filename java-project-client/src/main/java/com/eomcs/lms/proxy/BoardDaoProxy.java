@@ -1,15 +1,13 @@
 package com.eomcs.lms.proxy;
 
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.List;
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
 
-public class BoardDaoProxy implements BoardDao{
+public class BoardDaoProxy implements BoardDao {
   
   String serverAddr;
   int port;
@@ -45,7 +43,7 @@ public class BoardDaoProxy implements BoardDao{
     }
   }
   
-  public void insert(Board board){
+  public void insert(Board board) {
     
     try (Socket socket = new Socket(this.serverAddr, this.port);
         ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
@@ -64,7 +62,7 @@ public class BoardDaoProxy implements BoardDao{
         throw new Exception("서버의 데이터 저장 실패!");
     } catch (Exception e) {
       throw new RuntimeException(e);
-  }
+    }
   }
   
   public Board findByNo(int no) {
@@ -87,9 +85,9 @@ public class BoardDaoProxy implements BoardDao{
         throw new Exception("서버의 데이터 가져오기 실패!");
       
       return (Board) in.readObject();
-    } catch (Exception e) {
+    }catch (Exception e) {
       throw new RuntimeException(e);
-  }
+    }
   }
   
   public int update(Board board) {
@@ -109,9 +107,9 @@ public class BoardDaoProxy implements BoardDao{
       String status = in.readUTF();
       if (!status.equals("OK")) 
         throw new Exception("서버의 데이터 데이터 변경 실패!");
-    } catch (Exception e) {
+    }catch (Exception e){
       throw new RuntimeException(e);
-  }
+    }
     return 0;
   }
   
@@ -135,7 +133,7 @@ public class BoardDaoProxy implements BoardDao{
         throw new Exception("서버의 데이터 삭제 실패!");
     } catch (Exception e) {
       throw new RuntimeException(e);
-  }
+    }
     return 0;
   }
 }

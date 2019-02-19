@@ -8,12 +8,12 @@ public class Test03 {
     // 스레드의 생명주기
     // new Thread()    start()              sleep()/wait()
     //     준비 -------------------> Running ---------------> Not Runnable
-    //                               ^  |    <---------------
-    //                               |  |    timeout/notify()
-    //                               X  |
-    //                               |  |  run() 메서드 종료
-    //                               |  V
-    //                               Dead
+    //                                                   ^  |    <---------------
+    //                                                    |  |    timeout/notify()
+    //                                                   X  |
+    //                                                    |  |  run() 메서드 종료
+    //                                                    |  V
+    //                                                 Dead
     // Running 상태?
     // - CPU를 받아서 실행 중이거나 CPU를 받을 수 있는 상태
     //

@@ -24,7 +24,7 @@ public class Account {
     if (temp - money < 0)
       return 0;
     
-    temp = temp - money;
+     temp = temp - money;
     
     this.balance = temp;
     

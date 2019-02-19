@@ -8,7 +8,7 @@ public class MemberListCommand implements Command {
   
   Scanner keyboard;
   MemberDao memberDao;
-
+  
   public MemberListCommand(Scanner keyboard, MemberDao memberDao) {
     this.keyboard = keyboard;
     this.memberDao = memberDao;

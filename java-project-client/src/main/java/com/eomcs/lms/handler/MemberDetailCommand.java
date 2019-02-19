@@ -7,7 +7,7 @@ public class MemberDetailCommand implements Command {
   
   Scanner keyboard;
   MemberDao memberDao;
-
+  
   public MemberDetailCommand(Scanner keyboard, MemberDao memberDao) {
     this.keyboard = keyboard;
     this.memberDao = memberDao;

@@ -1,4 +1,4 @@
-// 프록시 패턴에서 실제 일을 하는 클래스 - 인터페이스 구현
+// 데이터 처리 관련 코드를 별도의 클래스로 분리
 package com.eomcs.lms.dao;
 
 import java.util.List;
@@ -11,8 +11,8 @@ public class BoardDaoImpl extends AbstractDao<Board> implements BoardDao {
   }
 
   public void insert(Board board) {
+    list.add(board);
     try {
-      list.add(board);
       this.saveData();
     } catch (Exception e) {
       throw new RuntimeException(e);
@@ -33,44 +33,39 @@ public class BoardDaoImpl extends AbstractDao<Board> implements BoardDao {
   }
 
   public int update(Board board) {
-    try {
-      int index = 0;
-      for (Board obj : list) {
-        if (obj.getNo() == board.getNo()) {
-          list.set(index, board);
+    int index = 0;
+    for (Board obj : list) {
+      if (obj.getNo() == board.getNo()) {
+        list.set(index, board);
+        try {
           this.saveData();
-          return 1;
+        } catch (Exception e) {
+          throw new RuntimeException(e);
         }
-        index++;
+        return 1;
       }
-      return 0;
-    } catch (Exception e) {
-      throw new RuntimeException(e);
+      index++;
     }
+    return 0;
   }
 
   public int delete(int no) {
-    try {
-      int index = 0;
-      for (Board obj : list) {
-        if (obj.getNo() == no) {
-          list.remove(index);
+    int index = 0;
+    for (Board obj : list) {
+      if (obj.getNo() == no) {
+        list.remove(index);
+        try {
           this.saveData();
-          return 1;
+        } catch (Exception e) {
+          throw new RuntimeException(e);
         }
-        index++;
+        return 1;
       }
-      return 0;
-    } catch (Exception e) {
-      throw new RuntimeException(e);
+      index++;
     }
+    return 0;
   }
 
 }
-
-
-
-
-
 
 

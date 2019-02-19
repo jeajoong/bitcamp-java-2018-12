@@ -6,7 +6,7 @@ public class MemberDeleteCommand implements Command {
   
   Scanner keyboard;
   MemberDao memberDao;
-
+  
   public MemberDeleteCommand(Scanner keyboard, MemberDao memberDao) {
     this.keyboard = keyboard;
     this.memberDao = memberDao;

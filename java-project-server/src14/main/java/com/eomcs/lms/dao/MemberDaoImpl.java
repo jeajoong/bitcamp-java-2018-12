@@ -1,19 +1,18 @@
-// 프록시 패턴에서 실제 일을 하는 클래스 - 인터페이스 구현
+// 데이터 처리 관련 코드를 별도의 클래스로 분리
 package com.eomcs.lms.dao;
 
 import java.util.List;
 import com.eomcs.lms.domain.Member;
 
-public class MemberDaoImpl extends AbstractDao<Member> 
-  implements MemberDao {
+public class MemberDaoImpl extends AbstractDao<Member> implements MemberDao {
 
   public MemberDaoImpl(String filepath) {
     this.filepath = filepath;
   }
-
+  
   public void insert(Member member) {
+    list.add(member);
     try {
-      list.add(member);
       this.saveData();
     } catch (Exception e) {
       throw new RuntimeException(e);
@@ -34,37 +33,37 @@ public class MemberDaoImpl extends AbstractDao<Member>
   }
 
   public int update(Member member) {
-    try {
-      int index = 0;
-      for (Member obj : list) {
-        if (obj.getNo() == member.getNo()) {
-          list.set(index, member);
+    int index = 0;
+    for (Member obj : list) {
+      if (obj.getNo() == member.getNo()) {
+        list.set(index, member);
+        try {
           this.saveData();
-          return 1;
+        } catch (Exception e) {
+          throw new RuntimeException(e);
         }
-        index++;
+        return 1;
       }
-      return 0;
-    } catch (Exception e) {
-      throw new RuntimeException(e);
+      index++;
     }
+    return 0;
   }
 
-  public int delete(int no) {
-    try {
-      int index = 0;
-      for (Member obj : list) {
-        if (obj.getNo() == no) {
-          list.remove(index);
+  public int delete(int no){
+    int index = 0;
+    for (Member obj : list) {
+      if (obj.getNo() == no) {
+        list.remove(index);
+        try {
           this.saveData();
-          return 1;
+        } catch (Exception e) {
+          throw new RuntimeException(e);
         }
-        index++;
+        return 1;
       }
-      return 0;
-    } catch (Exception e) {
-      throw new RuntimeException(e);
+      index++;
     }
+    return 0;
   }
 
 }
