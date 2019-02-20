@@ -1,9 +1,9 @@
 
 
 plugins {
-    id 'java'
-    id 'application'
-    id 'eclipse'
+    id 'java'   //자바 빌드 명령을 사용할 수 있다.
+    id 'application' //자바 애플리케이션을 실행할 수 있다.
+    id 'eclipse' // 이클립스 설정 파일을 생성할 수 있다.
 }
 //자바 프로그램에서 사용하는 외부 라이브러리의 저장소
 repositories {
@@ -16,6 +16,11 @@ dependencies {
 compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.7'
 
     //여기에 지정한 라이브러리를 위의 저장소에 자동으로 다운로드 받는다.
+
+// https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client
+compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.4.0'
+
+
     implementation 'com.google.guava:guava:26.0-jre'
     testImplementation 'junit:junit:4.12'
 }

@@ -17,14 +17,7 @@ public class BoardListCommand implements Command {
   @Override
   public void execute() {
     try {
-      List<Board> boards = boardDao.findAll();
-      
-      for (Board board : boards) {
-        System.out.printf("%3d, %-20s, %s, %d\n", 
-            board.getNo(), board.getContents(), 
-            board.getCreatedDate(), board.getViewCount());
-      }
-      
+      boardDao.findAll();
     } catch (Exception e) {
       System.out.printf("실행 오류! : %s\n", e.getMessage());
     }

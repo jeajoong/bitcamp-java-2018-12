@@ -1,4 +1,7 @@
-// 14단계 프록시 적용완료
+// 16단계: DAO에 JDBC 적용하기
+// => 현재 프로젝트에 mariadb JDBC 드라이버를 추가한다.
+// => 수업(Lesson), 회원(Member), 게시물(Board) 정보를 저장할 테이블을 생성한다.
+// => BoardDaoImpl, MemberDaoImpl, LessonDaoImpl 클래스에 JDBC 를 적용한다.
 package com.eomcs.lms;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -6,6 +9,9 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Scanner;
 import java.util.Stack;
+import com.eomcs.lms.dao.BoardDaoImpl;
+import com.eomcs.lms.dao.LessonDaoImpl;
+import com.eomcs.lms.dao.MemberDaoImpl;
 import com.eomcs.lms.handler.BoardAddCommand;
 import com.eomcs.lms.handler.BoardDeleteCommand;
 import com.eomcs.lms.handler.BoardDetailCommand;
@@ -22,9 +28,6 @@ import com.eomcs.lms.handler.MemberDeleteCommand;
 import com.eomcs.lms.handler.MemberDetailCommand;
 import com.eomcs.lms.handler.MemberListCommand;
 import com.eomcs.lms.handler.MemberUpdateCommand;
-import com.eomcs.lms.proxy.BoardDaoProxy;
-import com.eomcs.lms.proxy.LessonDaoProxy;
-import com.eomcs.lms.proxy.MemberDaoProxy;
 
 public class App {
 
@@ -36,26 +39,26 @@ public class App {
 
     Map<String,Command> commandMap = new HashMap<>();
 
-    LessonDaoProxy lessonDaoProxy = new LessonDaoProxy("localhost", 8888, "/lesson");
-    commandMap.put("/lesson/add", new LessonAddCommand(keyboard, lessonDaoProxy));
-    commandMap.put("/lesson/list", new LessonListCommand(keyboard, lessonDaoProxy));
-    commandMap.put("/lesson/detail", new LessonDetailCommand(keyboard, lessonDaoProxy));
-    commandMap.put("/lesson/update", new LessonUpdateCommand(keyboard, lessonDaoProxy));
-    commandMap.put("/lesson/delete", new LessonDeleteCommand(keyboard, lessonDaoProxy));
+//    LessonDaoImpl lessonDao = new LessonDaoImpl();
+//    commandMap.put("/lesson/add", new LessonAddCommand(keyboard, lessonDao));
+//    commandMap.put("/lesson/list", new LessonListCommand(keyboard, lessonDao));
+//    commandMap.put("/lesson/detail", new LessonDetailCommand(keyboard, lessonDao));
+//    commandMap.put("/lesson/update", new LessonUpdateCommand(keyboard, lessonDao));
+//    commandMap.put("/lesson/delete", new LessonDeleteCommand(keyboard, lessonDao));
+//
+//    MemberDaoImpl memberDao = new MemberDaoImpl();
+//    commandMap.put("/member/add", new MemberAddCommand(keyboard, memberDao));
+//    commandMap.put("/member/list", new MemberListCommand(keyboard, memberDao));
+//    commandMap.put("/member/detail", new MemberDetailCommand(keyboard, memberDao));
+//    commandMap.put("/member/update", new MemberUpdateCommand(keyboard, memberDao));
+//    commandMap.put("/member/delete", new MemberDeleteCommand(keyboard, memberDao));
 
-    MemberDaoProxy memberDaoProxy = new MemberDaoProxy("localhost", 8888, "/member");
-    commandMap.put("/member/add", new MemberAddCommand(keyboard, memberDaoProxy));
-    commandMap.put("/member/list", new MemberListCommand(keyboard, memberDaoProxy));
-    commandMap.put("/member/detail", new MemberDetailCommand(keyboard, memberDaoProxy));
-    commandMap.put("/member/update", new MemberUpdateCommand(keyboard, memberDaoProxy));
-    commandMap.put("/member/delete", new MemberDeleteCommand(keyboard, memberDaoProxy));
-
-    BoardDaoProxy boardDaoProxy = new BoardDaoProxy("localhost", 8888, "/board");
-    commandMap.put("/board/add", new BoardAddCommand(keyboard, boardDaoProxy));
-    commandMap.put("/board/list", new BoardListCommand(keyboard, boardDaoProxy));
-    commandMap.put("/board/detail", new BoardDetailCommand(keyboard, boardDaoProxy));
-    commandMap.put("/board/update", new BoardUpdateCommand(keyboard, boardDaoProxy));
-    commandMap.put("/board/delete", new BoardDeleteCommand(keyboard, boardDaoProxy));
+    BoardDaoImpl boardDao = new BoardDaoImpl();
+    commandMap.put("/board/add", new BoardAddCommand(keyboard, boardDao));
+    commandMap.put("/board/list", new BoardListCommand(keyboard, boardDao));
+    commandMap.put("/board/detail", new BoardDetailCommand(keyboard, boardDao));
+    commandMap.put("/board/update", new BoardUpdateCommand(keyboard, boardDao));
+    commandMap.put("/board/delete", new BoardDeleteCommand(keyboard, boardDao));
 
     while (true) {
       String command = prompt();
@@ -90,12 +93,15 @@ public class App {
       try {
         commandHandler.execute();
         System.out.println(); 
+
       } catch (Exception e) {
         System.out.println("명령어 실행 중 오류 발생 : " + e.toString());
       }
     }
+    
     keyboard.close();
   }
+  
   @SuppressWarnings("unchecked")
   private void printCommandHistory() {
     Stack<String> temp = (Stack<String>) commandHistory.clone();

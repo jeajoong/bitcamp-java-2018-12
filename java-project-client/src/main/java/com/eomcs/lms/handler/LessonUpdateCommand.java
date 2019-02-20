@@ -8,11 +8,12 @@ public class LessonUpdateCommand implements Command {
 
   Scanner keyboard;
   LessonDao lessonDao;
-
+  
   public LessonUpdateCommand(Scanner keyboard, LessonDao lessonDao) {
     this.keyboard = keyboard;
     this.lessonDao = lessonDao;
   }
+  
 
   @Override
   public void execute() {

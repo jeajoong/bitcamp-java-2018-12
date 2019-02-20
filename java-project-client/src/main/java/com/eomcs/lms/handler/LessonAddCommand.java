@@ -9,11 +9,11 @@ public class LessonAddCommand implements Command {
   Scanner keyboard;
   LessonDao lessonDao;
   
-
   public LessonAddCommand(Scanner keyboard, LessonDao lessonDao) {
     this.keyboard = keyboard;
     this.lessonDao = lessonDao;
   }
+  
 
   @Override
   public void execute() {
