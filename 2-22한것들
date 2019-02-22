@@ -1,0 +1,47 @@
+마리아 디비는 10.1.38
+
+-서버 1에서 클라이언트와 서버를 연결하고 간단하게 몇가지 명령문을 작동되게 했다
+-서버 2에서 서버에서 커맨드 패턴과 옵저버 패턴이 적용된 
+ Command commandHandler = (Command) context.get(request);
+	작동되게 했고 명령어를 호출해도 에러가 없는것을 확인
+ commandHandler.execute(in, out); 있는 이유 -> command 인터페이스의 execute이다
+	애플리케이션이 시작될때 옵저버에게 알려주기 위함이다
+
+-서버 3의 각 핸들러와 클라이언트의 연결
+ 서버 2와 클라이언트 연결했을때 명령어 입력시 에러가 없는것을 확인했다.
+ 그 명령어를 실행 시키기 위해 각 command에서 PrintWriter를 이용해 출력했다
+ 그리고 서버와 클라이언트가 문자열을 하나 맞추고("!{}!") command에서 출력하고
+ 클라이언트에서는 받아와서 조건문을 걸어서 input에 사용자 입력한 값을 넣고 출력했다
+ 서버는 그 값을 다시 in.readLine으로 읽어 들여서 Dao객체에 저장하였다.
+ 
+
+
+-서버 4
+명령어를 쉽게 관리하기 위한 작업!!!
+
+1. command 인터페이스는 execute()와 execute(BufferedReader in, PrintWriter out)을 정의했다
+   그러나 새로 구현하는 클래스가 과거의 규칙을 따르지 않아도 되도록 둘다 default로 정의했다 
+
+2. command를 상속 받는 추상클래스 AbstractCommand는
+   execute(BufferedReader in, PrintWriter out)형을 재정의 했다
+   try {..
+   =>  execute(new Response(in, out));  <----- 이해가 잘 안간다....
+   .. }
+   이 뜻은 execute에 들어온 in,out을 전해주고 새로운 Response(in,out) 형태로 만든다는 뜻? 
+   그리고 서브클래스에서 오버라이딩 해야 할 execute(Response response) 메서드를 만든다
+
+3. Response 클래스를 만들기 ( 이유는 출력을 편안하게 해주기 위한 클래스, 재 포장개념)
+   BufferedReader 객체 in과 PrintWriter 객체 out을 만든다
+   그리고 생성자를 만들어 자기자신이 사용할 수 있게 한다. Response(in , out)
+   문자열을 받아 출력해서 flush 해주는 println() 메서드를 만든다.
+   문자열을 받아 출력하고 flush 해주고 return in.readLine() 해줘서 돌려준다
+   그리고 숫자형과 날짜형을 미리 형태를 정의해 리턴값으로 돌려준다
+
+   각Command 들은 AbstractCommand만 상속 받는다 
+   이렇게 하므로써 각Command 형태를 바꿔서 명령어 작성이 쉬워졌다!!!!!
+
+
+
+
+
+

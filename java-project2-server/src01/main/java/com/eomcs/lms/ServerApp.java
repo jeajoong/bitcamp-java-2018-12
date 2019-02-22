@@ -125,7 +125,6 @@ public class ServerApp {
     } // try(ServerSocket)
 
   }
-
   public static void main(String[] args) throws Exception {
     ServerApp app = new ServerApp();
 
