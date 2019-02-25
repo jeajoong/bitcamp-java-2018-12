@@ -1,8 +1,9 @@
 // 3단계: 명령어에 서버 주소와 포트 번호 포함하기
-//  예) localhost:8888/board/list
+//    예) localhost:8888/board/list
 // => 만약 포트 번호를 생략한다면 기본이 8888이다.
-//  예) localhost/board/list
-//  예)
+//    예) localhost/board/list
+//    예) 192.168.0.1/board/list
+// 
 package com.eomcs.lms;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -16,7 +17,7 @@ import java.util.Stack;
 public class ClientApp {
 
   Scanner keyboard = new Scanner(System.in);
-  Stack<String> commandHistory = new Stack<>();
+  Stack<String> commandHistory = new Stack<>(); // 입력했던 명령어는 클라이언트에서 해결한다.. 서버로 전달 x
   Queue<String> commandHistory2 = new LinkedList<>();
 
   public void service() throws Exception {
@@ -39,17 +40,19 @@ public class ClientApp {
         printCommandHistory2();
         continue;
       } 
-      int index = input.indexOf("/"); // 예) localhost:8888/board/list
       
-      //사용자가 입력한 문자열에 host 주소와 port 번호를 분리한다.
-      String[] values = input.substring(0, index).split(":");
+      int index = input.indexOf("/"); // 예) localhost:8888/board/list
+      //  indexOf ->"/" 부분의 문자열을 원하는 함수
+      
+      // 사용자가 입력한 문자열에 host 주소와 port 번호를 분리한다.
+      String[] values = input.substring(0, index).split(":");       //substring(시작 지점, 종료 지점)
       String host = values[0];
       int port = 8888;
-      if(values.length > 1) {
+      if (values.length > 1) {
         port = Integer.parseInt(values[1]);
       }
       
-      //사용자가 입력한
+      // 사용자가 입력한 문자열에서 명령어를 분리한다.
       String command = input.substring(index);
       
 
