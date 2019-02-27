@@ -3,7 +3,7 @@ import java.util.Scanner;
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
 
-public class BoardAddCommand implements Command {
+public class BoardAddCommand extends AbstractCommand {
   
   Scanner keyboard;
   BoardDao boardDao; // 서버의 BoardDaoImpl 객체를 대행하는 프록시 객체이다.
@@ -14,7 +14,7 @@ public class BoardAddCommand implements Command {
   }
   
   @Override
-  public void execute() {
+  public void execute(Response response) {
     Board board = new Board();
     
     System.out.print("내용? ");

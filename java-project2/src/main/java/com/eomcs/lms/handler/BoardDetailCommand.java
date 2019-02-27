@@ -3,7 +3,7 @@ import java.util.Scanner;
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
 
-public class BoardDetailCommand implements Command {
+public class BoardDetailCommand extends AbstractCommand {
   
   Scanner keyboard;
   BoardDao boardDao;
@@ -14,7 +14,7 @@ public class BoardDetailCommand implements Command {
   }
 
   @Override
-  public void execute() {
+  public void execute(Response response) {
     System.out.print("번호? ");
     int no = Integer.parseInt(keyboard.nextLine());
     

@@ -4,7 +4,7 @@ import java.util.Scanner;
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
 
-public class MemberListCommand implements Command {
+public class MemberListCommand extends AbstractCommand {
   
   Scanner keyboard;
   MemberDao memberDao;
@@ -15,7 +15,7 @@ public class MemberListCommand implements Command {
   }
   
   @Override
-  public void execute() {
+  public void execute(Response response) {
     try {
       List<Member> members = memberDao.findAll();
       for (Member member : members) {

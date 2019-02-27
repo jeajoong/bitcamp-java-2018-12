@@ -2,7 +2,7 @@ package com.eomcs.lms.handler;
 import java.util.Scanner;
 import com.eomcs.lms.dao.MemberDao;
 
-public class MemberDeleteCommand implements Command {
+public class MemberDeleteCommand extends AbstractCommand {
   
   Scanner keyboard;
   MemberDao memberDao;
@@ -13,7 +13,7 @@ public class MemberDeleteCommand implements Command {
   }
   
   @Override
-  public void execute() {
+  public void execute(Response response) {
     System.out.print("번호? ");
     int no = Integer.parseInt(keyboard.nextLine());
     

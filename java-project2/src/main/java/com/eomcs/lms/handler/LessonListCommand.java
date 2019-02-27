@@ -5,7 +5,7 @@ import java.util.Scanner;
 import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.domain.Lesson;
 
-public class LessonListCommand implements Command {
+public class LessonListCommand extends AbstractCommand {
   
   Scanner keyboard;
   LessonDao lessonDao;
@@ -17,7 +17,7 @@ public class LessonListCommand implements Command {
   
   
   @Override
-  public void execute() {
+  public void execute(Response response) {
     try {
       List<Lesson> lessons = lessonDao.findAll();
       for (Lesson lesson : lessons) {

@@ -3,7 +3,7 @@ import java.util.Scanner;
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
 
-public class MemberDetailCommand implements Command {
+public class MemberDetailCommand extends AbstractCommand {
   
   Scanner keyboard;
   MemberDao memberDao;
@@ -14,7 +14,7 @@ public class MemberDetailCommand implements Command {
   }
   
   @Override
-  public void execute() {
+  public void execute(Response response) {
     System.out.print("번호? ");
     int no = Integer.parseInt(keyboard.nextLine());
 

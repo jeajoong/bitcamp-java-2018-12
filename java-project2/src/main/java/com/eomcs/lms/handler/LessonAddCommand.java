@@ -4,7 +4,7 @@ import java.util.Scanner;
 import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.domain.Lesson;
 
-public class LessonAddCommand implements Command {
+public class LessonAddCommand extends AbstractCommand {
 
   Scanner keyboard;
   LessonDao lessonDao;
@@ -16,7 +16,7 @@ public class LessonAddCommand implements Command {
   
 
   @Override
-  public void execute() {
+  public void execute(Response response) {
     Lesson lesson = new Lesson();
 
     System.out.print("수업명? ");

@@ -3,7 +3,7 @@ import java.util.Scanner;
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
 
-public class MemberAddCommand implements Command {
+public class MemberAddCommand extends AbstractCommand {
   
   Scanner keyboard;
   MemberDao memberDao;
@@ -14,7 +14,7 @@ public class MemberAddCommand implements Command {
   }
   
   @Override
-  public void execute() {
+  public void execute(Response response) {
     Member member = new Member();
     
     System.out.print("이름? ");

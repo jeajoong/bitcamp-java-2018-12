@@ -3,7 +3,7 @@ import java.util.Scanner;
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
 
-public class BoardUpdateCommand implements Command {
+public class BoardUpdateCommand extends AbstractCommand {
   
   Scanner keyboard;
   BoardDao boardDao;
@@ -12,9 +12,8 @@ public class BoardUpdateCommand implements Command {
     this.keyboard = keyboard;
     this.boardDao = boardDao;
   }
-  
   @Override
-  public void execute() {
+  public void execute(Response response) {
 
     try {
       Board board = new Board();

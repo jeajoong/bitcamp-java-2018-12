@@ -2,7 +2,7 @@ package com.eomcs.lms.handler;
 import java.util.Scanner;
 import com.eomcs.lms.dao.LessonDao;
 
-public class LessonDeleteCommand implements Command {
+public class LessonDeleteCommand extends AbstractCommand {
 
   Scanner keyboard;
   LessonDao lessonDao;
@@ -11,10 +11,9 @@ public class LessonDeleteCommand implements Command {
     this.keyboard = keyboard;
     this.lessonDao = lessonDao;
   }
-  
 
   @Override
-  public void execute() {
+  public void execute(Response response) {
     System.out.print("번호? ");
     int no = Integer.parseInt(keyboard.nextLine());
 

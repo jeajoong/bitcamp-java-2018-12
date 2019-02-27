@@ -3,7 +3,7 @@ import java.util.Scanner;
 import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.domain.Lesson;
 
-public class LessonDetailCommand implements Command {
+public class LessonDetailCommand extends AbstractCommand {
 
   Scanner keyboard;
   LessonDao lessonDao;
@@ -15,7 +15,7 @@ public class LessonDetailCommand implements Command {
   
 
   @Override
-  public void execute() {
+  public void execute(Response response) {
     System.out.print("번호? ");
     int no = Integer.parseInt(keyboard.nextLine());
 

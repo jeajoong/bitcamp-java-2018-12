@@ -4,7 +4,7 @@ import java.util.Scanner;
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
 
-public class BoardListCommand implements Command {
+public class BoardListCommand extends AbstractCommand {
 
   Scanner keyboard;
   BoardDao boardDao;
@@ -15,7 +15,7 @@ public class BoardListCommand implements Command {
   }
 
   @Override
-  public void execute() {
+  public void execute(Response response) {
     try {
       List<Board> boards = boardDao.findAll();
       
