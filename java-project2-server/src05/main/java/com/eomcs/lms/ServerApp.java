@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import com.eomcs.lms.context.ApplicationContextListener;
 import com.eomcs.lms.handler.Command;
+import com.eomcs.lms.handler.Response;
 
 public class ServerApp {
 
@@ -58,6 +59,8 @@ public class ServerApp {
           }
           
           // 클라이언트에게 응답하기
+          //사용자가 입력한 값이 키로 적용되어 키에 맞는 속성값을 얻어오는 뜻임..
+          // Command의 객체로 넘겨받는건 xxxCommand명령어들의 형태이기때문에
           Command commandHandler = (Command) context.get(request);
           
           if (commandHandler == null) {
@@ -68,6 +71,8 @@ public class ServerApp {
           }
           
           commandHandler.execute(in, out);
+          //AbstractCommand 에서 execute(BufferedReader in, PrintWriter out)을 재정의
+          //new Response(in, out) -> 커맨드 명령어에서 in과 out을 주고  문자열 출력하는 것을 묶어 각 커맨드에서 편하게 처리한다
           
           out.println("!end!");
           out.flush();
@@ -89,7 +94,6 @@ public class ServerApp {
     } // try(ServerSocket)
 
   }
-
   public static void main(String[] args) throws Exception {
     ServerApp app = new ServerApp();
 

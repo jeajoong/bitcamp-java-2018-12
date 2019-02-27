@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import com.eomcs.lms.context.ApplicationContextListener;
 import com.eomcs.lms.handler.Command;
-import com.eomcs.lms.handler.Response;
 
 public class ServerApp {
 
@@ -47,7 +46,7 @@ public class ServerApp {
 
         try (Socket socket = ss.accept();
             BufferedReader in = new BufferedReader(
-                new InputStreamReader(socket.getInputStream()));
+            new InputStreamReader(socket.getInputStream()));
             PrintWriter out = new PrintWriter(socket.getOutputStream())) {
 
           // 클라이언트의 요청 읽기
@@ -104,10 +103,6 @@ public class ServerApp {
     app.service();
   }
 }
-
-
-
-
 
 
 

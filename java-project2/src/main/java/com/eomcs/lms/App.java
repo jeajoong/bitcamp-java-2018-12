@@ -1,18 +1,7 @@
-// 3단계: Observer 패턴을 적용하여 애플리케이션이 시작할 때 애플리케이션이 사용할 객체를 준비한다.
-// 1) 애플리케이션이 시작되면 옵저버에게 알린다.
-// 2) 옵저버는 애플리케이션이 사용할 객체를 만들어 보관소에 저장한다.
-// 3) 애플리케이션이 사용자 명령을 처리할 때 보관소에서 해당 객체를 꺼내 사용한다.
-// 
-// 작업
-// 1) Observer에게 상태 변경을 알릴 때 호출할 규칙을 인터페이스로 정의한다.
-//    => ApplicationContextListener
-// 2) 규칙에 따라 옵저버를 만든다.
-//    => ApplicationInitializer
-// 3) 옵저버를 App 클래스에 등록한다.
-//    => App.addApplicationContextListener()
-// 4) App 클래스의 서비스를 시작하거나 종료할 때 등록된 옵저버에게 알린다.
-//    => service() 메서드의 시작과 종료 부분에 등록된 옵저버의 메서드를 호출한다.
-// 
+// 2단계: Connection 객체 공유하기
+// => DAO에서 SQL 을 실행할 때마다 Connection 객체를 생성하는데,
+//    실행 속도도 높이고 커넥션 객체가 가비지가 되는 것도 줄이기 위해 
+//    커넥션 객체를 생성하여 공유한다.
 package com.eomcs.lms;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,67 +14,63 @@ import com.eomcs.lms.handler.Command;
 
 public class App {
 
-  // ApplicationContextListener(옵저버) 목록을 보관할 객체
   ArrayList<ApplicationContextListener> listeners = new ArrayList<>();
   
   Scanner keyboard = new Scanner(System.in);
   Stack<String> commandHistory = new Stack<>();
   Queue<String> commandHistory2 = new LinkedList<>();
-
+  
   public void addApplicationContextListener(ApplicationContextListener listener) {
     listeners.add(listener);
   }
   
   public void service() throws Exception {
 
-    // App에서 사용할 객체를 보관하는 저장소
-    HashMap<String,Object> context = new HashMap<>();
+    HashMap<String, Object> context = new HashMap<>();
     context.put("keyboard", keyboard);
     
-    // 애플리케이션을 시작할 때, 등록된 리스너에게 알려준다.
-    for (ApplicationContextListener listener : listeners) {
-      listener.contextInitialized(context);
-    }
-
     while (true) {
-      String command = prompt();
+      String input = prompt();
       
-      commandHistory.push(command);
-      commandHistory2.offer(command);
+      commandHistory.push(input);
+      commandHistory2.offer(input);
 
-      if (command.equals("quit")) {
+      if (input.equals("quit")) {
         System.out.println("종료합니다.");
         break;
         
-      } else if (command.equals("history")) {
+      } else if (input.equals("history")) {
         printCommandHistory();
         continue;
         
-      } else if (command.equals("history2")) {
+      } else if (input.equals("history2")) {
         printCommandHistory2();
         continue;
       } 
       
-      Command commandHandler = (Command) context.get(command);
+      // 사용자가 입력한 명령으로 Command 객체를 찾는다.
+      Command commandHandler = (Command) context.get(input);
+      
       if (commandHandler == null) {
         System.out.println("실행할 수 없는 명령입니다.");
         continue;
       }
       
+      // stateful을 stateless로 전환할 때 주의할 점!
+      // => 가능한 서버에 요청하는 시점에 서버와 연결하라!
+      // => 이 클래스에서 서버와 연결하지 않고 
+      //    데이터를 요청하는 일을 하는 객체(*Agent)에 서버 연결을 맡긴다. 
       try {
         commandHandler.execute();
         System.out.println(); 
 
       } catch (Exception e) {
         System.out.println("명령어 실행 중 오류 발생 : " + e.toString());
-        e.printStackTrace();
       }
     }
     
     keyboard.close();
-    
-    // 애플리케이션을 종료할 때, 등록된 리스너에게 알려준다.
-    for (ApplicationContextListener listener : listeners) {
+    for(ApplicationContextListener listener : listeners) {
       listener.contextDestroyed(context);
     }
   }
@@ -115,20 +100,10 @@ public class App {
 
   public static void main(String[] args) throws Exception {
     App app = new App();
-
-    // App이 실행되거나 종료될 때 보고를 받을 옵저버를 등록한다.
-    app.addApplicationContextListener(new ApplicationInitializer());
     
+    app.addApplicationContextListener(new ApplicationInitializer());
+
     // App 을 실행한다.
     app.service();
   }
 }
-
-
-
-
-
-
-
-
-
