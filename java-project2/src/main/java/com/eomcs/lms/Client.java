@@ -1,5 +1,7 @@
 // 클라이언트 만들기
-// 차근차근 다른거 신경안쓰고 연결부터
+// 차근차근 다른거 신경안쓰고 서버와 연결부터
+// 2 서버와 통신을 하기위해 문자열을 정하고 통신하기
+//
 package com.eomcs.lms;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -40,8 +42,7 @@ public class Client {
         try(Socket socket = new Socket("localhost", 8888);
         PrintWriter out = new PrintWriter(socket.getOutputStream());
         BufferedReader in = new BufferedReader(
-           new  InputStreamReader(socket.getInputStream()))
-        ) {
+           new  InputStreamReader(socket.getInputStream())) ) {
       
           out.println(command);
           out.flush();
@@ -53,10 +54,18 @@ public class Client {
           // 서버응답
           while (true) {
             String response = in.readLine();
-            if(response.equals("!end!")) 
+            if(response.equals("!end!")) { 
               break;
-            System.out.println(response);
+            
+          } else if (response.equals("!{}!")) { // 서버에서 이 값을 보내왔다면
+            String input = keyboard.nextLine(); // 새로운 값 입력후 서버로 보내서 서버에서 데이터 처리
+            out.println(input);
+            out.flush();
+            
+          } else {
+          System.out.println(response);
           }
+        }
     } catch (Exception e) {
       System.out.println("서버에 요청하는 중 오류 발생!");
       e.printStackTrace();
