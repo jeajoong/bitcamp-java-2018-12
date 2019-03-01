@@ -1,33 +1,30 @@
 package com.eomcs.lms.handler;
-import java.util.Scanner;
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
 
 public class BoardDetailCommand extends AbstractCommand {
   
-  Scanner keyboard;
   BoardDao boardDao;
   
-  public BoardDetailCommand(Scanner keyboard, BoardDao boardDao) {
-    this.keyboard = keyboard;
+  public BoardDetailCommand(BoardDao boardDao) {
     this.boardDao = boardDao;
   }
 
   @Override
   public void execute(Response response) {
-    System.out.print("번호? ");
-    int no = Integer.parseInt(keyboard.nextLine());
-    
     try {
+    int no = response.requestInt("번호?");
       Board board = boardDao.findByNo(no);
       if (board == null) {
-        System.out.println("해당 번호의 게시물이 없습니다.");
+        response.println("해당 번호의 게시물이 없습니다.");
         return;
       }
-      System.out.printf("내용: %s\n", board.getContents());
-      System.out.printf("작성일: %s\n", board.getCreatedDate());
-      System.out.printf("조회수: %d\n", board.getViewCount());
-
+    
+      //response에 println형밖에 정의하지 않아서 String.format 써야함
+      response.println(String.format("내용: %s\n", board.getContents()));
+      response.println(String.format("작성일: %s\n", board.getCreatedDate()));
+      response.println(String.format("조회수: %d\n", board.getViewCount()));
+    
     } catch (Exception e) {
       System.out.printf("실행 오류! : %s\n", e.getMessage());
     }

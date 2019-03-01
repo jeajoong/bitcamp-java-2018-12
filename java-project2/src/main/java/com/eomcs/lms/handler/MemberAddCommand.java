@@ -1,43 +1,30 @@
 package com.eomcs.lms.handler;
-import java.util.Scanner;
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
 
 public class MemberAddCommand extends AbstractCommand {
   
-  Scanner keyboard;
   MemberDao memberDao;
   
-  public MemberAddCommand(Scanner keyboard, MemberDao memberDao) {
-    this.keyboard = keyboard;
+  public MemberAddCommand(MemberDao memberDao) {
     this.memberDao = memberDao;
   }
   
   @Override
   public void execute(Response response) {
-    Member member = new Member();
-    
-    System.out.print("이름? ");
-    member.setName(keyboard.nextLine());
-    
-    System.out.print("이메일? ");
-    member.setEmail(keyboard.nextLine());
-    
-    System.out.print("암호? ");
-    member.setPassword(keyboard.nextLine());
-  
-    System.out.print("사진? ");
-    member.setPhoto(keyboard.nextLine());
-  
-    System.out.print("전화? ");
-    member.setTel(keyboard.nextLine());
-  
     try {
+    Member member = new Member();
+    member.setName(response.requestString("이름? "));
+    member.setEmail(response.requestString("이메일? "));
+    member.setPassword(response.requestString("패스워드? "));
+    member.setPhoto(response.requestString("사진? "));
+    member.setTel(response.requestString("전화번호? "));
+  
       memberDao.insert(member);
-      System.out.println("저장하였습니다.");
+      response.println("저장하였습니다.");
       
     } catch (Exception e) {
-      System.out.printf("실행 오류! : %s\n", e.getMessage());
+      response.println(String.format("실행 오류! : %s\n", e.getMessage()));
     }
   }
 }
