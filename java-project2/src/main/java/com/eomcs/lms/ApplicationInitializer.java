@@ -42,25 +42,25 @@ public class ApplicationInitializer implements ApplicationContextListener{
     Scanner keyboard = (Scanner) context.get("keyboard");
     
     LessonDaoImpl lessonDao = new LessonDaoImpl(con);
-    commandMap.put("/lesson/add", new LessonAddCommand(keyboard, lessonDao));
-    commandMap.put("/lesson/list", new LessonListCommand(keyboard, lessonDao));
-    commandMap.put("/lesson/detail", new LessonDetailCommand(keyboard, lessonDao));
-    commandMap.put("/lesson/update", new LessonUpdateCommand(keyboard, lessonDao));
-    commandMap.put("/lesson/delete", new LessonDeleteCommand(keyboard, lessonDao));
+    commandMap.put("/lesson/add", new LessonAddCommand(lessonDao));
+    commandMap.put("/lesson/list", new LessonListCommand(lessonDao));
+    commandMap.put("/lesson/detail", new LessonDetailCommand(lessonDao));
+    commandMap.put("/lesson/update", new LessonUpdateCommand(lessonDao));
+    commandMap.put("/lesson/delete", new LessonDeleteCommand(lessonDao));
 
     MemberDaoImpl memberDao = new MemberDaoImpl(con);
-    commandMap.put("/member/add", new MemberAddCommand(keyboard, memberDao));
-    commandMap.put("/member/list", new MemberListCommand(keyboard, memberDao));
-    commandMap.put("/member/detail", new MemberDetailCommand(keyboard, memberDao));
-    commandMap.put("/member/update", new MemberUpdateCommand(keyboard, memberDao));
-    commandMap.put("/member/delete", new MemberDeleteCommand(keyboard, memberDao));
+    commandMap.put("/member/add", new MemberAddCommand(memberDao));
+    commandMap.put("/member/list", new MemberListCommand(memberDao));
+    commandMap.put("/member/detail", new MemberDetailCommand(memberDao));
+    commandMap.put("/member/update", new MemberUpdateCommand(memberDao));
+    commandMap.put("/member/delete", new MemberDeleteCommand(memberDao));
 
     BoardDaoImpl boardDao = new BoardDaoImpl(con);
-    commandMap.put("/board/add", new BoardAddCommand(keyboard, boardDao));
-    commandMap.put("/board/list", new BoardListCommand(keyboard, boardDao));
-    commandMap.put("/board/detail", new BoardDetailCommand(keyboard, boardDao));
-    commandMap.put("/board/update", new BoardUpdateCommand(keyboard, boardDao));
-    commandMap.put("/board/delete", new BoardDeleteCommand(keyboard, boardDao));
+    commandMap.put("/board/add", new BoardAddCommand(boardDao));
+    commandMap.put("/board/list", new BoardListCommand(boardDao));
+    commandMap.put("/board/detail", new BoardDetailCommand(boardDao));
+    commandMap.put("/board/update", new BoardUpdateCommand(boardDao));
+    commandMap.put("/board/delete", new BoardDeleteCommand(boardDao));
     
     } catch (SQLException e) {
       e.printStackTrace();

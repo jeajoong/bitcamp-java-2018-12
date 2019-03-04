@@ -77,7 +77,7 @@ public class ClientApp {
           if (response.equalsIgnoreCase("!end!")) {
             break;
             
-          } else if (response.equals("!{}!")) {
+          } else if (response.equals("!{}!")) { // 라면 새로운 값을 입력 서버로 출력
             String value = keyboard.nextLine();
             out.println(value);
             out.flush();
