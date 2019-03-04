@@ -36,7 +36,6 @@ import com.eomcs.lms.handler.PhotoBoardUpdateCommand;
 // ApplicationContextListener 규격에 따라 작성해야 한다.
 public class ApplicationInitializer implements ApplicationContextListener {
 
-  // Command 객체에서 commit() 호출할 수 있도록 커넥션 객체를 공개한다. 
   public static Connection con;
   
   @Override
@@ -47,7 +46,7 @@ public class ApplicationInitializer implements ApplicationContextListener {
           "jdbc:mariadb://localhost/bitcampdb?user=bitcamp&password=1111");
       
       // 수동 커밋을 하도록 설정하기
-      // => 작업을 완료한 다음에는 명시적으로 커넥션 객체에 대해 commit()을 호출해야 한다.
+      // => 작업을 완료한 다음에는 명시적으로 커넥션 객체에 대해 commit()을 호출
       con.setAutoCommit(false);
       
       // DAO 객체 준비
@@ -62,7 +61,7 @@ public class ApplicationInitializer implements ApplicationContextListener {
       context.put("/lesson/detail", new LessonDetailCommand(lessonDao));
       context.put("/lesson/update", new LessonUpdateCommand(lessonDao));
       context.put("/lesson/delete", new LessonDeleteCommand(lessonDao));
-      
+
       context.put("/member/add", new MemberAddCommand(memberDao));
       context.put("/member/list", new MemberListCommand(memberDao));
       context.put("/member/detail", new MemberDetailCommand(memberDao));
@@ -75,16 +74,12 @@ public class ApplicationInitializer implements ApplicationContextListener {
       context.put("/board/detail", new BoardDetailCommand(boardDao));
       context.put("/board/update", new BoardUpdateCommand(boardDao));
       context.put("/board/delete", new BoardDeleteCommand(boardDao));
-      
-      context.put("/photoboard/add", 
-          new PhotoBoardAddCommand(photoBoardDao, photoFileDao));
+
+      context.put("/photoboard/add", new PhotoBoardAddCommand(photoBoardDao, photoFileDao));
       context.put("/photoboard/list", new PhotoBoardListCommand(photoBoardDao));
-      context.put("/photoboard/detail", 
-          new PhotoBoardDetailCommand(photoBoardDao, photoFileDao));
-      context.put("/photoboard/update", 
-          new PhotoBoardUpdateCommand(photoBoardDao, photoFileDao));
-      context.put("/photoboard/delete", 
-          new PhotoBoardDeleteCommand(photoBoardDao, photoFileDao));
+      context.put("/photoboard/detail", new PhotoBoardDetailCommand(photoBoardDao, photoFileDao));
+      context.put("/photoboard/update", new PhotoBoardUpdateCommand(photoBoardDao, photoFileDao));
+      context.put("/photoboard/delete", new PhotoBoardDeleteCommand(photoBoardDao, photoFileDao));
       
     } catch (Exception e) {
       throw new ApplicationContextException(e);

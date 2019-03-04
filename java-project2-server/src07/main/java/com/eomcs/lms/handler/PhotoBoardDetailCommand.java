@@ -10,9 +10,7 @@ public class PhotoBoardDetailCommand extends AbstractCommand {
   PhotoBoardDao photoBoardDao;
   PhotoFileDao photoFileDao;
   
-  public PhotoBoardDetailCommand(
-      PhotoBoardDao photoBoardDao, 
-      PhotoFileDao photoFileDao) {
+  public PhotoBoardDetailCommand(PhotoBoardDao photoBoardDao, PhotoFileDao photoFileDao) {
     this.photoBoardDao = photoBoardDao;
     this.photoFileDao = photoFileDao;
   }

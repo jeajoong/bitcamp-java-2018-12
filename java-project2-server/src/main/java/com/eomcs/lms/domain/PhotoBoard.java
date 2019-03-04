@@ -44,5 +44,4 @@ public class PhotoBoard implements Serializable {
   }
   
   
-  
 }

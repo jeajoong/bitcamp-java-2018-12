@@ -1,3 +1,31 @@
+// 출력 예제
+//명령> /photoboard/update
+//번호?
+//7
+//제목(okok2)?
+//최종 발표
+//사진 파일:
+//> aaa1.jpeg
+//> aaa2.jpeg
+//
+//사진은 일부만 변경할 수 없습니다.
+//전체를 새로 등록해야 합니다.
+//사진을 변경하시겠습니까?(y/N)
+//y
+//최소 한 개의 사진 파일을 등록해야 합니다.
+//파일명 입력 없이 그냥 엔터를 치면 파일 추가를 마칩니다.
+//사진 파일?
+//
+//최소 한 개의 사진 파일을 등록해야 합니다.
+//사진 파일?
+//ppt1.jpeg
+//사진 파일?
+//pp2.jpeg
+//사진 파일?
+//pp3.jpeg
+//사진 파일?
+//
+//사진을 변경했습니다
 package com.eomcs.lms.handler;
 import java.util.List;
 import com.eomcs.lms.dao.PhotoBoardDao;
@@ -10,9 +38,7 @@ public class PhotoBoardUpdateCommand extends AbstractCommand {
   PhotoBoardDao photoBoardDao;
   PhotoFileDao photoFileDao;
   
-  public PhotoBoardUpdateCommand(
-      PhotoBoardDao photoBoardDao,
-      PhotoFileDao photoFileDao) {
+  public PhotoBoardUpdateCommand(PhotoBoardDao photoBoardDao, PhotoFileDao photoFileDao) {
     this.photoBoardDao = photoBoardDao;
     this.photoFileDao = photoFileDao;
   }

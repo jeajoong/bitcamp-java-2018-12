@@ -4,7 +4,7 @@ import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.domain.PhotoBoard;
 
 public class PhotoBoardListCommand extends AbstractCommand {
-
+  // List에 포함된 파일명까지 출력 x PhotoFile 필요가 없다
   PhotoBoardDao photoBoardDao;
   
   public PhotoBoardListCommand(PhotoBoardDao photoBoardDao) {
@@ -17,10 +17,10 @@ public class PhotoBoardListCommand extends AbstractCommand {
     
     for (PhotoBoard board : boards) {
       response.println(
-          String.format("%3d, %-20s, %s, %d, %d", 
-            board.getNo(), 
+          String.format("%3d, %-20s, %s, %d, %d" , 
+            board.getNo(),
             board.getTitle(), 
-            board.getCreatedDate(), 
+            board.getCreatedDate(),
             board.getViewCount(),
             board.getLessonNo()));
     }

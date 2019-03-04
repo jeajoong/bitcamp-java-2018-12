@@ -7,9 +7,7 @@ public class PhotoBoardDeleteCommand extends AbstractCommand {
   PhotoBoardDao photoBoardDao;
   PhotoFileDao photoFileDao;
   
-  public PhotoBoardDeleteCommand(
-      PhotoBoardDao photoBoardDao,
-      PhotoFileDao photoFileDao) {
+  public PhotoBoardDeleteCommand(PhotoBoardDao photoBoardDao, PhotoFileDao photoFileDao) {
     this.photoBoardDao = photoBoardDao;
     this.photoFileDao = photoFileDao;
   }

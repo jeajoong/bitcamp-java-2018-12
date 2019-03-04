@@ -15,12 +15,12 @@ public abstract class AbstractCommand implements Command {
   public void execute(BufferedReader in, PrintWriter out) {
     try {
       execute(new Response(in, out));
-    } catch (Exception e) {
-      // 예외가 발생하면 커넥션을 통해 데이터 변경 작업을 했던 것을 모두 취소한다.
+    } catch (Exception e) { // 데이터 입력시 형태나 길이가 잘못되서 
+      //예외가 발생하면 명령어 처리시 오류이므로 상속해주는 객체에서 처리하면 편하당
       try {
         ApplicationInitializer.con.rollback();
-      } catch (SQLException e1) {
-        // 롤백하다가 발생한 예외는 더이상 처리할게 없다. 그냥 무시한다. 
+      } catch(SQLException e1) {
+        //롤백하다가 발생한 예외는 더 이상 처리할게 없음.
       }
       
       out.printf("실행 오류! : %s\n", e.getMessage());
