@@ -1,0 +1,58 @@
+src06 -> PhotoBoard 게시판 추가
+PhotoBoardDao, photoBoardDaoImpl 생성 
+ApplicationInitializer에 PhotoBoardCommand를 추가했다
+
+
+
+src07 -> PhotoBoardFile (첨부파일기능) 만들기
+PhotoBoard와 함께 사용되는 File정의 (첨부파일 기능)
+PhotoFileDao와 PhotoFileDaoImpl 생성
+PhotoBoardCommand에서 생성자에 fileDao 추가한다
+그리고 커맨드 수정한다...
+사진게시물 출력시 첨부파일도 함께 출력 - PhotoBoardDetailCommand 변경.
+사진게시물 목록 출력시 첨부파일은 사용 x
+사진게시물 입력시 첨부파일도 함께 입력 - PhotoBoardAddCommand 변경.
+사진게시물 변경시 첨부파일도 함께 변경 - PhotoBoardUpdateCommand 변경.
+사진게시물 삭제시 첨부파일도 함께 삭제 - PhotoBoardDeleteCommand 변경.
+
+
+
+src08 -> 트랜잭션 만들기(트랜잭션 - 여러 데이터 변경 작업을 한 작업으로 묶은것)
+- ApplicationInitializer의 Auto Commit을 false로 선언
+- insert를 마치고 commit()해주고 트랜잭션이 종료되었음을 서버에 알린다.
+- AbstractCommand에서 데이터 변경 중 오류가 발생했을때 작업한 결과를 취소하도록
+rollback()해줘야 한다.
+- rollback을 하지 않게되면 변경작업들이 임시 DB에만 남아있게 되서
+다른 사용자가 동일한 커넥션 객체를 사용하게 되면 임시 DB의 데이터까지 조회 된다.
+한번 만든 커낵션 객체는 쓰고 버리지 않고 계속 유지해서 공유하기때문이다.
+
+
+
+src09 -> 싱글 스레드에서 멀티 스레드 방식으로 바꾸기
+         src08이 stateless + 싱글스레드 방식이라면
+         src09는 stateless + 멀티스레드 방식이다.
+싱글 스레드라 하나의 클라이언트만 받아서 사용할 수 있게 했다
+(다중클라이언트 실행시 문제가 발생되어서)
+
+스레드 자체를 객체를 여러 개를 만들어서 여러 클라이언트의 요청을 받게끔 만드는것이다.
+
+ServerApp에서 ServerSocekt의 객체를 만들고 
+그것을 받는 RequestHandlerThread() 선언한다. 
+service()에서는 서버와 연결하고 리스너에게 알려주고 Thread메서드를 실행하기만 한다
+
+RequestHandlerThread()에서 명령어 처리를 받는다
+
+
+
+src10, 11 -> 멀티 스레드 상황에서 문제점 
+클라이언트1에서 데이터 입력완료 전에 클라이언트2가 데이터를 입력해 commit하면
+클라이언트1도 commit되어버린다. 또한 잘못 입력한 데이터도 rollback할수 없게된다.
+
+
+- 하나의 커넥션을 공유하는 상황이여서 데이터관련 작업시 충돌이 일어난다
+  때문에 순차적으로 일을 처리하게 만든다!!!!
+
+커넥션 객체를 만들어주고 사용한 객체를 다시 스레드에 보관해서 재사용할 수 있게 만든다 !! ConnectionFactory를 만들어서 내부에 create()를 만들고
+Connection객체의 값이 없다면 새로이 커넥션객체를 만들고,
+아니라면 전역변수로 만든 커넥션 객체에 다시 보관한다.
+이로써 다중 처리가 들어와도 들어온 순서부터 빠르게 처리해서 데이터 관리할 수 있게 되었다.
