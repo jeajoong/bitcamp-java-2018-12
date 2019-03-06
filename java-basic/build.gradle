@@ -12,6 +12,9 @@ repositories {
 //프로젝트에서 사용할 외부 라이브러리 정보
 dependencies {
 
+compile group: 'org.mybatis', name: 'mybatis', version: '3.5.0'
+//Mybatis 추가
+
 // https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
 compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.7'
 

@@ -7,7 +7,7 @@ public class Stack<E> {
   Object[] list;
   int size;
   
-  public Stack() {
+  public Stack() { // Stack을 호출하면 새로운 배열 크기를 만듦
     list = new Object[DEFAULT_SIZE];
   }
   
