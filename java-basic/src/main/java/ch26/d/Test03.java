@@ -11,11 +11,8 @@ public class Test03 {
 
   public static void main(String[] args) throws Exception {
     
-    InputStream inputStream = Resources.getResourceAsStream(
-        "ch26/d/mybatis-config.xml");
-    SqlSessionFactory sqlSessionFactory =
-      new SqlSessionFactoryBuilder().build(inputStream);
-    
+    InputStream inputStream = Resources.getResourceAsStream("ch26/d/mybatis-config.xml");
+    SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
     SqlSession sqlSession = sqlSessionFactory.openSession();
     
     // select 문에서 컬럼을 지정할 때 자바 인스턴스의 프로퍼티 이름과 다르다면 

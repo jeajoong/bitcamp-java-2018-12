@@ -42,8 +42,7 @@ public class Test01 {
     // => mybatis 설정 파일이 자바 클래스 파일(.class)처럼 CLASSPATH에 있다면 
     //    Resources.getResourceAsStream()을 호출하여 입력 스트림을 준비하는 것이 더 편하다.
     // 
-    InputStream inputStream = Resources.getResourceAsStream(
-        "ch26/a/mybatis-config.xml");
+    InputStream inputStream = Resources.getResourceAsStream("ch26/a/mybatis-config.xml");
     
     // 만약 Resources.getResourceAsStream()을 사용하지 않는다면 다음과 같이 
     // 직접 FileInputStream을 생성해야 한다.
@@ -63,8 +62,7 @@ public class Test01 {
     //      (객체 생성 과정이 복잡할 경우 메서드를 통해 객체를 생성하는 것이 유지보수에 좋다.)
     // 
     // => SqlSession : SQL 매퍼 파일에 보관된 SQL을 찾아 실행해주는 일.
-    SqlSessionFactory sqlSessionFactory =
-      new SqlSessionFactoryBuilder().build(inputStream);
+    SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 
     // 3) 팩토리 메서드를 통해 객체를 생성한다.
     SqlSession sqlSession = sqlSessionFactory.openSession();

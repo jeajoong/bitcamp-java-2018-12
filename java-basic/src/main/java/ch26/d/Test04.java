@@ -11,11 +11,8 @@ public class Test04 {
 
   public static void main(String[] args) throws Exception {
     
-    InputStream inputStream = Resources.getResourceAsStream(
-        "ch26/d/mybatis-config.xml");
-    SqlSessionFactory sqlSessionFactory =
-      new SqlSessionFactoryBuilder().build(inputStream);
-    
+    InputStream inputStream = Resources.getResourceAsStream("ch26/d/mybatis-config.xml");
+    SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
     SqlSession sqlSession = sqlSessionFactory.openSession();
     
     // select 문에서 컬럼 값을 자바 인스턴스의 프로퍼티와 맞추기 위해 

@@ -24,9 +24,7 @@ public class Test01 {
     //      mybatis 설정 파일에 등록된 별명을 사용할 수 있다.
     //
     InputStream inputStream = Resources.getResourceAsStream("ch26/c/mybatis-config.xml");
-    
     SqlSessionFactory sqlSessionFactory =new SqlSessionFactoryBuilder().build(inputStream);
-    
     SqlSession sqlSession = sqlSessionFactory.openSession();
     
     List<Board> list = sqlSession.selectList("board.select1");
