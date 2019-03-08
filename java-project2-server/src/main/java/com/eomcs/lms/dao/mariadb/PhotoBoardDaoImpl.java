@@ -16,7 +16,11 @@ public class PhotoBoardDaoImpl implements PhotoBoardDao {
     this.sqlSessionFactory = sqlSessionFactory;
   }
   
-  @Override
+  @Override 
+  // findAll에 Map을 받게끔 바꾼이유는 LessonDelete에서 
+  // photoBoard와 PhotoFile을 삭제하기 위해서 이다.
+  // 사진파일이 수업 데이터의 PK(수업번호)값을 공유하기에
+  // 수업데이터를 삭제하려면 종속된 사진게시판과 사진파일을 지워야한다.
   public List<PhotoBoard> findAll(Map<String,Object> params) {
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
       return sqlSession.selectList("PhotoBoardMapper.findAll", params);

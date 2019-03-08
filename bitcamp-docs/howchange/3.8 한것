@@ -1,0 +1,37 @@
+3/8 한것
+src 11 -> SQL문을 자바에서 처리하던것을 resources 폴더를 만들고 conf폴더에 mybatis를 사용하기 위해 
+          jdbc 설정 하였다 그리고 mapper 폴더를 만들어 각 게시판에서 사용하기 위해 Mapper파일을 만들었다.
+
+ - mapper파일에 컬럼 이름과 프로퍼티를 지정해 주고 select id로 Dao의 메서드 명을 지정해 주었다.
+   SQL문과 파라미터 타입을 지정해 작성
+
+ - XxxDaoImpl 기존에 있던 모든 기능 삭제(SQL문 작성했던것을 Mapper로 넘긴다.)
+   
+   기존 사용하던 Data객체는 사용되지 않는다 
+   Mybatis 의존 객체 선언 (SqlSessionFactory 추상클래스) 생성자까지 만들어줌.
+
+   모든 메서드 형태를 그대로 오버라이딩 하는데
+   데이터를 직접 처리하지않고 SqlSession 객체를 만들어 DB와 연결준비하고
+   sqlSession 객체에 Mapper의 기능을 호출해 기능을 종료한다.
+
+ - PhotoBoard와 PhotoFile은 상속 관계가 있다 (사진게시판-사진(첨부파일))
+   DaoImpl 메서드들의 기능들은 비슷하게 작성되어있지만
+
+   PhotoBoardDaoImpl에서 file을 찾기위해 메서드를 만들었고
+   Mapper또한 findByNoWithFile Mapper를 만들었다
+   왜냐하면 게시판에 있는 첨부파일 목록을 불러와야되고
+   SQL문에서 left outer join 해야 한다 
+     from
+      lms_photo p
+      left outer join lms_lesson l on p.lesson_id = l.lesson_id 
+      left outer join lms_photo_file f on p.photo_id = f.photo_id
+
+ - lessonDeleteCommand 관련 한것은 소스에 주석으로..
+    
+
+
+    
+
+   
+
+

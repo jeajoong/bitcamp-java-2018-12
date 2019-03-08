@@ -38,12 +38,13 @@
   <select id="findAll" resultMap="photoBoardMap" parameterType="map">
     select 
       photo_id, 
-      titl, cdt, 
+      titl,
+      cdt, 
       vw_cnt, 
       lesson_id 
     from 
       lms_photo
-    <where>
+    <where> 
       <if test="lessonNo != null">or lesson_id = #{lessonNo}</if>
       <if test="keyword != null">or titl like concat('%', #{keyword}, '%')</if>
     </where>
