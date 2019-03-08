@@ -12,8 +12,8 @@
 //    => commit()/rollback()을 사용하려면 커넥션의 auto commit을 false로 설정해야 한다.
 // 2) AbstractCommand 변경 
 //    => execute()에 commit()과 rollback()을 적용한다.
-// 3) Command 구현체 변경
-//    => Command에서 커넥션 객체를 사용한 후 닫지 않도록 한다.
+// 3) DAO 구현체 변경
+//    => DAO에서 커넥션 객체를 사용한 후 닫지 않도록 한다.
 // 
 package com.eomcs.lms;
 import java.io.BufferedReader;
