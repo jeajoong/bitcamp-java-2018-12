@@ -39,9 +39,12 @@ public class PhotoBoardDaoImpl implements PhotoBoardDao {
   @Override
   public PhotoBoard findByNo(int no) {
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-      PhotoBoard photoBoard = sqlSession.selectOne("PhotoBoardMapper.findByNo", no);
+      PhotoBoard photoBoard = sqlSession.selectOne("PhotoBoardMapper.findByNo", no); 
+      // PhotoBoard 객체에 세션의 정보를 넘겨받는다
       if (photoBoard != null) {
+        // 만약 정보가 null이 아니라면
         sqlSession.update("PhotoBoardMapper.increaseCount", no);
+        // 조회수를 늘려야 한다
         sqlSession.commit();
       }
       return photoBoard;
@@ -51,10 +54,12 @@ public class PhotoBoardDaoImpl implements PhotoBoardDao {
   @Override
   public PhotoBoard findByNoWithFile(int no) {
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-      PhotoBoard photoBoard = sqlSession.selectOne(
-          "PhotoBoardMapper.findByNoWithFile", no);
+      PhotoBoard photoBoard = sqlSession.selectOne("PhotoBoardMapper.findByNoWithFile", no);
+      // PhotoBoard 객체에 세션 정보 넘겨받기
       if (photoBoard != null) {
+        // 만약 정보가 null이 아니라면
         sqlSession.update("PhotoBoardMapper.increaseCount", no);
+        // 조회수 늘리기
         sqlSession.commit();
       }
       return photoBoard;
