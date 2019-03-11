@@ -7,18 +7,19 @@
 <mapper namespace="BoardMapper">
   
   <resultMap type="board" id="boardMap">
-    <id column="board_id"   property="no"/>
-    <result column="conts"  property="contents"/>
-    <result column="cdt"    property="createdDate"/>
+    <id column="board_id" property="no"/>
+    <result column="conts" property="contents"/>
+    <result column="cdt" property="createdDate"/>
     <result column="vw_cnt" property="viewCount"/>
   </resultMap>
   
   <sql id="select1">
-    select
-      board_id,
-      conts, cdt,
-      vw_cnt
-    from
+    select 
+      board_id, 
+      conts, 
+      cdt, 
+      vw_cnt 
+    from 
       lms_board
   </sql>
   

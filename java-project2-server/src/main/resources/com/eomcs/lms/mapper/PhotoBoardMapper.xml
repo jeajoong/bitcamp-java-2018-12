@@ -21,18 +21,6 @@
     <result column="cdt"        property="createdDate"/>
     <result column="vw_cnt"     property="viewCount"/>
     
-    
-    <!-- association로 데이터 가져오기(HasOne)
-          association에 해당하는 JavaType이 1개의 객체인 경우 사용,  
-          (학생 - 본인시험지 관계?)
-         내포된 것들중에서 Select하는것과 Result 하는 방법 두가지
-         - Select는 많은 데이터나 목록에는 적용하지 않는것이 좋다 왜냐하면
-         값을 얻기 위해서 하나의 SQL문 실행과 리턴된 데이터를 
-         로드하기 위해 Select문을 또 사용하기 때문이다
-         (데이터를 다 가져오지 못하는 경우가 발생할 수 있음)
-         - Result 사용시에는 결과중 유일한 것(PK)을 찾아내기 위해
-          한개 이상의 프로퍼티를 명시해야함
-    --> 
     <association property="lesson" javaType="lesson">
       <id column="lesson_id"        property="no"/>
       <result column="lessonTitle"  property="title"/>
@@ -40,21 +28,17 @@
       <result column="edt"          property="endDate"/>
     </association>
     
-    <!-- Collection으로 데이터 가져오기(HasMany)
-          하나의 sheet에 여러 문항들이 들어있을 때 문항 리스트를 얻어올 와야할 때
-     -->
     <collection property="files" ofType="photoFile">
       <id column="photo_file_id"    property="no"/>
       <result column="file_path"    property="filePath"/>
       <result column="photoBoardNo" property="photoBoardNo"/>
     </collection>
-    
   </resultMap>
   
   <sql id="select1">
     select 
       photo_id, 
-      titl,
+      titl, 
       cdt, 
       vw_cnt, 
       lesson_id 
@@ -62,13 +46,20 @@
       lms_photo
   </sql>
   
-  
   <select id="findAll" resultMap="photoBoardMap" parameterType="map">
-    <bind name="pattern1" value="'%' + keyboard + '%'"/>
+    <if test="keyword != null">
+      <bind name="pattern1" value="'%' + keyword + '%'"/>
+    </if>
     <include refid="select1"/>
     <where>
       <if test="lessonNo != null">or lesson_id = #{lessonNo}</if>
-      <if test="keyword != null">or titl like #{pattern1}</if>
+      <!-- mybatis에서 검색 패턴을 만든 경ㅇ, 다음과 같이 mybatis에서 만든 bind를 사용한다. -->
+      <if test="pattern1 != null">or titl like #{pattern1}</if>
+      
+      <!-- 자바에서 검색 패턴을 만든 경우, 다음과 같이 그냥 keyword 값을 사용하면 된다. -->
+      <!--  
+      <if test="keyword != null">or titl like #{keyword}</if>
+      -->
     </where>
     order by 
       photo_id desc
@@ -76,13 +67,13 @@
   
   <select id="findByNo" resultMap="photoBoardMap" parameterType="int">
     <include refid="select1"/>
-    where
+    where 
       photo_id = #{value}
   </select>
   
   <select id="findByNoWithFile" resultMap="photoBoardFileMap" parameterType="int">
-    select
-      p.photo_id,
+    select 
+      p.photo_id, 
       p.titl, 
       p.cdt, 
       p.vw_cnt, 
@@ -114,7 +105,7 @@
       titl,
       lesson_id) 
     values(
-      #{title},
+      #{title}, 
       #{lessonNo})
   </insert>
   

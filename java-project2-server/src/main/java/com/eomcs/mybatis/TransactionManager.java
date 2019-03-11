@@ -2,7 +2,7 @@ package com.eomcs.mybatis;
 
 import org.apache.ibatis.session.SqlSession;
 
-public class TransactionManager {
+public class TransactionManager { // commit 전까지 관리해주는 애
   SqlSessionFactoryProxy sqlSessionFactoryProxy;
   
   public TransactionManager(SqlSessionFactoryProxy sqlSessionFactoryProxy) {

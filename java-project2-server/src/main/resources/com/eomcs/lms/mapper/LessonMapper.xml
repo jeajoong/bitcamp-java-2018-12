@@ -7,11 +7,11 @@
 <mapper namespace="LessonMapper">
   
   <resultMap type="lesson" id="lessonMap">
-    <id column="lesson_id"  property="no"/>
-    <result column="titl"   property="title"/>
-    <result column="conts"  property="contents"/>
-    <result column="sdt"    property="startDate"/>
-    <result column="edt"    property="endDate"/>
+    <id column="lesson_id" property="no"/>
+    <result column="titl" property="title"/>
+    <result column="conts" property="contents"/>
+    <result column="sdt" property="startDate"/>
+    <result column="edt" property="endDate"/>
     <result column="tot_hr" property="totalHours"/>
     <result column="day_hr" property="dayHours"/>
   </resultMap>
@@ -26,7 +26,7 @@
   
   <select id="findAll" resultMap="lessonMap">
     select 
-      <include refid="default-columns"/>
+      <include refid="default-columns"/> 
     from 
       lms_lesson
     order by 
@@ -36,7 +36,7 @@
   <select id="findByNo" resultMap="lessonMap" parameterType="int">
     select 
       <include refid="default-columns"/>,
-      conts,
+      conts, 
       day_hr
     from 
       lms_lesson

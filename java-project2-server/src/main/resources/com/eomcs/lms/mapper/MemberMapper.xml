@@ -17,16 +17,15 @@
   </resultMap>
   
   <sql id="default-columns">
-      member_id,
-      name,
-      email,
+      member_id, 
+      name, 
+      email, 
       tel
   </sql>
   
-  
   <select id="findAll" resultMap="memberMap">
-    select
-    <include refid="default-columns"/>
+    select 
+      <include refid="default-columns"/>
     from 
       lms_member
     order by 
@@ -35,7 +34,7 @@
   
   <select id="findByNo" resultMap="memberMap" parameterType="int">
     select 
-    <include refid="default-columns"/>,
+      <include refid="default-columns"/>, 
       cdt, 
       photo
     from 
@@ -47,7 +46,7 @@
   <select id="findByKeyword" resultMap="memberMap" parameterType="string">
     <bind name="pattern1" value="'%' + _parameter + '%'"/>
     select 
-      <include refid="default-columns"/>
+      <include refid="default-columns"/> 
     from 
       lms_member
     where 

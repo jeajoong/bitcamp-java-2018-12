@@ -17,11 +17,11 @@ import org.apache.ibatis.session.SqlSession;
 //
 public class SqlSessionProxy implements SqlSession {
   
-  boolean useTransaction;
-  SqlSession original;
+  boolean useTransaction;// 트랜잭션의 on,off 판단 여부
+  SqlSession original; // 원래 SqlSession 객체
   
   public SqlSessionProxy(SqlSession original) {
-    this(original, false);
+    this(original, false); 
   }
   
   public SqlSessionProxy(SqlSession original, boolean useTransaction) {
