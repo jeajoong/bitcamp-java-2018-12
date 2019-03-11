@@ -12,6 +12,7 @@
     <result column="file_path"  property="filePath"/>
   </resultMap>
   
+  
   <select id="findByPhotoBoardNo" resultMap="photoFileMap" parameterType="int">
     select 
       photo_file_id, 

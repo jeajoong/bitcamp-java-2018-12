@@ -28,7 +28,8 @@
          내포된 것들중에서 Select하는것과 Result 하는 방법 두가지
          - Select는 많은 데이터나 목록에는 적용하지 않는것이 좋다 왜냐하면
          값을 얻기 위해서 하나의 SQL문 실행과 리턴된 데이터를 
-         로드하기 위해 Select문을 또 사용하기 때문이다 
+         로드하기 위해 Select문을 또 사용하기 때문이다
+         (데이터를 다 가져오지 못하는 경우가 발생할 수 있음)
          - Result 사용시에는 결과중 유일한 것(PK)을 찾아내기 위해
           한개 이상의 프로퍼티를 명시해야함
     --> 
@@ -50,7 +51,7 @@
     
   </resultMap>
   
-  <select id="findAll" resultMap="photoBoardMap" parameterType="map">
+  <sql id="select1">
     select 
       photo_id, 
       titl,
@@ -59,30 +60,29 @@
       lesson_id 
     from 
       lms_photo
-    <where> 
+  </sql>
+  
+  
+  <select id="findAll" resultMap="photoBoardMap" parameterType="map">
+    <bind name="pattern1" value="'%' + keyboard + '%'"/>
+    <include refid="select1"/>
+    <where>
       <if test="lessonNo != null">or lesson_id = #{lessonNo}</if>
-      <if test="keyword != null">or titl like concat('%', #{keyword}, '%')</if>
+      <if test="keyword != null">or titl like #{pattern1}</if>
     </where>
     order by 
       photo_id desc
   </select>
   
   <select id="findByNo" resultMap="photoBoardMap" parameterType="int">
-    select 
-      photo_id, 
-      titl, 
-      cdt, 
-      vw_cnt, 
-      lesson_id 
-    from 
-      lms_photo
-    where 
+    <include refid="select1"/>
+    where
       photo_id = #{value}
   </select>
   
   <select id="findByNoWithFile" resultMap="photoBoardFileMap" parameterType="int">
-    select 
-      p.photo_id, 
+    select
+      p.photo_id,
       p.titl, 
       p.cdt, 
       p.vw_cnt, 
@@ -114,7 +114,7 @@
       titl,
       lesson_id) 
     values(
-      #{title}, 
+      #{title},
       #{lessonNo})
   </insert>
   
