@@ -17,7 +17,7 @@ public class Test05 {
     Method[] methods = clazz.getDeclaredMethods();
     for (Method m : methods) {
       System.out.printf("메서드명: %s.%s\n", 
-          m.getDeclaringClass().getSimpleName(), 
+          m.getDeclaringClass(), 
           m.getName());
       
       

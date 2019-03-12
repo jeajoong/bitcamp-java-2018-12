@@ -19,7 +19,7 @@ public class DaoFactory {
   public <T> T create(Class<T> type) {
     return (T) Proxy.newProxyInstance(
         type.getClassLoader(), 
-        new Class[] {type}, 
+        new Class[] {type},
         invocationHandler);
   }
   

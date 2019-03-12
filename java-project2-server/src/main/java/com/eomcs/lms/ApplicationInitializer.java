@@ -53,13 +53,13 @@ public class ApplicationInitializer implements ApplicationContextListener {
       SqlSessionFactoryProxy sqlSessionFactoryProxy = 
           new SqlSessionFactoryProxy(sqlSessionFactory);
       
-      // 트랜잭션 매지저 준비
+      // 트랜잭션 매니저 준비
       TransactionManager txManager = new TransactionManager(sqlSessionFactoryProxy);
       
       // DAO 인터페이스의 구현체를 자동으로 생성하기
       DaoFactory daoFactory = new DaoFactory(sqlSessionFactoryProxy);
       
-      BoardDao boardDao = daoFactory.create(BoardDao.class);
+      BoardDao boardDao = daoFactory.create(BoardDao.class); 
       LessonDao lessonDao = daoFactory.create(LessonDao.class);
       MemberDao memberDao = daoFactory.create(MemberDao.class);
       PhotoBoardDao photoBoardDao = daoFactory.create(PhotoBoardDao.class);
