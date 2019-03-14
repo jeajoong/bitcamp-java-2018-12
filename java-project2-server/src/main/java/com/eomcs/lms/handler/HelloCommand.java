@@ -1,12 +1,10 @@
 package com.eomcs.lms.handler;
 
-public class HelloCommand extends AbstractCommand {
+import com.eomcs.lms.context.Component;
 
-  public HelloCommand() {
-    this.name = "/hello";
-  }
+@Component("/hello")
+public class HelloCommand {
 
-  @Override
   public void execute(Response response) {
     response.println("안녕하세요!");
   }

@@ -38,6 +38,7 @@ public class ApplicationInitializer implements ApplicationContextListener {
       
       // DAO 인터페이스의 구현체를 자동으로 생성하기
       DaoFactory daoFactory = new DaoFactory(sqlSessionFactoryProxy);
+      // dao팩토리는 매퍼파일과 연동해주는 클래스
       
       BoardDao boardDao = daoFactory.create(BoardDao.class);
       LessonDao lessonDao = daoFactory.create(LessonDao.class);

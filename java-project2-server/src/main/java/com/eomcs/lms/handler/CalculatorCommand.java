@@ -1,12 +1,10 @@
 package com.eomcs.lms.handler;
 
-public class CalculatorCommand extends AbstractCommand {
+import com.eomcs.lms.context.Component;
 
-  public CalculatorCommand() {
-    this.name = "/calculator";
-  }
+@Component("/calculator")
+public class CalculatorCommand {
 
-  @Override
   public void execute(Response response) {
     try {
       String[] str = response.requestString("계산식? ").split(" ");
