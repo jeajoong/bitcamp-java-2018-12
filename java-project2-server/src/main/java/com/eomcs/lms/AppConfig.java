@@ -50,13 +50,15 @@ public class AppConfig {
   // SqlSessionFactoryProxy 객체를 만들어 주는 메서드
   @Bean
   public SqlSessionFactoryProxy sqlSessionFactoryProxy() throws Exception {
-    return new SqlSessionFactoryProxy( new SqlSessionFactoryBuilder().build(
+    return new SqlSessionFactoryProxy(
+        new SqlSessionFactoryBuilder().build(
             Resources.getResourceAsStream("com/eomcs/lms/conf/mybatis-config.xml")));
   }
   
   // TransactionManager 객체를 만들어 주는 메서드 
   @Bean
-  public TransactionManager transactionManager(SqlSessionFactoryProxy sqlSessionFactoryProxy) {
+  public TransactionManager transactionManager(
+      SqlSessionFactoryProxy sqlSessionFactoryProxy) {
     return new TransactionManager(sqlSessionFactoryProxy);
   }
   

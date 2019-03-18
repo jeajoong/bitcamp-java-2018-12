@@ -35,16 +35,10 @@ import com.eomcs.lms.handler.Response;
 
 public class ServerApp {
 
-  // ApplicationContextListener(옵저버) 목록을 보관할 객체
   ArrayList<ApplicationContextListener> listeners = new ArrayList<>();
-
-  // 공용 객체를 보관하는 저장소
   HashMap<String,Object> context = new HashMap<>();
 
-  // Command 객체와 그와 관련된 객체를 보관하고 있는 빈 컨테이너
   ApplicationContext beanContainer;
-  
-  // 클라이언트 요청을 처리할 메서드 정보가 들어 있는 객체
   RequestMappingHandlerMapping handlerMapping;
   
   public void addApplicationContextListener(ApplicationContextListener listener) {
@@ -56,16 +50,12 @@ public class ServerApp {
     try (ServerSocket ss = new ServerSocket(8888)) {
       
 
-      // 애플리케이션을 시작할 때, 등록된 리스너에게 알려준다.
       for (ApplicationContextListener listener : listeners) {
         listener.contextInitialized(context);
       }
 
-      // ApplicationInitializer가 준비한 ApplicationContext를 꺼낸다.
       beanContainer = (ApplicationContext) context.get("applicationContext");
       
-      // 빈 컨테이너에서 RequestMappingHandlerMapping 객체를 꺼낸다.
-      // 이 객체에 클라이언트 요청을 처리할 메서드 정보가 들어 있다.
       handlerMapping = 
           (RequestMappingHandlerMapping) beanContainer.getBean("handlerMapping");
       
@@ -73,36 +63,22 @@ public class ServerApp {
       
       while (true) {
         new RequestHandlerThread(ss.accept()).start();
-      } // while
-
-      // 애플리케이션을 종료할 때, 등록된 리스너에게 알려준다.
-      // => 현재 while 문은 종료 조건이 없기 때문에 다음 문장을 실행할 수 없다.
-      //    따라서 주석으로 처리한다.
-      /*
-      for (ApplicationContextListener listener : listeners) {
-        listener.contextDestroyed(context);
-      }
-      */
-
+      } 
+      
     } catch (Exception e) {
       e.printStackTrace();
-    } // try(ServerSocket)
+    } 
 
   }
   
   public static void main(String[] args) throws Exception {
     ServerApp app = new ServerApp();
 
-    // App이 실행되거나 종료될 때 보고를 받을 옵저버를 등록한다.
     app.addApplicationContextListener(new ApplicationInitializer());
 
-    // App 을 실행한다.
     app.service();
   }
   
-  // 바깥 클래스(ServerApp)의 인스턴스 필드를 사용해야 한다면 
-  // Inner 클래스(non-static nested class)로 정의하라!
-  // 
   class RequestHandlerThread extends Thread {
     
     Socket socket;
@@ -119,11 +95,8 @@ public class ServerApp {
               new InputStreamReader(socket.getInputStream()));
           PrintWriter out = new PrintWriter(socket.getOutputStream())) {
 
-        // 클라이언트의 요청 읽기
         String request = in.readLine();
         
-        // 클라이언트에게 응답하기
-        // => 클라이언트 요청을 처리할 메서드를 꺼낸다.
         RequestMappingHandler requestHandler = handlerMapping.get(request);
         
         if (requestHandler == null) {
@@ -134,10 +107,9 @@ public class ServerApp {
         }
         
         try {
-          // 클라이언트 요청을 처리할 메서드를 찾았다면 호출한다.
           requestHandler.method.invoke(
-              requestHandler.bean, // 메서드를 호출할 때 사용할 인스턴스 
-              new Response(in, out)); // 메서드 파라미터 값
+              requestHandler.bean,  
+              new Response(in, out));
           
         } catch (Exception e) {
           out.printf("실행 오류! : %s\n", e.getMessage());
@@ -154,9 +126,6 @@ public class ServerApp {
       }
     }
   }
-  
-  
-  
 }
 
 

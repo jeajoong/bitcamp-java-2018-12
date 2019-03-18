@@ -61,13 +61,12 @@ public class ServerApp {
       }
 
       // ApplicationInitializer가 준비한 ApplicationContext를 꺼낸다.
-      iocContainer = (ApplicationContext) context.get("applicationContext");
+      iocContainer = (ApplicationContext) context.get("applicationContext");///////
       
       // ApplicationInitializer 옵저버(관찰자, 보고 받는자)에서 준비한
       // RequestMappingHandlerMapping 객체를 꺼낸다.
       // 이 객체에 클라이언트 요청을 처리할 메서드 정보가 들어 있다.
-      handlerMapping = 
-          (RequestMappingHandlerMapping) context.get("handlerMapping");
+      handlerMapping = (RequestMappingHandlerMapping) context.get("handlerMapping");/////////
       
       System.out.println("서버 실행 중...");
       
@@ -119,12 +118,9 @@ public class ServerApp {
               new InputStreamReader(socket.getInputStream()));
           PrintWriter out = new PrintWriter(socket.getOutputStream())) {
 
-        // 클라이언트의 요청 읽기
         String request = in.readLine();
         
-        // 클라이언트에게 응답하기
-        // => 클라이언트 요청을 처리할 메서드를 꺼낸다.
-        RequestMappingHandler requestHandler = handlerMapping.get(request);
+        RequestMappingHandler requestHandler = handlerMapping.get(request);///////
         
         if (requestHandler == null) {
           out.println("실행할 수 없는 명령입니다.");
