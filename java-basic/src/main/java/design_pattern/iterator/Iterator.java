@@ -7,4 +7,6 @@ public interface Iterator<E> {
   
   // 데이터 목록에서 값을 꺼낸다.
   E next();
+  
+  
 }

@@ -1,5 +1,9 @@
 package com.eomcs.lms;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -57,8 +61,15 @@ class RequestHandlerThread extends Thread {
   
   @Override
   public void run() {
-    //여기서부터
-    //try로 소켓 열고 in out 설정하기 
+    try(Socket socket = this.socket;
+        BufferedReader in = new BufferedReader(
+            new InputStreamReader(socket.getInputStream()));
+        PrintStream out = new PrintStream(socket.getOutputStream())
+        ) {
+      
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
   
 }

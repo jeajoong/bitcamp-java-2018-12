@@ -57,9 +57,10 @@ HashMap<String,Object> beanContainer = new HashMap<>();
   
   
   
-  // 람다와 메서드 전체 써볼것!
   private void findClasses(File dir, String packageName) throws Exception {
-    
+    File[] files = dir.listFiles(File pathname) -> {
+        return false;
+    });
   }
   
   
