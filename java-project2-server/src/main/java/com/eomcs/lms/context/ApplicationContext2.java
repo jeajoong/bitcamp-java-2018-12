@@ -58,9 +58,10 @@ HashMap<String,Object> beanContainer = new HashMap<>();
   
   
   private void findClasses(File dir, String packageName) throws Exception {
-    File[] files = dir.listFiles(File pathname) -> {
+    File[] files = dir.listFiles((File pathname) -> {
         return false;
     });
+    
   }
   
   

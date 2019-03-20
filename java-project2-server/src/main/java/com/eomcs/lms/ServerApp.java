@@ -108,7 +108,7 @@ public class ServerApp {
         
         try {
           requestHandler.method.invoke(
-              requestHandler.bean,  
+              requestHandler.bean,
               new Response(in, out));
           
         } catch (Exception e) {
