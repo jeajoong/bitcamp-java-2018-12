@@ -38,7 +38,6 @@ public class ServerApp {
 
   // ApplicationContextListener(옵저버) 목록을 보관할 객체
   ArrayList<ApplicationContextListener> listeners = new ArrayList<>();
-
   // 공용 객체를 보관하는 저장소
   HashMap<String,Object> context = new HashMap<>();
 
@@ -52,10 +51,12 @@ public class ServerApp {
     listeners.add(listener);
   }
 
+  
+  
+  
   public void service() throws Exception {
 
     try (ServerSocket ss = new ServerSocket(8888)) {
-      
 
       // 애플리케이션을 시작할 때, 등록된 리스너에게 알려준다.
       for (ApplicationContextListener listener : listeners) {
