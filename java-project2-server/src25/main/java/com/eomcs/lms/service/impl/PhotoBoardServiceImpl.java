@@ -75,6 +75,8 @@ public class PhotoBoardServiceImpl implements PhotoBoardService {
       }
       fileDao.insert(board.getFiles());
       
+      
+      
       txManager.commit(status);
       return count;
       

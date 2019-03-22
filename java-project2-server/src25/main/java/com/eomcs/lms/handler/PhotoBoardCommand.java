@@ -69,6 +69,9 @@ public class PhotoBoardCommand {
     }
   }
   
+  
+  
+  
   @RequestMapping("/photoboard/detail")
   public void detail(Response response) throws Exception {
     int no = response.requestInt("번호?");
@@ -94,9 +97,12 @@ public class PhotoBoardCommand {
     }
   }
   
+  
+  
+  
+  
   @RequestMapping("/photoboard/update")
   public void update(Response response) throws Exception {
-    
     try {
       PhotoBoard board = new PhotoBoard();
       board.setNo(response.requestInt("번호?"));
@@ -159,6 +165,13 @@ public class PhotoBoardCommand {
     }
   }
 
+  
+  
+  
+  
+  
+  
+  
   @RequestMapping("/photoboard/delete")
   public void delete(Response response) throws Exception {
     try {

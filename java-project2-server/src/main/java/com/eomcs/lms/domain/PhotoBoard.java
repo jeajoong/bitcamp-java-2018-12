@@ -13,7 +13,6 @@ public class PhotoBoard implements Serializable {
   private int viewCount;
   private int lessonNo;
   
-  // 조인된 자식 테이블의 데이터를 보관할 필드
   private Lesson lesson;
   private List<PhotoFile> files;
   
