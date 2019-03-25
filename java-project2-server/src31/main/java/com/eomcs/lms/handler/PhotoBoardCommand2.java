@@ -1,5 +1,6 @@
 package com.eomcs.lms.handler;
 import java.io.PrintWriter;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Component;
@@ -9,11 +10,11 @@ import com.eomcs.lms.domain.PhotoFile;
 import com.eomcs.lms.service.PhotoBoardService;
 
 @Component
-public class PhotoBoardCommand {
+public class PhotoBoardCommand2 {
 
   PhotoBoardService photoBoardService;
   
-  public PhotoBoardCommand(PhotoBoardService photoBoardService) {
+  public PhotoBoardCommand2(PhotoBoardService photoBoardService) {
     this.photoBoardService = photoBoardService;
   }
 
@@ -51,41 +52,31 @@ public class PhotoBoardCommand {
   
   @RequestMapping("/photoboard/add")
   public void add(ServletRequest request, ServletResponse response) {
-              // URL 잘라서 활용할수 있는 놈, out 사용할려고 쓰는 놈
     PhotoBoard board = new PhotoBoard();
-    board.setTitle(request.getParameter("title")); // ServletRequest에서 
+    board.setTitle(request.getParameter("title"));
     board.setLessonNo(Integer.parseInt(request.getParameter("lessonNo")));
-    
-    ArrayList<PhotoFile> files = new ArrayList<>(); 
-    for (int i = 0; i < 5; i++) { 
-   // paramMap.put(values[0], URLDecoder.decode(values[1], "UTF-8"));
-   // key와 value 가져옴
+  //board 객체 만들고
+    // 그 객체에 title 파라미터 넣고 
+    // LessonNo 넣어주고
+    // 파일 넣어줘야하는데
+    // 파일에는 조건이 필요하다.
+    //일단 파일 담을 배열 하나 만들고
+    // 파일을 5개 까지 만든다면
+
+    ArrayList<PhotoFile> files = new ArrayList<>();
+    for (int i = 0; i < 5; i++) {
+      // paramMap.put(values[0], URLDecoder.decode(values[1], "UTF-8"));
+      // 이형태로 put되어 있으니 찾는것임
       String filename = request.getParameter("photo" + i);
-      if (filename == null) // 파일을 1번부터 돌리는데 없으면 그냥 for문 빠져오고
-        continue; 
+      if (filename == null) 
+        continue;
       
       PhotoFile file = new PhotoFile();
-      file.setFilePath(filename); // !!! DB 파일이름이 곧 경로이름임 !!! 
-      files.add(file); 
+      file.setFilePath(filename);
+      files.add(file);
     }
-    board.setFiles(files); 
-    // 이름이 있으면 그냥 목록 저장/ null이면 빈배열을 board에 저장
-        
-    PrintWriter out = response.getWriter();
-    out.println("<html><head>"
-        + "<title>사진 등록</title>"
-        + "<meta http-equiv='Refresh' content='1;url=/photoboard/list'>"
-        + "</head>");
-    out.println("<body><h1>사진 등록</h1>");
-    
-    if (files.size() == 0) { // 빈 배열이니까 당연히 size가 0이고 저장 안함
-      out.println("<p>최소 한 개의 사진 파일을 등록해야 합니다.</p>");
-      
-    } else {
-      photoBoardService.add(board);
-      out.println("<p>저장하였습니다.</p>");
-    }
-    out.println("</body></html>");
+    board.setFiles(files);
+  
   }
   
   @RequestMapping("/photoboard/detail")
