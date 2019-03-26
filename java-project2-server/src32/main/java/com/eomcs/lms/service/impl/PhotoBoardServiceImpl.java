@@ -89,10 +89,8 @@ public class PhotoBoardServiceImpl implements PhotoBoardService {
     
     List<PhotoFile> photoFiles = board.getFiles();
     if (photoFiles != null)  {
-      
       // 먼저 기존 첨부 파일을 삭제한다.
       fileDao.deleteByPhotoBoardNo(board.getNo());
-      
       fileDao.insert(photoFiles);
     }
     return 1;

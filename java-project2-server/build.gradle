@@ -5,23 +5,27 @@
  * For more details take a look at the Java Quickstart chapter in the Gradle
  * user guide available at https://docs.gradle.org/5.0/userguide/tutorial_java_projects.html
  */
-
 plugins {
     // Apply the java plugin to add support for Java
     id 'java'
 
     // Apply the application plugin to add support for building an application
-    id 'application'
-    id 'eclipse'
+    //id 'application'
+    //id 'eclipse'
+		id 'eclipse-wtp' //자바 웹 프로젝트 플러그인
+		id 'war' // 웹 아카이브 파일(.war)를 다루는 파일
 }
-
 repositories {
     // Use jcenter for resolving your dependencies.
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
 }
-
 dependencies {
+//servlet-api
+// mainClassName 주석처리한다 그레들이 안되서..
+// => 프로젝트를 컴파일 할 때만 사용할 라이브러리면 rpovidedCompile 메서드를 사용하라.
+// => 이 메서드로 지정된 라이브러리는 배포할 때 배포 파일(.war, .jar)에 포함되지 않는다.
+providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
 
     // This dependency is found on compile classpath of this component and consumers.
     implementation 'com.google.guava:guava:26.0-jre'
@@ -58,4 +62,4 @@ compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.4.0'
 }
 
 // Define the main class for the application
-mainClassName = 'com.eomcs.lms.App'
+// mainClassName = 'com.eomcs.lms.App'
