@@ -21,11 +21,10 @@ public class PhotoBoardCommand {
     List<PhotoBoard> boards = photoBoardService.list(0, null);
     
     for (PhotoBoard board : boards) {
-      response.println(
-          String.format("%3d, %-20s, %s, %d, %d", 
-            board.getNo(), 
-            board.getTitle(), 
-            board.getCreatedDate(), 
+      response.println(String.format("%3d, %-20s, %s, %d, %d", 
+            board.getNo(),
+            board.getTitle(),
+            board.getCreatedDate(),
             board.getViewCount(),
             board.getLessonNo()));
     }

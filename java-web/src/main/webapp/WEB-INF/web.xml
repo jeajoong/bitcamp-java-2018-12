@@ -4,13 +4,42 @@
   xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
                       http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
   version="4.0" metadata-complete="false">
-  <!-- 애노테이션 활용시 false, xml만을 이용하려면 true -->
 
   <description>
-    웹 애플리케이션에 대한 설명을 이 태그에 넣는다.
+    웹 애플리케이션에 대한 설명이 이 태그에 넣는다.
   </description>
 
   <display-name>웹 애플리케이션의 이름</display-name>
+
+  <!-- 리스너 배치 정보 -->
+  <listener>
+    <listener-class>bitcamp.ex02.Listener01</listener-class>
+  </listener>
+  <listener>
+    <listener-class>bitcamp.ex02.Listener02</listener-class>
+  </listener>
+
+
+  <!-- 필터 배치 정보 -->
+  <filter>
+    <filter-name>f1</filter-name>
+    <filter-class>bitcamp.ex02.Filter01</filter-class>
+  </filter>
+  <filter>
+    <filter-name>f2</filter-name>
+    <filter-class>bitcamp.ex02.Filter02</filter-class>
+  </filter>
+  
+  <!-- 필터를 언제 실행할 지 결정하기 위해 URL을 지정한다. -->
+  <filter-mapping>
+    <filter-name>f1</filter-name>
+    <url-pattern>/ex02/*</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>f2</filter-name>
+    <url-pattern>/ex02/a/s2</url-pattern>
+  </filter-mapping>
+
 
   <!-- 서블릿 배치 정보 설정
        => 웹 애플리케이션에 어떤 서블릿이 있는지 지정한다. -->
@@ -40,13 +69,10 @@
          반드시 루트 / 로 시작한다. -->
     <url-pattern>/ex01/s01</url-pattern>
   </servlet-mapping>
-  
-  
   <servlet-mapping>
     <servlet-name>Servlet02</servlet-name>
     <url-pattern>/ex01/s02</url-pattern>
   </servlet-mapping>
-  
   <servlet-mapping>
     <servlet-name>Servlet03</servlet-name>
     <url-pattern>/ex01/s03</url-pattern>

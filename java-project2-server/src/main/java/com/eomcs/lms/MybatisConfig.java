@@ -1,7 +1,6 @@
 package com.eomcs.lms;
 
 import javax.sql.DataSource;
-import org.apache.ibatis.logging.LogFactory;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
@@ -23,9 +22,6 @@ public class MybatisConfig {
     factoryBean.setTypeAliasesPackage("com.eomcs.lms.domain");
     factoryBean.setMapperLocations(
         appCtx.getResources("classpath:/com/eomcs/lms/mapper/*.xml"));
-    
-    // Mybatis에서 로그를 다룰 때 사용할 로그 라이브러리를 지정한다.
-    LogFactory.useLog4J2Logging();
     
     return factoryBean.getObject();
   }
