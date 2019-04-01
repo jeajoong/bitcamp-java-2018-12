@@ -6,21 +6,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.eomcs.lms.ServerApp;
+import com.eomcs.lms.InitServlet;
 import com.eomcs.lms.service.BoardService;
 
 @SuppressWarnings("serial")
 @WebServlet("/board/delete")
-public class BoardDeleteServlet extends HttpServlet{
-
+public class BoardDeleteServlet extends HttpServlet {
+  
   @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+  protected void doGet(
+      HttpServletRequest request, 
+      HttpServletResponse response)
       throws ServletException, IOException {
     
+    BoardService boardService = InitServlet.iocContainer.getBean(BoardService.class);
+
     int no = Integer.parseInt(request.getParameter("no"));
 
-    BoardService boardService = ServerApp.iocContainer.getBean(BoardService.class);
-    
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
     
@@ -38,8 +40,8 @@ public class BoardDeleteServlet extends HttpServlet{
     
     out.println("</body></html>");
   }
-  
-  
+
+
 }
 
 

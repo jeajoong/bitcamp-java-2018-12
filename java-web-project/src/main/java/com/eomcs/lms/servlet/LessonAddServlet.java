@@ -8,20 +8,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.eomcs.lms.ServerApp;
+import com.eomcs.lms.InitServlet;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.lms.service.LessonService;
 
 @SuppressWarnings("serial")
 @WebServlet("/lesson/add")
-public class LessonAddServlet extends HttpServlet{
-  
+public class LessonAddServlet extends HttpServlet {
+
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    
+
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
+
     out.println("<htm>");
     out.println("<head><title>새 수업</title></head>");
     out.println("<body>");
@@ -62,14 +63,14 @@ public class LessonAddServlet extends HttpServlet{
     out.println("</body>");
     out.println("</html>");
   }
-    
+
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    
-    LessonService lessonService = ServerApp.iocContainer.getBean(LessonService.class);
-    
-    response.setContentType("text/html;charset=UTF-8");
+
+    request.setCharacterEncoding("UTF-8");
+    LessonService lessonService = InitServlet.iocContainer.getBean(LessonService.class);
+
     Lesson lesson = new Lesson();
     lesson.setTitle(request.getParameter("title"));
     lesson.setContents(request.getParameter("contents"));
@@ -77,9 +78,9 @@ public class LessonAddServlet extends HttpServlet{
     lesson.setEndDate(Date.valueOf(request.getParameter("endDate")));
     lesson.setTotalHours(Integer.parseInt(request.getParameter("totalHours")));
     lesson.setDayHours(Integer.parseInt(request.getParameter("dayHours")));
-    
+
     lessonService.add(lesson);
-    
+
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
     out.println("<html><head>"
@@ -90,6 +91,7 @@ public class LessonAddServlet extends HttpServlet{
     out.println("<p>저장하였습니다.</p>");
     out.println("</body></html>");
   }
-  
-   
+
+
+
 }

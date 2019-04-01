@@ -1,5 +1,4 @@
 package com.eomcs.lms.servlet;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -7,35 +6,34 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.eomcs.lms.ServerApp;
+import com.eomcs.lms.InitServlet;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.lms.service.LessonService;
 
 @SuppressWarnings("serial")
 @WebServlet("/lesson/detail")
-public class LessonDetailServlet extends HttpServlet{
-  
+public class LessonDetailServlet extends HttpServlet {
+
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-  
-    LessonService lessonService = ServerApp.iocContainer.getBean(LessonService.class);
-    
+
+    LessonService lessonService = InitServlet.iocContainer.getBean(LessonService.class);
+
     int no = Integer.parseInt(request.getParameter("no"));
 
     Lesson lesson = lessonService.get(no);
-    
+
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
-    
     out.println("<html><head><title>수업 조회</title></head>");
     out.println("<body><h1>수업 조회</h1>");
-    
+
     if (lesson == null) {
       out.println("<p>해당 번호의 수입이 없습니다.</p>");
-      
+
     } else {
-      out.println("<form action='update' method='Post'>");
+      out.println("<form action='update' method='post'>");
       out.println("<table border='1'>");
       out.println("<tr>");
       out.println("  <th>번호</th>");
@@ -81,6 +79,6 @@ public class LessonDetailServlet extends HttpServlet{
     }
     out.println("</body>");
     out.println("</html>");
-  }
-  
+  }  
+
 }

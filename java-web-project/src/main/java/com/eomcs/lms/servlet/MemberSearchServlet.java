@@ -7,7 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.eomcs.lms.ServerApp;
+import com.eomcs.lms.InitServlet;
 import com.eomcs.lms.domain.Member;
 import com.eomcs.lms.service.MemberService;
 
@@ -18,15 +18,15 @@ public class MemberSearchServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-  
-    MemberService memberService = ServerApp.iocContainer.getBean(MemberService.class);
 
+    request.setCharacterEncoding("UTF-8");
+    MemberService memberService = InitServlet.iocContainer.getBean(MemberService.class);
+    
     String keyword = request.getParameter("keyword");
     List<Member> members = memberService.list(keyword);
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
-    
     out.println("<html><head><title>회원 검색</title></head>");
     out.println("<body><h1>회원 검색</h1>");
     out.println("<table border='1'>");

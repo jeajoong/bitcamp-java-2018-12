@@ -6,19 +6,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.eomcs.lms.ServerApp;
+import com.eomcs.lms.InitServlet;
 import com.eomcs.lms.service.MemberService;
 
 @SuppressWarnings("serial")
 @WebServlet("/member/delete")
-public class MemberDeleteServlet extends HttpServlet{
+public class MemberDeleteServlet extends HttpServlet {
   
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-  
-  MemberService memberService = ServerApp.iocContainer.getBean(MemberService.class);
-  
+    throws ServletException, IOException {
+
+    request.setCharacterEncoding("UTF-8");
+    MemberService memberService = InitServlet.iocContainer.getBean(MemberService.class);
+    
     int no = Integer.parseInt(request.getParameter("no"));
 
     response.setContentType("text/html;charset=UTF-8");
@@ -34,7 +35,9 @@ public class MemberDeleteServlet extends HttpServlet{
     } else { 
       out.println("<p>삭제했습니다.</p>");
     }
+    
     out.println("</body></html>");
   }
+  
   
 }
