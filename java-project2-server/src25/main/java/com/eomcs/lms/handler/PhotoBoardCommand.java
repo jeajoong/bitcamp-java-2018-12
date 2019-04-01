@@ -21,10 +21,11 @@ public class PhotoBoardCommand {
     List<PhotoBoard> boards = photoBoardService.list(0, null);
     
     for (PhotoBoard board : boards) {
-      response.println(String.format("%3d, %-20s, %s, %d, %d", 
-            board.getNo(),
-            board.getTitle(),
-            board.getCreatedDate(),
+      response.println(
+          String.format("%3d, %-20s, %s, %d, %d", 
+            board.getNo(), 
+            board.getTitle(), 
+            board.getCreatedDate(), 
             board.getViewCount(),
             board.getLessonNo()));
     }
@@ -68,9 +69,6 @@ public class PhotoBoardCommand {
     }
   }
   
-  
-  
-  
   @RequestMapping("/photoboard/detail")
   public void detail(Response response) throws Exception {
     int no = response.requestInt("번호?");
@@ -96,12 +94,9 @@ public class PhotoBoardCommand {
     }
   }
   
-  
-  
-  
-  
   @RequestMapping("/photoboard/update")
   public void update(Response response) throws Exception {
+    
     try {
       PhotoBoard board = new PhotoBoard();
       board.setNo(response.requestInt("번호?"));
@@ -164,13 +159,6 @@ public class PhotoBoardCommand {
     }
   }
 
-  
-  
-  
-  
-  
-  
-  
   @RequestMapping("/photoboard/delete")
   public void delete(Response response) throws Exception {
     try {
