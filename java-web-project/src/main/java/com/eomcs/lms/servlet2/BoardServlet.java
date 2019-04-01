@@ -32,6 +32,11 @@ public class BoardServlet extends HttpServlet {
     RequestDispatcher rd = null;
     // RequestDispatcher는 클라이언트로부터 최초에 들어온 요청을 JSP/Servlet 내에서 원하는
     // 자원을 보내고 처리 결과를 얻어오는 클래스
+    
+    // board/list대신 board?command=list를 사용하는 이유는
+    // switch 문 안에서 (뒤쪽메인 페이지는 그대로 유지한 채) list페이지 -> add페이지 처리를 하도록 하기 위함이다. (서블릿 인클루딩)
+    // board/list를 하게 되면 list만 나오게 된다.. 그래서 전체 페이지 서블릿을 볼 수가 없다..
+    
     if (command == null)
       command = "list";
     
