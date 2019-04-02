@@ -11,10 +11,7 @@ import javax.servlet.annotation.WebFilter;
 @WebFilter("/*")
 public class CharacterEncodingFilter implements Filter {
   @Override
-  public void doFilter(
-      ServletRequest request, 
-      ServletResponse response, 
-      FilterChain chain)
+  public void doFilter(ServletRequest request,ServletResponse response,FilterChain chain)
       throws IOException, ServletException {
     
     // POST 요청으로 들어오는 경우 데이터의 인코딩이 UTF-8임을 지정한다.

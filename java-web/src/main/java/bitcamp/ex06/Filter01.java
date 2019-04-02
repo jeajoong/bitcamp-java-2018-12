@@ -12,7 +12,6 @@ import javax.servlet.ServletResponse;
 public class Filter01 implements Filter {
 
   FilterConfig filterConfig;
-//FilterConfig 서블릿 컨테이너가 사용하는 필터 구성 개체
   
   @Override
   public void init(FilterConfig filterConfig) throws ServletException {

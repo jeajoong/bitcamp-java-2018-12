@@ -3,7 +3,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 import com.eomcs.lms.context.RequestMapping;
 import com.eomcs.lms.domain.Board;
-import service.BoardService;
+import com.eomcs.lms.service.BoardService;
 
 @Component
 public class BoardCommand {

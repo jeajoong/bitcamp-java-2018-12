@@ -18,7 +18,7 @@ import javax.servlet.annotation.WebInitParam;
     })
 public class Filter02 implements Filter {
 
-  FilterConfig filterConfig; 
+  FilterConfig filterConfig;
   
   @Override
   public void init(FilterConfig filterConfig) throws ServletException {

@@ -14,7 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 public class Servlet03 extends HttpServlet {
   
   @Override
-  protected void service(HttpServletRequest request, HttpServletResponse response)
+  protected void service(
+      HttpServletRequest request, 
+      HttpServletResponse response)
       throws ServletException, IOException {
     
     response.setContentType("text/plain;charset=UTF-8");

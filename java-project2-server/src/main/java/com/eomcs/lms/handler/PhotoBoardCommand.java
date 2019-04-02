@@ -12,20 +12,30 @@ import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.dao.PhotoFileDao;
 import com.eomcs.lms.domain.PhotoBoard;
 import com.eomcs.lms.domain.PhotoFile;
-import service.PhotoBoardService;
+import com.eomcs.lms.service.PhotoBoardService;
 
 @Component
 public class PhotoBoardCommand {
 
   PhotoBoardService boardService;
+  PlatformTransactionManager txManager;
+  PhotoBoardDao photoBoardDao; 
+  PhotoFileDao photoFileDao;
   
-  public PhotoBoardCommand(PhotoBoardService boardService) {
+  public PhotoBoardCommand(
+      PhotoBoardService boardService,
+      PhotoBoardDao photoBoardDao,
+      PhotoFileDao photoFileDao,
+      PlatformTransactionManager txManager) {
     this.boardService = boardService;
+    this.photoBoardDao = photoBoardDao;
+    this.photoFileDao = photoFileDao;
+    this.txManager = txManager;
   }
 
   @RequestMapping("/photoboard/list")
   public void list(Response response) {
-    List<PhotoBoard> boards = boardService.list(null);
+    List<PhotoBoard> boards = photoBoardDao.findAll(null);
     
     for (PhotoBoard board : boards) {
       response.println(
@@ -41,9 +51,19 @@ public class PhotoBoardCommand {
   @RequestMapping("/photoboard/add")
   public void add(Response response) throws Exception {
     
+    // 트랜잭션 동작 방식을 설정한다.
+    DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+    def.setName("tx1");
+    def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+    
+    // 트랜잭션을 준비한다.
+    TransactionStatus status = txManager.getTransaction(def);
+    
+    try {
       PhotoBoard board = new PhotoBoard();
       board.setTitle(response.requestString("사진 제목?"));
       board.setLessonNo(response.requestInt("수업?"));
+      photoBoardDao.insert(board);
       
       response.println("최소 한 개의 사진 파일을 등록해야 합니다.");
       response.println("파일명 입력 없이 그냥 엔터를 치면 파일 추가를 마칩니다.");
@@ -66,14 +86,19 @@ public class PhotoBoardCommand {
         files.add(file);
       }
       
+      photoFileDao.insert(files);
+      
       response.println("저장하였습니다.");
+      txManager.commit(status);
       
     } catch (Exception e) {
       e.printStackTrace();
       response.println("저장 중 오류가 발생.");
-    
+      txManager.rollback(status);
+      
+    }
   }
-}
+  
   @RequestMapping("/photoboard/detail")
   public void detail(Response response) throws Exception {
     int no = response.requestInt("번호?");

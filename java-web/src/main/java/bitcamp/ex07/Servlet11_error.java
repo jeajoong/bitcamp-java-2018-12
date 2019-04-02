@@ -14,7 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 public class Servlet11_error extends HttpServlet {
   
   @Override
-  protected void service(HttpServletRequest request, HttpServletResponse response)
+  protected void service(
+      HttpServletRequest request, 
+      HttpServletResponse response)
       throws ServletException, IOException {
     
     // 이미 이전 서블릿에서 setContentType()을 호출했기 때문에 
