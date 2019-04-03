@@ -27,8 +27,7 @@ public class PhotoBoardUpdateServlet extends HttpServlet {
   
   @Override
   public void init() throws ServletException {
-    this.uploadDir = this.getServletContext().getRealPath(
-        "/upload/photoboard");
+    this.uploadDir = this.getServletContext().getRealPath("/upload/photoboard");
   }
   
   @Override
@@ -36,7 +35,8 @@ public class PhotoBoardUpdateServlet extends HttpServlet {
       throws ServletException, IOException {
     
     ServletContext sc = this.getServletContext();
-    ApplicationContext iocContainer = (ApplicationContext) sc.getAttribute("iocContainer");
+    ApplicationContext iocContainer = 
+        (ApplicationContext) sc.getAttribute("iocContainer");
     PhotoBoardService photoBoardService = iocContainer.getBean(PhotoBoardService.class);
 
     response.setContentType("text/html;charset=UTF-8");
@@ -50,7 +50,7 @@ public class PhotoBoardUpdateServlet extends HttpServlet {
     Collection<Part> photos = request.getParts(); 
     
     for (Part photo : photos) {
-      if (photo.getSize() == 0 || !photo.getName().equals("photo")) 
+      if (photo.getSize() == 0 || !photo.getName().equals("photo"))
         continue;
       
       String filename = UUID.randomUUID().toString();
@@ -61,6 +61,7 @@ public class PhotoBoardUpdateServlet extends HttpServlet {
       file.setPhotoBoardNo(board.getNo());
       files.add(file);
     }
+    
     board.setFiles(files);
 
     if (files.size() > 0) {
