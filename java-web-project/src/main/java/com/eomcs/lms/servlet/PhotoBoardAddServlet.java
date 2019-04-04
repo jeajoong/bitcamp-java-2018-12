@@ -125,6 +125,7 @@ public class PhotoBoardAddServlet extends HttpServlet {
     
     for (Part photo : photos) {
       if (photo.getSize() == 0 || !photo.getName().equals("photo")) 
+        //사진 의 사이즈가 0이거나 사진
         continue;
       
       String filename = UUID.randomUUID().toString();

@@ -47,13 +47,6 @@ public class Servlet01 extends HttpServlet {
     // 언제 새 세션을 생성하는가?
     // => 세션이 없는 상태에서 request.getSesssion()을 호출할 때 생성한다.
     // 
-    // 톰캣 컨테이너에서 세션을 유지하기 위해 발급하는 키 HTTP 프로토콜은 stateless하다.
-    // 요청시마다 새로운 연결이 생성되고 응답후 연결은 끊기게 되므로 상태를 유지할 수 없다.
-    // 따라서, 상태를 저장하기 위해서 톰캣은 JSESSIONID 쿠키를 클라이언트에게 발급해주고
-    // 이 값을 통해 세션을 유지할 수 있도록 한다.
-    
-    
-    
 /*
 HTTP/1.1 200
 Set-Cookie: JSESSIONID=9909D09693CE9E0B8D23BE824313C834; Path=/java-web; HttpOnly

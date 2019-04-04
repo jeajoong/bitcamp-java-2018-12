@@ -84,7 +84,7 @@ public class LoginServlet extends HttpServlet {
     
     // 이메일 기억하기 기능 적용한다. 
     Cookie cookie;
-    if (request.getParameter("saveEmail") != null) {
+    if (request.getParameter("saveEmail") != null) { // 체크박스의 체크가 되어 있을 때 
       cookie = new Cookie("email", request.getParameter("email"));
       cookie.setMaxAge(60 * 60 * 24 * 15); // 15일간 쿠키를 보관한다.
     } else {

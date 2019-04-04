@@ -24,7 +24,7 @@ public class HeaderServlet extends HttpServlet {
     
     PrintWriter out = response.getWriter();
     out.println("<header>");
-    out.println("  <img src='http://bitcamp.co.kr/img/logo.jpg' style='height:50px'>");
+    out.println(" <a href=''><img src='http://bitcamp.co.kr/img/logo.jpg' style='height:50px'></a>");
     if (loginUser == null) {
       out.printf("<a href='%s/auth/login'>로그인</a>", contextRootPath);
       
