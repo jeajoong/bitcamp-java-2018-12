@@ -26,8 +26,8 @@ import com.eomcs.lms.service.PhotoBoardService;
 @SuppressWarnings("serial")
 public class PhotoBoardAddServlet extends HttpServlet {
 
-  String uploadDir; 
-      
+  String uploadDir;
+
   @Override
   public void init() throws ServletException {
     this.uploadDir = this.getServletContext().getRealPath(
@@ -112,8 +112,7 @@ public class PhotoBoardAddServlet extends HttpServlet {
       throws ServletException, IOException {
 
     ServletContext sc = this.getServletContext();
-    ApplicationContext iocContainer = 
-        (ApplicationContext) sc.getAttribute("iocContainer");
+    ApplicationContext iocContainer = (ApplicationContext) sc.getAttribute("iocContainer");
     PhotoBoardService photoBoardService = iocContainer.getBean(PhotoBoardService.class);
 
     PhotoBoard board = new PhotoBoard();
@@ -124,8 +123,8 @@ public class PhotoBoardAddServlet extends HttpServlet {
     Collection<Part> photos = request.getParts();
     
     for (Part photo : photos) {
-      if (photo.getSize() == 0 || !photo.getName().equals("photo")) 
-        //사진 의 사이즈가 0이거나 사진
+      if (photo.getSize() == 0 || !photo.getName().equals("photo"))
+        //사진 의 사이즈가 0이 ||  사진의 이름이 요청의 "photo"와 같지 않을 때 
         continue;
       
       String filename = UUID.randomUUID().toString();
