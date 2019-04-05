@@ -20,8 +20,7 @@ public class LoginServlet extends HttpServlet {
   static final String REFERER_URL = "refererUrl";
   
   @Override
-  protected void doGet(
-      HttpServletRequest request, HttpServletResponse response)
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     
     // 도대체 어느 페이지에서 이리로 보냈나?
@@ -44,6 +43,7 @@ public class LoginServlet extends HttpServlet {
         }
       }
     }
+    
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
     
@@ -55,36 +55,29 @@ public class LoginServlet extends HttpServlet {
     out.println("<table border='1'>");
     out.println("<tr>");
     out.println("  <th>이메일</th>");
-    
     out.printf("  <td><input type='email' name='email' value='%s'></td>\n", email);
-    
     out.println("</tr>");
     out.println("<tr>");
     out.println("  <th>암호</th>");
     out.println("  <td><input type='password' name='password'></td>");
     out.println("</tr>");
     out.println("</table>");
-    
-    
     out.println("<input type='checkbox' name='saveEmail' value='ookok'> 이메일 저장");
-    
-    
     out.println("<p>");
     out.println("  <button>로그인</button>");
     out.println("</p>");
     out.println("</form>");
     out.println("</body>");
     out.println("</html>");
-  
   }
   
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     
-    // 이메일 기억하기 기능 적용한다. 
+    // 이메일 저장을 처리한다. 
     Cookie cookie;
-    if (request.getParameter("saveEmail") != null) { // 체크박스의 체크가 되어 있을 때 
+    if (request.getParameter("saveEmail") != null) {
       cookie = new Cookie("email", request.getParameter("email"));
       cookie.setMaxAge(60 * 60 * 24 * 15); // 15일간 쿠키를 보관한다.
     } else {
@@ -98,10 +91,13 @@ public class LoginServlet extends HttpServlet {
     
     // Spring IoC 컨테이너에서 BoardService 객체를 꺼낸다.
     ServletContext sc = this.getServletContext();
-    ApplicationContext iocContainer = (ApplicationContext) sc.getAttribute("iocContainer");
+    ApplicationContext iocContainer = 
+        (ApplicationContext) sc.getAttribute("iocContainer");
     MemberService memberService = iocContainer.getBean(MemberService.class);
     
-    Member member = memberService.get(request.getParameter("email"), request.getParameter("password"));
+    Member member = memberService.get(
+        request.getParameter("email"),
+        request.getParameter("password"));
     
     if (member == null) {
       response.setHeader("Refresh", "2;url=login");

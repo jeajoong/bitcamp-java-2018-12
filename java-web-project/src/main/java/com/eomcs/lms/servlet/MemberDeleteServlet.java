@@ -19,8 +19,7 @@ public class MemberDeleteServlet extends HttpServlet {
     throws ServletException, IOException {
 
     ServletContext sc = this.getServletContext();
-    ApplicationContext iocContainer = 
-        (ApplicationContext) sc.getAttribute("iocContainer");
+    ApplicationContext iocContainer = (ApplicationContext) sc.getAttribute("iocContainer");
     MemberService memberService = iocContainer.getBean(MemberService.class);
     
     int no = Integer.parseInt(request.getParameter("no"));
@@ -29,16 +28,10 @@ public class MemberDeleteServlet extends HttpServlet {
       response.sendRedirect("list");
       return;
     }
+    request.setAttribute("error.title", "게시물 삭제");
+    request.setAttribute("error.content", "해당 번호의 수업이 없습니다.");
     
-    response.setContentType("text/html;charset=UTF-8");
-    PrintWriter out = response.getWriter();
-    out.println("<html><head>"
-        + "<title>회원 삭제</title>"
-        + "<meta http-equiv='Refresh' content='1;url=list'>"
-        + "</head>");
-    out.println("<body><h1>회원 삭제</h1>");
-    out.println("<p>해당 번호의 회원이 없습니다.</p>");
-    out.println("</body></html>");
+    request.getRequestDispatcher("/error.jsp").forward(request, response);
   }
   
   

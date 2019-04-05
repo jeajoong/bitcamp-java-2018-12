@@ -14,8 +14,7 @@ import com.eomcs.lms.domain.Member;
 public class HeaderServlet extends HttpServlet {
   
   @Override
-  protected void service(
-      HttpServletRequest request, HttpServletResponse response)
+  protected void service(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     
     HttpSession session = request.getSession();
@@ -24,7 +23,7 @@ public class HeaderServlet extends HttpServlet {
     
     PrintWriter out = response.getWriter();
     out.println("<header>");
-    out.println(" <a href=''><img src='http://bitcamp.co.kr/img/logo.jpg' style='height:50px'></a>");
+    out.println("  <img src='http://bitcamp.co.kr/img/logo.jpg' style='height:50px'>");
     if (loginUser == null) {
       out.printf("<a href='%s/auth/login'>로그인</a>", contextRootPath);
       

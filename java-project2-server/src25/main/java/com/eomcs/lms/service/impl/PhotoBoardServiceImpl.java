@@ -67,6 +67,8 @@ public class PhotoBoardServiceImpl implements PhotoBoardService {
     
     try {
       int count = boardDao.insert(board);
+      // BoardDao 객체에 넣고, 커밋하지 않은 상태,
+      // 실질적으로 데이터가 들어가지 않았다
       
       // 파일을 저장하기 전에 사진 게시물의 번호를 각 사진 객체에 주입해야 한다.
       List<PhotoFile> files = board.getFiles();
@@ -74,6 +76,7 @@ public class PhotoBoardServiceImpl implements PhotoBoardService {
         f.setPhotoBoardNo(board.getNo());
       }
       fileDao.insert(board.getFiles());
+      
       
       txManager.commit(status);
       return count;
