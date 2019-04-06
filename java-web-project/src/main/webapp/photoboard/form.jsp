@@ -13,11 +13,11 @@
           
 <html>
 <head>
-<title>새 사진(JSP)</title>
+<title>새 사진</title>
 </head>
 <body>
 <jsp:include page="/header.jsp" />
-<h1>새 사진</h1>
+<h1>새 사진(JSP)</h1>
 <form action='add' method='post' enctype='multipart/form-data'>
 <table border='1'>
 <tr>
