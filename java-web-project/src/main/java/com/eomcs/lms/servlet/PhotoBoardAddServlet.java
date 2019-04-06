@@ -1,7 +1,6 @@
 package com.eomcs.lms.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -41,7 +40,7 @@ public class PhotoBoardAddServlet extends HttpServlet {
   LessonService lessonService = iocContainer.getBean(LessonService.class);
 //수업정보를 불러와서 선택해야 하므로 LessonService 정보를 가져온다  
   
-  List<Lesson> lessons = (List<Lesson>) lessonService.list(); //LessonService에 Lesson형태로 list를 활용되게 만들었다.
+  List<Lesson> lessons = (List<Lesson>) lessonService.list(); 
   
     request.setAttribute("lessons", lessons);
     
