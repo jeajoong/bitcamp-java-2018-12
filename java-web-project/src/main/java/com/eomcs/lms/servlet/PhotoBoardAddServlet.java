@@ -31,14 +31,14 @@ public class PhotoBoardAddServlet extends HttpServlet {
   public void init() throws ServletException {
     this.uploadDir = this.getServletContext().getRealPath("/upload/photoboard");
   }
+  
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    
   ServletContext sc = this.getServletContext();
   ApplicationContext iocContainer = (ApplicationContext) sc.getAttribute("iocContainer");
   LessonService lessonService = iocContainer.getBean(LessonService.class);
-//수업정보를 불러와서 선택해야 하므로 LessonService 정보를 가져온다  
+//수업정보를 불러와서 선택해야 하므로 컨테이너에서 LessonService 정보를 가져온다  
   
   List<Lesson> lessons = (List<Lesson>) lessonService.list(); 
   
@@ -47,6 +47,7 @@ public class PhotoBoardAddServlet extends HttpServlet {
     response.setContentType("text/html;charset=UTF-8");
     
     request.getRequestDispatcher("/photoboard/form.jsp").include(request, response);
+  //요청이 들어오면 처리해줄 jsp 파일을 지정. 및 인클루딩 
   }
 
   @Override
@@ -76,12 +77,16 @@ public class PhotoBoardAddServlet extends HttpServlet {
     }
     board.setFiles(files);
     
+    // error에서 꺼내 사용할 수 있게 준비
     request.setAttribute("photoFile", files);
     request.setAttribute("photoBoard", board);
     request.setAttribute("photoBoardService", photoBoardService);
 
     response.setContentType("text/html;charset=UTF-8");
     
+    // 애초에 정보를 넘겨줄 때 error쪽으로 받게 한다. 포워딩으로
+    // 사진이 없거나 수업을 선택하지 않았을 때 조건을 걸어서 페이지를 띄우게 하고
+    // 조건이 맞다면 그냥 추가하면 되니까.
     request.getRequestDispatcher("/photoboard/error.jsp").forward(request, response);
     
     }
