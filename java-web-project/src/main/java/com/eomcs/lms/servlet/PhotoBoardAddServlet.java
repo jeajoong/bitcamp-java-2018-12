@@ -47,7 +47,6 @@ public class PhotoBoardAddServlet extends HttpServlet {
     response.setContentType("text/html;charset=UTF-8");
     
     request.getRequestDispatcher("/photoboard/form.jsp").include(request, response);
-  //요청이 들어오면 처리해줄 jsp 파일을 지정. 및 인클루딩 
   }
 
   @Override
@@ -77,7 +76,6 @@ public class PhotoBoardAddServlet extends HttpServlet {
     }
     board.setFiles(files);
     
-    // error에서 꺼내 사용할 수 있게 준비
     request.setAttribute("photoFile", files);
     request.setAttribute("photoBoard", board);
     request.setAttribute("photoBoardService", photoBoardService);
