@@ -1,3 +1,5 @@
+// 컨트롤러 역할.
+// LessonService, LessonDao, PhotoBoardService, PhotoBoardDao -> 모델
 package com.eomcs.lms.servlet;
 
 import java.io.IOException;
@@ -25,7 +27,7 @@ import com.eomcs.lms.service.PhotoBoardService;
 @SuppressWarnings("serial")
 public class PhotoBoardAddServlet extends HttpServlet {
 
-  String uploadDir; 
+  String uploadDir;
       
   @Override
   public void init() throws ServletException {
@@ -76,19 +78,21 @@ public class PhotoBoardAddServlet extends HttpServlet {
     }
     board.setFiles(files);
     
-    request.setAttribute("photoFile", files);
-    request.setAttribute("photoBoard", board);
-    request.setAttribute("photoBoardService", photoBoardService);
 
     response.setContentType("text/html;charset=UTF-8");
     
-    // 애초에 정보를 넘겨줄 때 error쪽으로 받게 한다. 포워딩으로
-    // 사진이 없거나 수업을 선택하지 않았을 때 조건을 걸어서 페이지를 띄우게 하고
-    // 조건이 맞다면 그냥 추가하면 되니까.
-    request.getRequestDispatcher("/photoboard/error.jsp").forward(request, response);
-    
+    if (board.getLessonNo() == 0) {
+      request.setAttribute("error.title", "사진 등록 오류");
+      request.setAttribute("error.content", "사진 또는 파일을 등록할 수업을 선택하세요.");
+    } else if (files.size() == 0) {
+      request.setAttribute("error.title", "사진 등록 오류");
+     request.setAttribute("error.content", "최소 한 개의 사진 파일을 등록해야 합니다.");
+    } else {
+      photoBoardService.add(board);
+      response.sendRedirect("list");
     }
+      request.getRequestDispatcher("/error.jsp").forward(request, response);
+    
+  }
 }
-
-
 
