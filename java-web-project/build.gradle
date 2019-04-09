@@ -45,6 +45,9 @@ compile group: 'org.aspectj', name: 'aspectjweaver', version: '1.9.2'
 compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.11.2'
 
 
+// https://mvnrepository.com/artifact/javax.servlet/jstl
+compile group: 'javax.servlet', name: 'jstl', version: '1.2'
+
 
 // https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client
 compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.4.0'
