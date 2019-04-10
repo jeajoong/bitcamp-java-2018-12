@@ -29,50 +29,39 @@ import com.eomcs.lms.context.RequestParam;
 @MultipartConfig(maxFileSize = 1024 * 1024 * 5)
 @WebServlet("/app/*")
 @SuppressWarnings("serial")
-public class DispatcherServlet extends HttpServlet {
+public class DispatcherServlet2 extends HttpServlet {
   @Override
   protected void service(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
 
     String pageControllerPath = request.getPathInfo();
 
-    // 클라이언트가 요청한 페이지 컨트롤러를 실행한다.
-    // => Spring IoC 컨테이너를 꺼낸다.
     ServletContext sc = this.getServletContext();
     ApplicationContext iocContainer = (ApplicationContext) sc.getAttribute("iocContainer");
     RequestMappingHandlerMapping handlerMapping = 
         (RequestMappingHandlerMapping) iocContainer.getBean(RequestMappingHandlerMapping.class);
     try {
-      // => RequestMappingHandlerMapping 객체에서
-      //    클라이언트가 요청한 URL을 처리할 메서드 정보를 꺼낸다.
       RequestMappingHandler requestHandler = handlerMapping.get(pageControllerPath);
 
       if (requestHandler == null)
         throw new Exception("해당 URL의 요청을 처리할 수 있습니다.");
       
-      // => 페이지 컨트롤러가 작업한 결과물을 담을 바구니를 준비한다.
       HashMap<String,Object> model = new HashMap<>();
       
-      // => 요청 핸들러의 파라미터 값을 준비하기
       Object[] paramValues = prepareParamValues(
-          requestHandler.method, request, response, model);
+          requestHandler.method,request,response,model);
       
-      // => 요청 핸들러(요청이 들어왔을 때 호출되는 메서드)를 실행한다.
       String viewUrl = (String) requestHandler.method.invoke(
           requestHandler.bean, paramValues);
-
+      
       if (viewUrl.startsWith("redirect:")) {
         response.sendRedirect(viewUrl.substring(9)); // ex) redirect:list
+        
       } else {
-        // JSP를 실행하기 전에 페이지 컨트롤러가 작업한 결과물을 담을 바구니에서 
-        // 값을 꺼내 ServletRequest 보관소로 옮긴다.
-        // 그래야 JSP에서 값을 꺼내 쓸 수 있다.
         Set<Entry<String,Object>> entrySet = model.entrySet();
         for (Entry<String,Object> entry : entrySet) {
           request.setAttribute(entry.getKey(), entry.getValue());
         }
-        
-        // 페이지 컨트롤러가 알려준 JSP를 실행한다.
         response.setContentType("text/html;charset=UTF-8");
         request.getRequestDispatcher(viewUrl).include(request, response);
       }
@@ -91,14 +80,9 @@ public class DispatcherServlet extends HttpServlet {
       HttpServletResponse response,
       Map<String,Object> model) throws Exception {
     
-    // 메서드의 파라미터 값을 담을 저장소 준비
-    // => 메서드의 파라미터를 분석하여 메서드가 원하는 값을 저장할 것이다.
     ArrayList<Object> paramValues = new ArrayList<>();
-    
-    // 메서드가 원하는 값이 어떤 것인지 파라미터 타입 목록을 알아낸다.
     Parameter[] params = method.getParameters();
     
-    // 각 파라미터 타입의 값을 준비한다.
     for (Parameter param : params) {
       Class<?> paramType = param.getType();
       if (paramType == ServletRequest.class || paramType == HttpServletRequest.class) {

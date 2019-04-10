@@ -45,7 +45,8 @@ public class DispatcherServlet extends HttpServlet {
     try {
       // => RequestMappingHandlerMapping 객체에서
       //    클라이언트가 요청한 URL을 처리할 메서드 정보를 꺼낸다.
-      RequestMappingHandler requestHandler = handlerMapping.get(pageControllerPath);
+      RequestMappingHandler requestHandler = 
+          handlerMapping.get(pageControllerPath);
 
       if (requestHandler == null)
         throw new Exception("해당 URL의 요청을 처리할 수 있습니다.");
@@ -101,10 +102,12 @@ public class DispatcherServlet extends HttpServlet {
     // 각 파라미터 타입의 값을 준비한다.
     for (Parameter param : params) {
       Class<?> paramType = param.getType();
-      if (paramType == ServletRequest.class || paramType == HttpServletRequest.class) {
+      if (paramType == ServletRequest.class || 
+          paramType == HttpServletRequest.class) {
         paramValues.add(request);
         
-      } else if (paramType == ServletResponse.class || paramType == HttpServletResponse.class) {
+      } else if (paramType == ServletResponse.class || 
+          paramType == HttpServletResponse.class) {
         paramValues.add(response);
         
       } else if (paramType == Map.class) {
@@ -142,7 +145,8 @@ public class DispatcherServlet extends HttpServlet {
       } else if (paramType == HttpSession.class) {
         paramValues.add(request.getSession());
         
-      } else if (paramType == java.util.Date.class || paramType == java.sql.Date.class) {
+      } else if (paramType == java.util.Date.class ||
+          paramType == java.sql.Date.class) {
         RequestParam rq = param.getAnnotation(RequestParam.class);
         paramValues.add(Date.valueOf(request.getParameter(rq.value())));
         

@@ -19,20 +19,19 @@ public class ContextLoaderListener implements ServletContextListener {
   // 보통 클래스에서 사용할 로그 출력 객체는 클래스의 스태틱 멤버로 선언한다.
   final static Logger logger = LogManager.getLogger(ContextLoaderListener.class);
 
-  
-  static class WebAppConfig { // IoC 컨테이너가 생성해준다 Bean이 붙은 메소드를 만들기 위해 
+  static class WebAppConfig {
     static ServletContext servletContext;
     
     @Bean
     public ServletContext servletContext() {
-      return servletContext; // Spring IoC 컨테이너에 보관됨
+      return servletContext;
     }
   }
   
   @Override
   public void contextInitialized(ServletContextEvent sce) {
     // Spring IoC 컨테이너가 객체를 생성하기 위해서 설정 클래스를 사용하기 전에
-    // WebAppConfig 클래스에 대해 ServletContext를 주입한다.
+    // WebAppConfig 클래스에 대해 SerlvetContext를 주입한다.
     WebAppConfig.servletContext = sce.getServletContext();
     
     logger.info("Spring IoC 컨테이너 준비");

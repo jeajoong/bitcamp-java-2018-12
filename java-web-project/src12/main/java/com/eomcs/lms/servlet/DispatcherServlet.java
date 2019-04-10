@@ -43,8 +43,6 @@ public class DispatcherServlet extends HttpServlet {
       String viewUrl = (String) requestHandler.method.invoke
           (requestHandler.bean, // 인스턴스 주소 
               request, response); // 메소드를 호출할 때 넘겨주는 파라미터 값
-
-      
       
       if (viewUrl.startsWith("redirect:")) {
         response.sendRedirect(viewUrl.substring(9)); // ex) redirect:list

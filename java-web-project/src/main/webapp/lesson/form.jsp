@@ -10,7 +10,7 @@
 <jsp:include page="/header.jsp"/>
 
 <h1>새 수업(JSP)</h1>
-<form action='form' method='post'>
+<form action='add' method='post'>
 <table border='1'>
 <tr>
   <th>수업</th>
