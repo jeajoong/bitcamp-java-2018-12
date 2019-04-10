@@ -25,7 +25,10 @@ public class AuthFilter implements Filter {
   }
   
   @Override
-  public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+  public void doFilter(
+      ServletRequest request, 
+      ServletResponse response, 
+      FilterChain chain)
       throws IOException, ServletException {
     
     // 로그인 여부를 검사한다.
@@ -33,7 +36,7 @@ public class AuthFilter implements Filter {
     HttpServletResponse httpResp = (HttpServletResponse) response;
     
     // /app/* URL에 대해서 적용하기 때문에 서블릿 경로를 검사해서는 안된다.
-    // String servletPath = httpReq.getServletPath(); // "/app"
+    //String servletPath = httpReq.getServletPath(); // "/app"
     String pathInfo = httpReq.getPathInfo(); // ex) "/board/list"
     
     if (pathInfo.endsWith("add")
@@ -46,7 +49,7 @@ public class AuthFilter implements Filter {
         // 막연히 상대경로로 로그인 폼의 URL을 지정할 수 없다.
         // 절대 경로로 정확하게 지정하라.
         
-        httpResp.sendRedirect(contextRootPath + "/auth/login");
+        httpResp.sendRedirect(contextRootPath + "/app/auth/login");
         return;
       }
     }

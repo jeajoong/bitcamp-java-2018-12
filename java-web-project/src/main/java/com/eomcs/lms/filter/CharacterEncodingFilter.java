@@ -24,7 +24,10 @@ public class CharacterEncodingFilter implements Filter {
   }
   
   @Override
-  public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+  public void doFilter(
+      ServletRequest request, 
+      ServletResponse response, 
+      FilterChain chain)
       throws IOException, ServletException {
     
     // POST 요청으로 들어오는 경우 데이터의 인코딩을 초기화 파라미터에 지정한 값으로 설정한다.
