@@ -1,7 +1,10 @@
 ﻿# Annotation 정리
 
  @Controller - Presentation Layer에서 Contoller를 명시하기 위해서 사용 (클래스)
-  
+    -> 명시가능 @RequestMapping - 특정 URL에 매칭되는 클래스나 메소드임을 명시하기 위해 사용(클래스,메소드)
+
+
+
   @Service - Business Layer에서 Service를 명시하기 위해서 사용 (클래스)
       // 스프링 IoC 컨테이너가 관리하는 객체 중에서 비즈니스 로직을 담당하는 객체는 
       // 특별히 그 역할을 표시하기 위해 @Component 대신에 @Service 애노테이션을 붙인다.
@@ -12,7 +15,6 @@
     //예를 들어 메타데이터 객체의 templateUrl 프로퍼티에는 컴포넌트의 뷰를 정의한 템플릿의 상대경로를 설정한다
     
   @Repository - Persistence Layer에서 DAO를 명시하기 위해서 사용 (클래스)
-  @RequestMapping - 특정 URL에 매칭되는 클래스나 메소드임을 명시하기 위해 사용(클래스,메소드)
   @RequestParam - 요청(request)에서 특정한 파라미터의 값을 찾아낼때 사용(파라미터)
     
     
@@ -22,13 +24,20 @@
         //1. Configuration 파싱
         //2. ComponentScan 설정 내역을 파싱한다.
         //3. Class 로딩 - 클래스로더를 이용하여 모든 자원을 Resource 인터페이스 형태로 불러옴
-        //4. 빈 정의 설정
-        //5. 빈 생성 & 주입
+        //4. Bean 정의 설정
+        //5. Bean 생성 & 주입
     
    @ImportResource("classpath:/com/eomcs/lms/conf/tx-context.xml") -> resources 폴더에 존재
       // 트랜잭션을 설정한 파일을 로딩한다. 파일내부에는 트랜잭션 advice를 적용할 대상을 정의한다.
       // => Spring IoC 컨테이너는 @ImportResource 애노테이션에 지정된 설정 파일에 따라 객체를 준비한다.
    
+
+    ★스프링 Web MVC를 적용 후 AppConfig를 알려줘야 한다. (처리 해주고 싶어도 경로를 모르면 못해주니까..)
+   스프링 Web MVC가 @Controller, @RequestMapping, @RequestParam, @RequestHeader 애노테이션들을 처리해준다
+   대신 Appconfig에 @EnableWebMvc애노테이션을 붙인다 
+   XML로 설정도 가능하다
+ 
+
    --
     
     

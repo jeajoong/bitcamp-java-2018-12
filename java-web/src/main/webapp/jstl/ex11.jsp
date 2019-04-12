@@ -23,8 +23,6 @@
     <c:redirect url="http://www.daum.net"/>
 </c:if>
 
-<%-- ?search=naver --%>
-
 <p>search 라는 이름으로 검색 엔진을 지정하세요!<br>
 유효한 엔진은 'naver', 'daum' 입니다.</p>
 </body>

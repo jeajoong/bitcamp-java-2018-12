@@ -30,8 +30,6 @@ pageContext.setAttribute("names", new String[]{"홍길동", "임꺽정", "유관
 </c:forEach>
 </ul>
 
-
-
 <h2>Collection 객체</h2>
 <%
 List<String> names2 = new ArrayList<>();
@@ -46,8 +44,6 @@ pageContext.setAttribute("names2", names2);
     <li>${n}</li>
 </c:forEach>
 </ul>
-
-
 
 <h2>Map 객체</h2>
 <%
@@ -65,8 +61,6 @@ pageContext.setAttribute("names3", names3);
     <li>${n.key} : ${n.value}</li>
 </c:forEach>
 </ul>
-
-
 
 <h2>CVS(comma separated value) 문자열</h2>
 <%

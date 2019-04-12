@@ -27,6 +27,8 @@ errorPage
 isErrorPage
 => 오류가 발생했을 때 실행되는 JSP 쪽에서
    그 오류 내용을 받을 때 사용한다. 
+   
+
  --%>
 
 

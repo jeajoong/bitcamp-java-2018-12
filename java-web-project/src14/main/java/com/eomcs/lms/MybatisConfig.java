@@ -22,9 +22,8 @@ public class MybatisConfig {
   }
   
   @Bean
-  public SqlSessionFactory sqlSessionFactory(
-      DataSource dataSource,
-      ApplicationContext appCtx) throws Exception {
+  public SqlSessionFactory sqlSessionFactory(DataSource dataSource, ApplicationContext appCtx)
+      throws Exception {
     
     SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
     factoryBean.setDataSource(dataSource);
