@@ -40,8 +40,8 @@ public class DispatcherServlet extends HttpServlet {
 
     // 클라이언트가 요청한 페이지 컨트롤러를 실행한다.
     // => Spring IoC 컨테이너를 꺼낸다.
-    ServletContext sc = this.getServletContext();
-    ApplicationContext iocContainer = (ApplicationContext) sc.getAttribute("iocContainer");
+    ApplicationContext iocContainer = (ApplicationContext)request.getServletContext().getAttribute("iocContainer");
+    
     RequestMappingHandlerMapping handlerMapping = 
         (RequestMappingHandlerMapping) iocContainer.getBean(RequestMappingHandlerMapping.class);
     try {

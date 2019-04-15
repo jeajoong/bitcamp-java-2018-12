@@ -26,6 +26,7 @@ public class Test03 {
   // => 이때 "Ok"를 타입을 가리키는 별명으로 "타입 파라미터"라고 부른다.
   // 
   public static <Ok> Ok echo(Ok obj) {
+   //다루는 타입/리턴받을때 형태/파라미터 형태
     return obj;
   }
 }
