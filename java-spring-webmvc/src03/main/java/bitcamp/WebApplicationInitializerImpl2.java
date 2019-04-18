@@ -14,7 +14,7 @@ extends AbstractAnnotationConfigDispatcherServletInitializer {
 
   @Override
   protected Class<?>[] getRootConfigClasses() {
-    return null; // config(jdbc와 관련)가 현재 프로젝트 폴더안엔 없다. 
+    return null;
   }
 
   @Override
@@ -22,13 +22,13 @@ extends AbstractAnnotationConfigDispatcherServletInitializer {
     // 스프링 Web MVC 프레임워크에서 DispatcherServlet이 사용할 IoC 컨테이너를 준비할 때 
     // 이 메서드를 호출한다.
     // 이 메서드가 리턴한 Java config 클래스를 이용하여 IoC 컨테이너를 설정할 것이다.
-    return new Class<?>[] {AppConfig.class}; 
+    return new Class<?>[] {AppConfig.class};
   }
 
   @Override
   protected String[] getServletMappings() {
     // 스프링 프레임워크에서 DispatcherServlet을 등록할 때 이 메서드를 호출한다. 
-    // 이 메서드의 리턴 값이 URL 패턴으로 사용된다. 
+    // 이 메서드의 리턴 값이 리턴 값이 URL 패턴으로 사용된다. 
     return new String[] {"/app7/*"};
   }
   
