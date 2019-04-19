@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ch03_3</title>
+<title>c03_3</title>
 </head>
 <body>
 
@@ -22,29 +22,31 @@ var b3 = document.getElementById("btn3");
 var ta1 = document.getElementById("ta1");
 
 b1.onclick = function() {
-	var xhr = new XMLHttpRequest();
-	xhr.open("get","../../app1/c03_3", false);
-	xhr.setRequestHeader("Accept", "text/plain");
-	xhr.send();
-	ta1.value = xhr.responseText;
+  var xhr = new XMLHttpRequest();
+  xhr.open("get", "../../app1/c03_3", false);
+  xhr.setRequestHeader("Accept", "text/plain");
+  xhr.send();
+  ta1.value = xhr.responseText;  
 };
 
 b2.onclick = function() {
-	var xhr = new XMLHttpRequest();
-	xhr.open("get","../../app1/c03_3", false);
-	xhr.setRequestHeader("Accept", "text/html");
-	xhr.send();
-	ta1.value = xhr.responseText;
+  var xhr = new XMLHttpRequest();
+  xhr.open("get", "../../app1/c03_3", false);
+  xhr.setRequestHeader("Accept", "text/html");
+  xhr.send();
+  ta1.value = xhr.responseText;  
 };
 
 b3.onclick = function() {
-	var xhr = new XMLHttpRequest();
-	xhr.open("get","../../app1/c03_3", false);
-	xhr.setRequestHeader("Accept", "application/json");
-	xhr.send();
-	ta1.value = xhr.responseText;
+  var xhr = new XMLHttpRequest();
+  xhr.open("get", "../../app1/c03_3", false);
+  xhr.setRequestHeader("Accept", "application/json");
+  xhr.send();
+  ta1.value = xhr.responseText;  
 };
 
 </script>
 </body>
 </html>
+
+

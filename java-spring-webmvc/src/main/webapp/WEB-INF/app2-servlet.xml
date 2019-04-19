@@ -11,7 +11,14 @@
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop.xsd">
   
-  <context:component-scan base-package="bitcamp.app1"/>
+  <context:component-scan base-package="bitcamp.app2"/>
+  
+  <!-- 기존의 뷰 리졸버를 대체한다. -->
+  <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+    <property name="prefix" value="/WEB-INF/jsp2/"/>
+    <property name="suffix" value=".jsp"/>
+  </bean>
   
 </beans>
 
