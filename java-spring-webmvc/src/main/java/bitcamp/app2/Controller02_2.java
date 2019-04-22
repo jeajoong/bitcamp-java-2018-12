@@ -81,7 +81,7 @@ public class Controller02_2 {
       @MatrixVariable(name="name", pathVar="team") String name1,
       @MatrixVariable(name="qty", pathVar="team") int qty1,
       @MatrixVariable(name="name", pathVar="task") String name2,
-      @MatrixVariable(name="qty", pathVar="task") int qty2      
+      @MatrixVariable(name="qty", pathVar="task") int qty2
       ) {
     
     return String.format(
