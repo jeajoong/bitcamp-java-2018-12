@@ -35,6 +35,7 @@ public class AuthController {
       HttpSession session,
       HttpServletResponse response) throws Exception {
 
+///////////////////////////////////////////////////////////////// 쿠키처리
     // 이메일 저장을 처리한다. 
     Cookie cookie;
     if (saveEmail != null) {
@@ -50,7 +51,8 @@ public class AuthController {
     // 프론트 컨트롤러에서 받은 response 객체를 사용하여 
     // 바로 쿠키를 추가할 수 있다.
     response.addCookie(cookie); 
-
+///////////////////////////////////////////////////////////////// 쿠키처리
+    
     Member member = memberService.get(email, password);
 
     if (member == null) {
@@ -60,7 +62,7 @@ public class AuthController {
     session.setAttribute("loginUser", member);
 
     String refererUrl = (String) session.getAttribute(REFERER_URL);
-    if (refererUrl == null) {      
+    if (refererUrl == null) {
       return "redirect:" + servletContext.getContextPath();
       
     } else {
