@@ -4,10 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>jsp</title>
+<title>jsp3</title>
 </head>
 <body>
-<h1>/WEB-INF/jsp2/c01_1/h1.jsp</h1>
+<h1>/WEB-INF/jsp2/c01_1/h3.jsp</h1>
 이름 : ${name}<br>
 나이 : ${age}<br>
 </body>
