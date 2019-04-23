@@ -20,9 +20,7 @@ public class AuthController {
   @Autowired ServletContext servletContext;
   
   @RequestMapping("/auth/form")
-  public String form(
-      @RequestHeader("Referer") String refererUrl,
-      HttpSession session) {
+  public String form(@RequestHeader("Referer") String refererUrl, HttpSession session) {
     session.setAttribute(REFERER_URL, refererUrl);
     return "/auth/form.jsp";
   }

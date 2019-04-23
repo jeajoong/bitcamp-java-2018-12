@@ -18,7 +18,7 @@
   @RequestParam - 요청(request)에서 특정한 파라미터의 값을 찾아낼때 사용(파라미터)
     
     
-   -- AppConfig 에서 사용
+   ### AppConfig 에서 사용
     @ComponentScan(basePackages="com.eomcs.lms") 
       //Configuration 클래스 및 Annotation에 사용하는 설정들을 파싱한다.
         //1. Configuration 파싱
@@ -41,7 +41,7 @@
    --
     
     
-   --- DatabaseConfig에서 사용
+   ### DatabaseConfig에서 사용
   @Configuration 
       // Spring IoC 컨테이너 설정을 수행하는 클래스임을 표시한다.
 
@@ -64,9 +64,10 @@
    @MapperScan("com.eomcs.lms.dao")
     //매퍼파일이 있는 경로 위치를 알려주고 매퍼파일을 읽어들임
    
-   ---
+  
    
-
+   
+   ###
    @WebServlet  애노테이션의 주요 속성
    - name
     // 서블릿의 이름을 설정하는 속성 
@@ -95,4 +96,9 @@
     //
 
 
+### AuthFilter에서 사용
+     @WebFilter("/app/*")
+    // 웹에 필터를 설정하기위에 사용된다 xml 파일의 설정으로 대신할 수 있다.
+    // FilterConfig 인터페이스 객체를 활용해 서블릿에 사용되는 필터 정보를 전달
+    // Filter 인터페이스를 상속받아서 doFilter()메서드를 활용한다. 
 
