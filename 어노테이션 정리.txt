@@ -99,6 +99,7 @@
 ### AuthFilter에서 사용
      @WebFilter("/app/*")
     // 웹에 필터를 설정하기위에 사용된다 xml 파일의 설정으로 대신할 수 있다.
+    // Filter 인터페이스를 상속받고
     // FilterConfig 인터페이스 객체를 활용해 서블릿에 사용되는 필터 정보를 전달
-    // Filter 인터페이스를 상속받아서 doFilter()메서드를 활용한다. 
+    // doFilter()메서드를 활용한다. 
 
