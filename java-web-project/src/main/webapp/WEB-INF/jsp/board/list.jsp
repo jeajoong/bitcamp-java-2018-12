@@ -49,12 +49,12 @@
     <a class="page-link" href="?pageNo=${pageNo - 1}&pageSize=${pageSize}">이전</a></li>
     
     <li class="page-item ${pageNo <= 1 ? 'disabled' : ''}">
-    <a class="page-link" href="?pageNo=${pageNo - 1}&pageSize=${pageSize}">${pageNo <= 1 ? "" : pageNo - 1}</a></li>
+    <a class="page-link" href="?pageNo=${pageNo - 1}&pageSize=${pageSize}">${pageNo <= 1 ? "-" : pageNo - 1}</a></li>
     
     <li class="page-item active"><span class="page-link">${pageNo}</span></li>
     
     <li class="page-item ${pageNo >= totalPage ? 'disabled' : ''}">
-    <a class="page-link" href="?pageNo=${pageNo + 1}&pageSize=${pageSize}">${pageNo >= totalPage ? "" : pageNo + 1}</a></li>
+    <a class="page-link" href="?pageNo=${pageNo + 1}&pageSize=${pageSize}">${pageNo >= totalPage ? "-" : pageNo + 1}</a></li>
     
     <li class="page-item ${pageNo >= totalPage ? 'disabled' : ''}">
       <a class="page-link" href="?pageNo=${pageNo + 1}&pageSize=${pageSize}">다음</a></li>

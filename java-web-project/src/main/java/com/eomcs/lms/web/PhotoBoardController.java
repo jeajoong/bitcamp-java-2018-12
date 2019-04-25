@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.lms.domain.PhotoBoard;
 import com.eomcs.lms.domain.PhotoFile;
@@ -28,7 +29,7 @@ public class PhotoBoardController {
   
   @GetMapping("form")
   public void form(Model model) {
-    List<Lesson> lessons = lessonService.list();
+    List<Lesson> lessons = lessonService.list(0, 0);
     model.addAttribute("lessons", lessons);
   }
   
@@ -78,25 +79,47 @@ public class PhotoBoardController {
   @GetMapping("{no}")
   public String detail(@PathVariable int no, Model model) {
     PhotoBoard board = photoBoardService.get(no);
-    List<Lesson> lessons = lessonService.list();
+    List<Lesson> lessons = lessonService.list(0, 0);
     model.addAttribute("board", board);
     model.addAttribute("lessons", lessons);
     return "photoboard/detail";
   }
   
   @GetMapping
-  public String list(Model model) {
-    List<PhotoBoard> boards = photoBoardService.list(0, null);
+  public String list(
+      @RequestParam(defaultValue="1") int pageNo, // 페이지의 대한 번호나 사이즈가 넘어오지 않는다면
+      @RequestParam(defaultValue="3") int pageSize, // 기본적으로 사이즈를 지정한다.
+      Model model) {
+    
+    if(pageSize < 3 || pageSize >8)
+      pageSize = 3;
+    
+    int rowCount = lessonService.size();
+    int totalPage = rowCount / pageSize;
+    if (rowCount % pageSize > 0)
+      totalPage++;
+    
+    if(pageNo < 1)
+      pageNo=1;
+    else if (pageNo > totalPage)
+      pageNo = totalPage;
+    
+    List<PhotoBoard> boards = photoBoardService.list(0, null, pageNo, pageSize);
     model.addAttribute("list", boards);
+    model.addAttribute("pageNo", pageNo);
+    model.addAttribute("pageSize",pageSize);
+    model.addAttribute("totalPage",totalPage);
+    
     return "photoboard/list";
   }
+  
   
   @GetMapping("search")
   public void search(int lessonNo, String keyword, Model model) {
     String searchWord = null;
     if (keyword.length() > 0)
       searchWord = keyword;
-    List<PhotoBoard> boards = photoBoardService.list(lessonNo, searchWord);
+    List<PhotoBoard> boards = photoBoardService.list(lessonNo, searchWord, 0, 0);
     model.addAttribute("list", boards);
   }
   

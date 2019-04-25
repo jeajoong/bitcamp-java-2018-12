@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import com.eomcs.lms.domain.Member;
 import com.eomcs.lms.service.MemberService;
 
@@ -56,15 +57,39 @@ public class MemberController {
   }
   
   @GetMapping
-  public String list(Model model) {
-    List<Member> members = memberService.list(null);
+  public String list(
+      @RequestParam(defaultValue="1") int pageNo, // 페이지의 대한 번호나 사이즈가 넘어오지 않는다면
+      @RequestParam(defaultValue="3") int pageSize, // 기본적으로 사이즈를 지정한다.
+      Model model) {
+    
+    if(pageSize < 3 || pageSize >8)
+      pageSize = 3;
+    
+    int rowCount = memberService.size();
+    int totalPage = rowCount / pageSize;
+    if (rowCount % pageSize > 0)
+      totalPage++;
+    
+    if(pageNo < 1)
+      pageNo=1;
+    else if (pageNo > totalPage)
+      pageNo = totalPage;
+    
+    
+    List<Member> members = memberService.list(null, pageNo, pageSize);
     model.addAttribute("list", members);
+    model.addAttribute("pageNo", pageNo);
+    model.addAttribute("pageSize",pageSize);
+    model.addAttribute("totalPage",totalPage);
+    
     return "member/list";
   }
   
+  
+  
   @GetMapping("search")
   public void search(String keyword, Model model) {
-    List<Member> members = memberService.list(keyword);
+    List<Member> members = memberService.list(keyword, 0, 0);
     model.addAttribute("list", members);
   }
 

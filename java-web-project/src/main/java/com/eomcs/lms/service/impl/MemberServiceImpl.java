@@ -21,12 +21,20 @@ public class MemberServiceImpl implements MemberService {
   }
   
   // 비지니스 객체에서 메서드 이름은 가능한 업무 용어를 사용한다.
+  @SuppressWarnings("unused")
   @Override
-  public List<Member> list(String keyword) {
-    if (keyword == null)
-      return memberDao.findAll();
-    else 
+  public List<Member> list(String keyword, int pageNo, int pageSize) {
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("size", pageSize);
+    params.put("rowNo", (pageNo-1) * pageSize);
+    
+    if (keyword == null) // keyword가 null 이면 int 객체의 값이 있음
+      return memberDao.findAll(params);
+    
+     if(keyword != null) // keyword가 있으면 int 객체 값이 0임 하지만 키워드는 다른 메서드로 찾음
       return memberDao.findByKeyword(keyword);
+ 
+    return null;
   }
   
   @Override
@@ -57,6 +65,12 @@ public class MemberServiceImpl implements MemberService {
     
     return memberDao.findByEmailPassword(paramMap);
   }
+
+  @Override
+  public int size() {
+    return memberDao.countAll();
+  }
+
 }
 
 

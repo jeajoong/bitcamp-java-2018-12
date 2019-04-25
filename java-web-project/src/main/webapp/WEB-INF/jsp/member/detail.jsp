@@ -23,7 +23,7 @@
   
   <div class="form-group row">
     <label for="no" class="col-sm-2 col-form-label">번호</label>
-    <div class="col-sm-10">
+    <div class="col-sm-7">
       <input type="text" class="form-control-plaintext" id="no" 
              name='no' value='${member.no}' readonly>
     </div>
@@ -31,14 +31,14 @@
 
   <div class="form-group row">
       <label for="name" class="col-sm-2 col-form-label">이름</label>
-      <div class="col-sm-4">
+      <div class="col-sm-7">
       <textarea class="form-control" id="name" name='name' rows='1'>${member.name}</textarea>
       </div>
    </div>
 
   <div class="form-group row">
     <label for="email" class="col-sm-2 col-form-label">이메일</label>
-    <div class="col-sm-4">
+    <div class="col-sm-7">
       <textarea class="form-control" id="email" 
                 name='email' rows='1'>${member.email}</textarea>
     </div>
@@ -46,15 +46,14 @@
   
     <div class="form-group row">
     <label for="password" class="col-sm-2 col-form-label">암호</label>
-    <div class="col-sm-4">
-      <textarea class="form-control" id="password" 
-                name='password' rows='1'>${member.password}</textarea>
+    <div class="col-sm-7">
+<input type='password' class="form-control-password"  id='password'  name='password' >${member.password}
     </div>
   </div>
   
     <div class="form-group row">
     <label for="photoFile" class="col-sm-2 col-form-label">사진</label>
-    <div class="col-sm-10">
+    <div class="col-sm-7">
       <c:set var="contextRootPath" value="${pageContext.servletContext.contextPath}"></c:set>
       <c:if test="${empty member.photo}">
           <img src='${contextRootPath}/images/default.jpg' style='height: 80px'><br>
@@ -67,17 +66,17 @@
   </div>
 
     <div class="form-group row">
-    <label for="tell" class="col-sm-2 col-form-label">전화</label>
-    <div class="col-sm-4">
-      <textarea class="form-control" id="tell" 
-                name='tell' rows='1'>${member.tel}</textarea>
+    <label for="tel" class="col-sm-2 col-form-label">전화</label>
+    <div class="col-sm-7">
+      <textarea class="form-control" id="tel" 
+                name='tel' rows='1'>${member.tel}</textarea>
     </div>
   </div>
 
 
   <div class="form-group row">
     <label for="registeredDate" class="col-sm-2 col-form-label">가입일</label>
-    <div class="col-sm-4">
+    <div class="col-sm-7">
     <input type="date" class="form-control-plaintext" id="registeredDate" 
              value='${member.registeredDate}' readonly>
     </div>

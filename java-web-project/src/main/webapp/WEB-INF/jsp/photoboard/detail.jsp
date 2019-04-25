@@ -53,10 +53,9 @@
   </div>
   
     <div class="form-group row">
-    <label for="createdDate" class="col-sm-2 col-form-label">수업</label>
+    <label for="lessonNo" class="col-sm-2 col-form-label">수업</label>
     <div class="col-sm-4">
-    <select class="custom-select" >
-    
+    <select class="custom-select" name="lessonNo">
   <option selected>수업을 선택하세요</option>
     <c:forEach items="${lessons}" var="lesson">
   <option value="${lesson.no}"
@@ -68,59 +67,62 @@
     </div>
     </div>
   
+<dl class="row">
+<dd class="col-sm-9">
+    <p>최소 한 개의 사진 파일을 등록해야 합니다.</p>
+  </dd>
+</dl>
+  
       <div class="form-group row">
     <label for="photo" class="col-sm-2 col-form-label">사진1</label>
     <div class="col-sm-4">
-        <input type='file' class="form-control-file" id='photo' name='photo'>
+        <input type='file' class="form-control-file" id='photo' name='photo' value="${board.files}">
     </div>
   </div>
   
         <div class="form-group row">
     <label for="photo" class="col-sm-2 col-form-label">사진2</label>
     <div class="col-sm-4">
-        <input type='file' class="form-control-file" id='photo' name='photo'>
+        <input type='file' class="form-control-file" id='photo' name='photo' value="${board.files}">
     </div>
   </div>
   
         <div class="form-group row">
     <label for="photo" class="col-sm-2 col-form-label">사진3</label>
     <div class="col-sm-4">
-        <input type='file' class="form-control-file" id='photo' name='photo'>
+        <input type='file' class="form-control-file" id='photo' name='photo' value="${board.files}">
     </div>
   </div>
   
         <div class="form-group row">
     <label for="photo" class="col-sm-2 col-form-label">사진4</label>
     <div class="col-sm-4">
-        <input type='file' class="form-control-file" id='photo' name='photo'>
+        <input type='file' class="form-control-file" id='photo' name='photo' value="${board.files}">
     </div>
   </div>
   
         <div class="form-group row">
     <label for="photo" class="col-sm-2 col-form-label">사진5</label>
     <div class="col-sm-4">
-        <input type='file' class="form-control-file" id='photo' name='photo'>
+        <input type='file' class="form-control-file" id='photo' name='photo' value="${board.files}">
     </div>
   </div>
   
-  
-   <!-- 
-      <tr>
-        <th>사진</th>
-        <td>
-          <c:set var="contextRootPath" value="${pageContext.servletContext.contextPath}"></c:set>
+    <div class="form-group row">
+      <label for="photo" class="col-sm-2 col-form-label">사진</label>
+                  <c:set var="contextRootPath" value="${pageContext.servletContext.contextPath}"></c:set>
           <c:forEach items="${board.files}" var="file"> 
             <img src='${contextRootPath}/upload/photoboard/${file.filePath}' style='height: 80px'> 
           </c:forEach>
-        </td>
-      </tr>
-    </table>
- -->
-    <p>
-      <a href='.'>목록</a>
-      <a href='delete/${board.no}'>삭제</a>
-      <button type='submit'>변경</button>
-    <p>
+    </div>
+  
+<div class="form-group row">
+    <div class="col-sm-10">
+      <a class="btn btn-primary" href='.'>목록</a> 
+      <a class="btn btn-primary" href='delete/${board.no}'>삭제</a>
+      <button class="btn btn-primary">변경</button>
+    </div>
+  </div>
   </form>
 </c:otherwise>
 </c:choose>

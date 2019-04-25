@@ -3,53 +3,90 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
-    <head><title>새 사진</title></head>
+    <head>
+    <title>새 사진</title>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+      <link rel="stylesheet" href="${contextRootPath}/css/common.css">
+    </head>
     <body>
+
+  <jsp:include page="../header.jsp" />
+
+<div class="container">
 
     <h1>새 사진</h1>
     <form action='add' method='post' enctype='multipart/form-data'>
-    <table border='1'>
-    <tr>
-      <th>수업</th>
-      <td><select name='lessonNo'>
-          <option value='0'>수업을 선택하세요</option>
-        <c:forEach items="${lessons}" var="lesson">
-          <option value="${lesson.no}">${lesson.title}</option>
-        </c:forEach>
-      </select></td>
-    </tr>
-    <tr>
-      <th>사진 제목</th>
-      <td><input type='text' name='title'></td>
-    </tr>
-    <tr>
-      <td colspan='2'>최소 한 개의 사진 파일을 등록해야 합니다.</td>
-    </tr>
-    <tr>
-      <th>사진1</th>
-      <td><input type='file' name='photo'></td>
-    </tr>
-    <tr>
-      <th>사진2</th>
-      <td><input type='file' name='photo'></td>
-    </tr>
-    <tr>
-      <th>사진3</th>
-      <td><input type='file' name='photo'></td>
-    </tr>
-    <tr>
-      <th>사진4</th>
-      <td><input type='file' name='photo'></td>
-    </tr>
-    <tr>
-      <th>사진5</th>
-      <td><input type='file' name='photo'></td>
-    </tr>
-    </table>
-    <p>
-      <button type='submit'>등록</button>
-      <a href='.'>목록</a>
-    </p>
+    
+        <div class="form-group row">
+    <label for="lessonNo" class="col-sm-2 col-form-label">수업</label>
+    <div class="col-sm-7">
+    <select class="custom-select" name="lessonNo">
+  <option selected>수업을 선택하세요</option>
+    <c:forEach items="${lessons}" var="lesson">
+  <option value="${lesson.no}">${lesson.title} </option>
+  </c:forEach>
+</select>
+    </div>
+    </div>
+    
+      <div class="form-group row">
+    <label for="title" class="col-sm-2 col-form-label">사진제목</label>
+    <div class="col-sm-7">
+      <textarea class="form-control" id="title" name='title' rows='1'></textarea>
+    </div>
+  </div>
+    
+<dl class="row">
+<dd class="col-sm-9">
+    <p>최소 한 개의 사진 파일을 등록해야 합니다.</p>
+  </dd>
+</dl>
+    
+      <div class="form-group row">
+    <label for="photo" class="col-sm-2 col-form-label">사진1</label>
+    <div class="col-sm-7">
+        <input type='file' class="form-control-file" id='photo' name='photo' value="${board.files}">
+    </div>
+  </div>
+  
+        <div class="form-group row">
+    <label for="photo" class="col-sm-2 col-form-label">사진2</label>
+    <div class="col-sm-7">
+        <input type='file' class="form-control-file" id='photo' name='photo' value="${board.files}">
+    </div>
+  </div>
+  
+        <div class="form-group row">
+    <label for="photo" class="col-sm-2 col-form-label">사진3</label>
+    <div class="col-sm-7">
+        <input type='file' class="form-control-file" id='photo' name='photo' value="${board.files}">
+    </div>
+  </div>
+  
+        <div class="form-group row">
+    <label for="photo" class="col-sm-2 col-form-label">사진4</label>
+    <div class="col-sm-7">
+        <input type='file' class="form-control-file" id='photo' name='photo' value="${board.files}">
+    </div>
+  </div>
+  
+        <div class="form-group row">
+    <label for="photo" class="col-sm-2 col-form-label">사진5</label>
+    <div class="col-sm-7">
+        <input type='file' class="form-control-file" id='photo' name='photo' value="${board.files}">
+    </div>
+  </div>
+  
+     <div class="form-group row">
+    <div class="col-sm-10">
+      <a class="btn btn-primary" href='.'>목록</a> 
+      <button class="btn btn-primary">등록</button>
+    </div>
+  </div>
+      
     </form>
+  </div><!-- .container -->
+
+<jsp:include page="../javascript.jsp"/>
     </body>
     </html>

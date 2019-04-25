@@ -13,9 +13,9 @@
   <jsp:include page="../header.jsp" />
 <div class="container">
   <h1>회원 목록</h1>
-    <a href='form' class="btn btn-primary btn-sm">새 회원</a>
+ <p><a href='form' class="btn btn-primary btn-sm">새 회원</a></p>
     
-  <div class="bit-list">
+<div class="bit-list">
   <table class="table table-hover">
   <thead>
     <tr>
@@ -27,7 +27,6 @@
     </tr>
   </thead>
   <tbody>
-  
 <c:forEach items="${list}" var="member">
     <tr>
       <td scope="row">${member.no}</td>
@@ -37,31 +36,35 @@
       <td>${member.registeredDate}</td>
     </tr>
 </c:forEach>
-
   </tbody>
   </table>
   </div><!-- bit.list -->
   
-  
-  <!-- JSP만 변경됨 리스트 메서드 변경아직 안함 -->
-  <nav aria-label="목록 페이지 이동">
+<nav aria-label="목록 페이지 이동">
   <ul class="pagination justify-content-center">
   
     <li class="page-item ${pageNo <= 1 ? 'disabled' : ''}">
     <a class="page-link" href="?pageNo=${pageNo - 1}&pageSize=${pageSize}">이전</a></li>
     
+    <li class="page-item ${pageNo <= 1 ? 'disabled' : ''}">
+    <a class="page-link" href="?pageNo=${pageNo - 1}&pageSize=${pageSize}">${pageNo <= 1 ? "-" : pageNo - 1}</a></li>
+    
     <li class="page-item active"><span class="page-link">${pageNo}</span></li>
+    
+    <li class="page-item ${pageNo >= totalPage ? 'disabled' : ''}">
+    <a class="page-link" href="?pageNo=${pageNo + 1}&pageSize=${pageSize}">${pageNo >= totalPage ? "-" : pageNo + 1}</a></li>
     
     <li class="page-item ${pageNo >= totalPage ? 'disabled' : ''}">
       <a class="page-link" href="?pageNo=${pageNo + 1}&pageSize=${pageSize}">다음</a></li>
   </ul>
 </nav>
   
-  
-  <form action='search'>
-    <input type='text' name='keyword'>
-    <button type='submit'>검색</button>
+  <nav class="navbar navbar-dark  style="background-color: #e3f2fd;" ">
+  <form class="form-inline" action="search">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="keyword">
+    <button  class="btn btn-info" class="btn btn-outline-success my-2 my-sm-0" >검색</button>
   </form>
+</nav>
   
   </div><!-- .container -->
 

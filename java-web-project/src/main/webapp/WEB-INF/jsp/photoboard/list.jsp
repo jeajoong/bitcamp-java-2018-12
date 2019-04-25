@@ -40,11 +40,33 @@
   </table>
  </div><!-- .bit.list -->
 
-  <form action='search'>
-    수업번호: <input type='text' name='lessonNo'> 검색어: 
-    <input type='text' name='keyword'>
-    <button type='submit'>검색</button>
+<nav aria-label="목록 페이지 이동">
+  <ul class="pagination justify-content-center">
+  
+    <li class="page-item ${pageNo <= 1 ? 'disabled' : ''}">
+    <a class="page-link" href="?pageNo=${pageNo - 1}&pageSize=${pageSize}">이전</a></li>
+    
+    <li class="page-item ${pageNo <= 1 ? 'disabled' : ''}">
+    <a class="page-link" href="?pageNo=${pageNo - 1}&pageSize=${pageSize}">${pageNo <= 1 ? "-" : pageNo - 1}</a></li>
+    
+    <li class="page-item active"><span class="page-link">${pageNo}</span></li>
+    
+    <li class="page-item ${pageNo >= totalPage ? 'disabled' : ''}">
+    <a class="page-link" href="?pageNo=${pageNo + 1}&pageSize=${pageSize}">${pageNo >= totalPage ? "-" : pageNo + 1}</a></li>
+    
+    <li class="page-item ${pageNo >= totalPage ? 'disabled' : ''}">
+      <a class="page-link" href="?pageNo=${pageNo + 1}&pageSize=${pageSize}">다음</a></li>
+  </ul>
+</nav>
+
+
+  <nav class="navbar navbar-dark  style="background-color: #e3f2fd;" ">
+  <form class="form-inline" action="search">
+    수업번호 : 　<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="lessonNo">
+    　검색어 : 　<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="keyword">
+    <button  class="btn btn-info" class="btn btn-outline-success my-2 my-sm-0" >검색</button>
   </form>
+</nav>
 
 
 </div><!-- .container -->
