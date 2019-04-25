@@ -11,14 +11,22 @@
     => absolute 태그는 width, height를 지정하지 않으면 콘텐츠의 크기에 맞춘다.
     => 기준이 되는 태그가 움직이면 자신도 같이 움직인다.
   */
+html {
+  border: 10px solid rgb(175, 0, 88);
+  position: relative;
+}
+
   body {
-    border: 1px solid black;
+    border: 1px dashed black;
     padding: 10px;
+    /* margin: 0px; */
+    position: relative;
   }
 
   div {
     border: 1px solid black;
     padding: 10px;
+    position: relative;
   }
 
   .c1 {
@@ -30,20 +38,20 @@
   #d1 {background-color: red;}
   #d11 {
     background-color: orange;
-    position: relative;
+    /* position: relative; */
   }
   #d2 {
     background-color: green;
-    height: 300px;
+    height: 50px;
   }
   #d3 {
     background-color: blue;
-    height: 400px;
+    height: 80px;
   }
 
   #d111 {
     position: absolute;
-    right: 200px;
+    right: 100px;
     top: 10px;
   }
   </style>

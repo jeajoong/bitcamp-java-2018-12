@@ -4,40 +4,62 @@
 <html>
 <head>
 <title>새 회원</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="${contextRootPath}/css/common.css">
 </head>
 <body>
 
   <jsp:include page="../header.jsp" />
 
+<div class="container">
   <h1>새 회원</h1>
   <form action='add' method='post' enctype='multipart/form-data'>
-    <table border='1'>
-      <tr>
-        <th>이름</th>
-        <td><input type='text' name='name'></td>
-      </tr>
-      <tr>
-        <th>이메일</th>
-        <td><input type='email' name='email'></td>
-      </tr>
-      <tr>
-        <th>암호</th>
-        <td><input type='password' name='password'></td>
-      </tr>
-      <tr>
-        <th>사진</th>
-        <td><input type='file' name='photoFile'></td>
-      </tr>
-      <tr>
-        <th>전화</th>
-        <td><input type='text' name='tel'></td>
-      </tr>
-    </table>
-    <p>
-      <button type='submit'>등록</button>
-      <a href='list'>목록</a>
-    </p>
+  
+  <div class="form-group row">
+    <label for="name" class="col-sm-2 col-form-label">이름</label>
+    <div class="col-sm-4">
+      <textarea class="form-control" id="name" name='name' rows='1'></textarea>
+    </div>
+  </div>
+  
+  <div class="form-group row">
+    <label for="email" class="col-sm-2 col-form-label">이메일</label>
+    <div class="col-sm-4">
+      <textarea class="form-control" id="email" name='email' rows='1'></textarea>
+    </div>
+  </div>
+  
+    <div class="form-group row">
+    <label for="password" class="col-sm-2 col-form-label">암호</label>
+    <div class="col-sm-4">
+      <textarea class="form-control" id='password' name='password' rows='1'></textarea>
+    </div>
+  </div>
+  
+  <div class="form-group row">
+    <label for="photoFile" class="col-sm-2 col-form-label">사진</label>
+    <div class="col-sm-4">
+        <input type='file' class="form-control-file" id='photoFile' name='photoFile'>
+    </div>
+  </div>
+  
+    <div class="form-group row">
+    <label for="tel" class="col-sm-2 col-form-label">전화번호</label>
+    <div class="col-sm-4">
+      <textarea class="form-control" id="tel" name='tel' rows='1'></textarea>
+    </div>
+  </div>
+  
+     <div class="form-group row">
+    <div class="col-sm-10">
+      <a class="btn btn-primary" href='.'>목록</a> 
+      <button class="btn btn-primary">등록</button>
+    </div>
+  </div>
   </form>
+  </div><!-- .container -->
+
+<jsp:include page="../javascript.jsp"/>
 </body>
 </html>
 
