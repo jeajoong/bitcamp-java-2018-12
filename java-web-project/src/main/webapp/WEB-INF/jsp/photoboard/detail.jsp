@@ -56,7 +56,7 @@
     <label for="lessonNo" class="col-sm-2 col-form-label">수업</label>
     <div class="col-sm-4">
     <select class="custom-select" name="lessonNo">
-  <option selected>수업을 선택하세요</option>
+  <option selected >수업을 선택하세요</option>
     <c:forEach items="${lessons}" var="lesson">
   <option value="${lesson.no}"
               ${board.lessonNo == lesson.no ? "selected" : ""}>
@@ -66,7 +66,7 @@
 </select>
     </div>
     </div>
-  
+    
 <dl class="row">
 <dd class="col-sm-9">
     <p>최소 한 개의 사진 파일을 등록해야 합니다.</p>

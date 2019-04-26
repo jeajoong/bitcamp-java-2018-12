@@ -63,7 +63,7 @@
     </where>
     order by 
       photo_id desc
-            <if test="#{size != null || rowNo != null}">
+     <if test="#{size != null || rowNo != null}">
         limit #{rowNo}, #{size}
       </if>
   </select>

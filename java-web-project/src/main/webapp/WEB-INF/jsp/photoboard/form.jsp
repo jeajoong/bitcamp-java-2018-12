@@ -17,13 +17,16 @@
     <h1>새 사진</h1>
     <form action='add' method='post' enctype='multipart/form-data'>
     
-        <div class="form-group row">
+    <div class="form-group row">
     <label for="lessonNo" class="col-sm-2 col-form-label">수업</label>
-    <div class="col-sm-7">
+    <div class="col-sm-4">
     <select class="custom-select" name="lessonNo">
   <option selected>수업을 선택하세요</option>
     <c:forEach items="${lessons}" var="lesson">
-  <option value="${lesson.no}">${lesson.title} </option>
+  <option value="${lesson.no}"
+              ${board.lessonNo == lesson.no ? "selected" : ""}>
+              ${lesson.title}(${lesson.startDate} ~ ${lesson.endDate})
+  </option>
   </c:forEach>
 </select>
     </div>
