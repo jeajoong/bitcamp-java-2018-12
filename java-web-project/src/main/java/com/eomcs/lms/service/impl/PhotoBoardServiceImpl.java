@@ -112,7 +112,7 @@ public class PhotoBoardServiceImpl implements PhotoBoardService {
 
   @Override
   public int size() {
-    return 0;
+    return boardDao.countAll();
   }
 }
 

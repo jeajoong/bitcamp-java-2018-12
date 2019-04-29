@@ -96,7 +96,7 @@ public class PhotoBoardController {
     if(pageSize < 3 || pageSize >8)
       pageSize = 3;
     
-    int rowCount = lessonService.size();
+    int rowCount = photoBoardService.size();
     int totalPage = rowCount / pageSize;
     if (rowCount % pageSize > 0)
       totalPage++;
@@ -126,33 +126,31 @@ public class PhotoBoardController {
     
     if(pageSize < 3 || pageSize >8)
       pageSize = 3;
+
+    // 검색결과의 데이터 수에 맞춰 페이지를 딱 맞추려면
+    // 검색결과의 데이터 개수가 필요함...... 
     
-    int rowCount = lessonService.size(); // rowCount에 수업데이터 총 개수를 담고
+    int rowCount = photoBoardService.size();
     int totalPage = rowCount / pageSize; // 수업데이터 수를 3으로 나누고 totalPage에 담는다.
-    if (rowCount % pageSize > 0)  // 만약 수업데이터를 pagesize로 나눴을때 0이상이라면
+    if (rowCount % pageSize > 0)   // 만약 수업데이터를 pageSize로 나눴을때 0이상이라면
       totalPage++; // 페이지 수를 하나 더 늘려준다 (1,2개 남은 게시물을 위해서.)
     
     if(pageNo < 1) // pageNo가 0이라면
       pageNo = 1; // pageNo는 1로 고정시켜준다.
-    else if (pageNo > totalPage) // pageNo가 전체페이지 크기보다 크다면
-      pageNo = totalPage; // 전체페이지 크기를 pageNo에 담는다.
+    else if (pageNo > totalPage) //
+      totalPage= pageNo; 
     
     String searchWord = null;
     if (keyword.length() > 0) 
       searchWord = keyword;
     List<PhotoBoard> boards = photoBoardService.list(lessonNo, searchWord, pageNo, pageSize);
     model.addAttribute("list", boards);
-    model.addAttribute("pageSize", pageSize);
     model.addAttribute("keyword", searchWord);
-    model.addAttribute("lessonNo", lessonNo);    
+    model.addAttribute("lessonNo", lessonNo);
+    model.addAttribute("pageSize", pageSize);
     model.addAttribute("pageNo", pageNo);
     model.addAttribute("totalPage", totalPage);
-    
-    // 문제점. 처음 1페이지는 나오지만 2페이지를 누르게 되면 널포인트에러,
-    // 해결법은 뭘까 ....
-    //select photo_id, titl, cdt, vw_cnt, lesson_id from lms_photo where lesson_id = '101' limit 1,3;
-    //DB SQL문
-    
+
   }
   
   @PostMapping("update")
