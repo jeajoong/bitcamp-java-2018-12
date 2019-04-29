@@ -24,15 +24,15 @@
 // => Element() 생성자가 추가한 프로퍼티이다.
 // => 태그의 콘텐트를 HTML 코드 그대로 리턴한다.
 // 
-var e = document.querySelector("article:first-child > p");
+var e = document.querySelector("article:first-child > p"); // 첫번째 article을 찾는데 그중에 p로 시작하는걸 찾음
 console.log(e)
-console.log(e.innerHTML)
+console.log(e.innerHTML) // 자식태그까지 알아내려고 할 때
 console.log("----------------------")
 
 // Node.textContent
 // => Node() 생성자가 추가한 프로퍼티이다.
 // => 태그의 콘텐트에서 HTML 코드를 제거한 후 텍스트만 리턴한다.
-console.log(e.textContent)
+console.log(e.textContent) // 자식태그는 신경 안쓸 때
 console.log("----------------------")
 
 </script>

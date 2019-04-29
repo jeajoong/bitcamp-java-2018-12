@@ -47,17 +47,19 @@ public class AuthController {
       HttpSession session,
       HttpServletResponse response) {
 
+//////// 쿠키
     Cookie cookie;
     if (saveEmail != null) {
       cookie = new Cookie("email", email);
       cookie.setMaxAge(60 * 60 * 24 * 15); // 15일간 쿠키를 보관한다.
-      
+
     } else {
       cookie = new Cookie("email", "");
       cookie.setMaxAge(0); // 기존의 쿠키를 제거한다.
     }
-    response.addCookie(cookie); 
-
+    response.addCookie(cookie);
+//////// 쿠키
+    
     Member member = memberService.get(email, password);
 
     if (member == null) {
@@ -70,7 +72,7 @@ public class AuthController {
     
     logger.debug("refererUrl: " + refererUrl);
     
-    if (refererUrl == null) {      
+    if (refererUrl == null) {
       return "redirect:/"; // 웹 애플리케이션 루트(컨텍스트 루트)를 의미한다.
       
     } else {

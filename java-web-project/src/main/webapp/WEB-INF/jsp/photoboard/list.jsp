@@ -62,8 +62,8 @@
 
   <nav class="navbar navbar-dark  style="background-color: #e3f2fd;" ">
   <form class="form-inline" action="search">
-    수업번호 : 　<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="lessonNo">
-    　검색어 : 　<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="keyword">
+    &nbsp; &nbsp; 수업번호 : &nbsp; <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="lessonNo">
+    &nbsp; &nbsp; 검색어 : &nbsp; <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="keyword">
     <button  class="btn btn-info" class="btn btn-outline-success my-2 my-sm-0" >검색</button>
   </form>
 </nav>

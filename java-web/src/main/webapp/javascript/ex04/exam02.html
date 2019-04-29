@@ -17,13 +17,17 @@ var obj = new Object();
 // 기본 객체 안에는 다음의 함수들이 들어 있다.
 console.log(obj.toString());
 console.log(obj.valueOf());
-console.log(obj.hasOwnProperty("toString"));
-console.log(obj.hasOwnProperty("hashCode"));
+console.log(obj.hasOwnProperty("toString")); // false
+console.log(obj.hasOwnProperty("hashCode")); // false 
+// hasOwnProperty는 toString, hashCode(원래부터 있던 것)에 대해 false를 출력한다. 
+// 기본 객체를 만든다음에 추가한 프로퍼티를 조사할때 사용하는게 hasOwnProperty
 
 // 이렇게 준비되 객체에 프로퍼티를 추가하고 싶다면 다음의 문법을 사용하라!
 // 객체.프로퍼티명 = 값;
 // 객체["프로퍼티명"] = 값;
 // 객체['프로퍼티명'] = 값;
+
+//객체에 추가하는 것이 프로퍼티 (자바에서는 프로퍼티가 게터/세터 의미)
 
 // 객체에 값을 저장할 수 있다.
 obj.title = "제목입니다.";

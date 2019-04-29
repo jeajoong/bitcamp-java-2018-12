@@ -28,6 +28,18 @@ obj.toString = function() {
 console.log(obj.toString()); 
 console.log(obj); // 자바와 달리 객체를 출력하면 toString()의 리턴 값이 아니라 그냥 객체 값을 출력한다.
 
+///////
+var obj2 = new Object();
+obj2.test = 111;
+
+obj2.toString = function() {
+	return this.test;
+};
+
+console.log(obj2.toString());
+console.log(obj2);
+///////테스트해봄
+
 obj.sum = function() {
 	return this.kor + this.eng + this.math; // 항상 같은 객체의 멤버를 가리킬 때는 this를 붙여야 한다. 
 };

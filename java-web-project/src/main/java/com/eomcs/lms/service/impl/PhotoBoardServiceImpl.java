@@ -22,7 +22,6 @@ public class PhotoBoardServiceImpl implements PhotoBoardService {
   public PhotoBoardServiceImpl(
       PhotoBoardDao boardDao, 
       PhotoFileDao fileDao) {
-    
     this.boardDao = boardDao;
     this.fileDao = fileDao;
   }
@@ -31,15 +30,15 @@ public class PhotoBoardServiceImpl implements PhotoBoardService {
   @Override
   public List<PhotoBoard> list(int lessonNo, String searchWord, int pageNo, int pageSize) {
    
-    if (lessonNo <= 0 && searchWord == null) {
+    if (lessonNo <= 0 && searchWord == null) { // 검색을 하지 않은 조건
      
       HashMap<String,Object> params = new HashMap<>();
       params.put("size", pageSize);
       params.put("rowNo", (pageNo-1) * pageSize);
 
-      return boardDao.findAll(params);
+      return boardDao.findAll(params); // 게시물을 3개씩 출력하기 위함
       
-    } else {
+    } else { // 검색을 했을때
       HashMap<String,Object> params = new HashMap<>();
       if (lessonNo > 0) {
         params.put("lessonNo", lessonNo);
@@ -47,9 +46,10 @@ public class PhotoBoardServiceImpl implements PhotoBoardService {
       if (searchWord != null) {
         params.put("keyword", searchWord);
       }
-      params.put("size",  0);
-      params.put("rowNo", 0);
-      
+
+      params.put("size",  pageSize);
+      params.put("rowNo", (pageNo-1) * pageSize);
+
       return boardDao.findAll(params);
     }
   }
