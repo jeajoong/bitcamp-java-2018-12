@@ -7,7 +7,7 @@
 <title>jsp</title>
 </head>
 <body>
-<h1>/WEB-INF/jsp2/c04_1/h1.jsp</h1>
+<h1>/WEB-INF/jsp2/c04_1.jsp</h1>
 </body>
 </html>
 <%

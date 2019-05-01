@@ -36,10 +36,6 @@ public class Controller02_1 {
       @PathVariable("age") int age
       */
       // URL의 변수 이름을 생략하면 아규먼트 이름을 사용한다.
-      
-      // @PathVariable 어노테이션을 이용해서 {템플릿 변수} 와 동일한 이름을 갖는 파라미터를 추가. 
-      // GetMapping에서 템플릿 변수를 지정하고 동일한 이름을 갖게한다. 
-      
       @PathVariable String name,
       @PathVariable int age
       ) {

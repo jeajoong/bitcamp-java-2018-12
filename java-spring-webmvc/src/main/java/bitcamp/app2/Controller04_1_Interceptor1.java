@@ -21,7 +21,6 @@ public class Controller04_1_Interceptor1 implements HandlerInterceptor {
     
     // 다음 인터셉터나 페이지 컨트롤러를 계속 실행하고 싶다면 true를 리턴한다.
     // 여기서 요청 처리를 완료하고 싶다면 false를 리턴한다.
-    // 조건 걸어서 Controller 작동시키게끔...
     return true; 
   }
   
