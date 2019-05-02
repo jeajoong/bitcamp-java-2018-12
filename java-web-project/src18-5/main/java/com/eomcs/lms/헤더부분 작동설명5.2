@@ -1,0 +1,70 @@
+----index.html에서
+css 파일 링크,
+<body>안에 
+<header>에 클래스 이름 bit-main-header로 정해두고 
+<body>에 클래스 이름 container 지정하고
+스크립트 경로 j쿼리, 파퍼, 부트스트랩 지정하고 header js, index js 지정
+
+
+----header.js에서 
+ -- function() 에 .bit-main-header 이름으로 된것의 정보를 header에 담고 
+
+    요청 받아서 ajax 변수에 넣고 정상적인 응답일 때 
+    header의 innerHTML 정보를 ajax의 응답 문자 담는다.
+
+    body 태그쪽에 로딩완료 이벤트를 보내기 위해
+    e 변수에 새로운 loaded.header라는 문자열로 값을 담아 
+    body 부분에 dispatch(보내다) 붙인다.
+    그리고 나서 open()에 header.html의 위치를 알려주고 
+    send()한다
+ -- 
+
+header.html의 내용을 웹 페이지에 삽입했다고 하면 
+즉시 로그아웃 버튼에 click listener를 등록해야 한다.
+
+ -- click listener를 만들기 위해 loaded.header 이름으로 메서드를 만들고 
+    웹 페이지에 header.html을 삽입했다면 
+    loadLoginUser(); 로 로그인 정보를 가져와 설정하고 
+    로그아웃 버튼의 click 리스너를 등록한다.
+     
+     - #logout-menu 에서 이벤트 버튼(click)을 바로 선언하고 일단 동작하지 않게
+       preventDefault로 막는다 . 
+       그리고 서버 응답 받는다. 정상적으로 받았다면 index.html 링크를 선언해 준다
+
+
+     open()에 app/json/auth/logout 로그아웃 페이지 위치 알려주고
+     send()한다.  
+ --
+
+header.html의 내용을 웹 페이지에 삽입했다고 하면
+로그인 정보를 받아와야 한다.
+로그아웃 버튼에 click listener를 작동시키기 위해 loadLoginUser()를 만든다.
+
+ --  loadLoginUser() 를 선언하고 
+     서버에서 응답받고 
+     변수를 선언해준다  
+     loginstate = #bit-login-state 와 
+     notLoginState = #bit-not-login-state 이렇게 값을 넣어주고 
+     
+     그리고 data.status의 값이 'success' 라면
+     loginState 의 클래스의 이름을 bit-invisible로 바꿔준다 그리고 공백을 준다
+     (아마도 이름을 바꿔주는 이유는 버튼숨김?기능인듯, 로그인 버튼숨김)
+     그리고 #login-username과 #login-userphoto에 사용자의 이름과 사진을 지정해 준다.
+
+     else 상황일때
+     notLoginState의 이름을 bit-invisible로 바꿔주고 공백을 준다.
+     
+     open()에 json/auth/user user 정보를 넘겨줘 로그인 페이지를 알려준다.
+     send() 한다.
+ -- 
+
+
+
+
+
+
+
+
+
+
+

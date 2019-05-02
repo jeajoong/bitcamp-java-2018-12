@@ -1,0 +1,46 @@
+login.html에서
+ css 파일 링크 설정하고,
+
+<body>안에
+
+<header>에 클래스 이름 bit-main-header 설정
+<div>에 클래스 이름 container로 설정
+
+<form>안에 <div>로 사용자 입력 부분 폼 작성
+       로그인 버튼 id=login-btn 설정!  
+
+스크립트 js 파일 링크.
+
+
+---- login.js
+ -- #login-btn() 생성!
+
+     만약 로컬저장소에서 'email' 문자열을 가져온다고 했을 때
+     #email의 값에 로컬저장소의 email 정보를 저장한다. 
+
+     그리고 #login-btn에 onclick()를 선언하고 
+     data 변수에 JSON.parse 정보를 넣는다.
+
+     data의 상태가 'success' 라면 index.html의 링크를 걸어준다.
+     아니라면 로그인 실패라는 문자를 띄운다.
+     그리고 json/auth/login의 페이지를 알려준다.
+
+     변수 email에 #email.value 넣어주고
+     변수 password에 #password.value 넣어준다.
+
+     만약 #saveEmail:checked 값이 != null 라면
+     웹브라우저의 로컬저장소에 이메일 값을 저장해야한다~
+     localStorage.email 에 email을 넣어준다.
+     
+     else 라면 
+     localStorage.removeItem('email') 해준다.
+
+     그리고 qs에 이메일 패스워드 정보를 넣고
+     send(qs) 한다~
+ -- 
+
+
+
+
+
+
