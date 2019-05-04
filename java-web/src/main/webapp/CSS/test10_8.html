@@ -42,7 +42,7 @@
     border: 1px solid red;
     position: absolute;
     left: 10px;
-    top: 10px;
+    top: 100px;
   }
 
   #menu ul > li {
@@ -60,12 +60,27 @@
     min-height: 430px;
   }
 
-  #footer {
+
+  #header {
     font-size: 80%; /* = 0.8em */
+    padding: 5px; /* 글자와 border의 내부 간격 */
+    margin: 0px 0px 10px 0px; /* border 외부 간격*/
     clear: left; /* 왼쪽에 이 태그의 내용을 가리는 것이 있다면
                     그 아래로 위치하도록 이동시킨다.*/
     text-align: center;
     border: 1px solid red;
+    height: 70px;
+  }
+
+  #footer {
+    font-size: 80%; /* = 0.8em */
+    padding: 5px; /* 글자와 border의 내부 간격 */
+    margin: 5px 0px 0px 0px; /* border 외부 간격*/
+    clear: left; /* 왼쪽에 이 태그의 내용을 가리는 것이 있다면
+                    그 아래로 위치하도록 이동시킨다.*/
+    text-align: center;
+    border: 1px solid red;
+    height: 70px;
   }
 
   #footer > p {
@@ -84,6 +99,7 @@
     color: white;
     border-style:none;
     position: absolute;
+    /* top: 170px; */
     top: 0px;
     right: 0px;
     cursor: pointer;
@@ -96,16 +112,23 @@
   }
 
   #ad > img:last-child {
-    position: relative;
+    /* position: relative; */
     left: 20px;
     top: 20px;
   }
 
-  
 
   </style>
 </head>
 <body>
+
+
+  <div id="header">
+    <span id="bitcamp">비트캠프</span> |
+    <address>서울시 서초구 서초동 비트아카데미빌딩 3층</address>
+    <span id="company">(주)비트컴퓨터 서초지점</span>
+    <p>Copyright by BITCamp</p>
+    </div>
 
   <div id="menu">
   <img src='http://bitcamp.co.kr/resources/images/logo/head_logo.gif'>

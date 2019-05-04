@@ -46,11 +46,11 @@ public class BoardController {
   
   @GetMapping
   public String list(
-      @RequestParam(defaultValue="1") int pageNo,
-      @RequestParam(defaultValue="3") int pageSize,
+      @RequestParam(defaultValue="1") int pageNo, // 페이지의 대한 번호나 사이즈가 넘어오지 않는다면
+      @RequestParam(defaultValue="3") int pageSize, // 기본적으로 사이즈를 지정한다.
       Model model) {
     
-    if (pageSize < 3 || pageSize > 8) 
+    if(pageSize < 3 || pageSize >8)
       pageSize = 3;
     
     int rowCount = boardService.size();
@@ -58,16 +58,17 @@ public class BoardController {
     if (rowCount % pageSize > 0)
       totalPage++;
     
-    if (pageNo < 1) 
-      pageNo = 1;
+    if(pageNo < 1)
+      pageNo=1;
     else if (pageNo > totalPage)
       pageNo = totalPage;
+    
     
     List<Board> boards = boardService.list(pageNo, pageSize);
     model.addAttribute("list", boards);
     model.addAttribute("pageNo", pageNo);
-    model.addAttribute("pageSize", pageSize);
-    model.addAttribute("totalPage", totalPage);
+    model.addAttribute("pageSize",pageSize);
+    model.addAttribute("totalPage",totalPage);
     
     return "board/list";
   }
