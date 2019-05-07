@@ -55,7 +55,7 @@ Bitcamp.ajax =  function(url, settings) {
     if (settings.success) {
       if (settings.dataType == 'json') {
         settings.success(JSON.parse(xhr.responseText));
-      } else {        
+      } else {
         settings.success(xhr.responseText);
       }
     }
@@ -71,6 +71,7 @@ Bitcamp.getJSON = function(url, success) {
   });
 };
 
-var $ = Bitcamp;
+var $ = Bitcamp; 
+// $는 변수임! index에 넘겨준다
 
 
