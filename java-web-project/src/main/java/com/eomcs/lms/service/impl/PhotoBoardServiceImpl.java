@@ -22,36 +22,21 @@ public class PhotoBoardServiceImpl implements PhotoBoardService {
   public PhotoBoardServiceImpl(
       PhotoBoardDao boardDao, 
       PhotoFileDao fileDao) {
+    
     this.boardDao = boardDao;
     this.fileDao = fileDao;
   }
   
   // 비지니스 객체에서 메서드 이름은 가능한 업무 용어를 사용한다.
   @Override
-  public List<PhotoBoard> list(int lessonNo, String searchWord, int pageNo, int pageSize) {
-   
-    if (lessonNo <= 0 && searchWord == null) { // 검색을 하지 않은 조건
-     
-      HashMap<String,Object> params = new HashMap<>();
-      params.put("size", pageSize);
-      params.put("rowNo", (pageNo-1) * pageSize);
-
-      return boardDao.findAll(params); // 게시물을 3개씩 출력하기 위함
-      
-    } else { // 검색을 했을때
-      HashMap<String,Object> params = new HashMap<>();
-      if (lessonNo > 0) {
-        params.put("lessonNo", lessonNo);
-      }
-      if (searchWord != null) {
-        params.put("keyword", searchWord);
-      }
-
-      params.put("size",  pageSize);
-      params.put("rowNo", (pageNo-1) * pageSize);
-
-      return boardDao.findAll(params);
-    }
+  public List<PhotoBoard> list(int pageNo, int pageSize, String search) {
+    
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("size", pageSize);
+    params.put("rowNo", (pageNo - 1) * pageSize);
+    params.put("search", search);
+    
+    return boardDao.findAll(params);
   }
   
   @Override
@@ -109,10 +94,10 @@ public class PhotoBoardServiceImpl implements PhotoBoardService {
     fileDao.deleteByPhotoBoardNo(no);
     return boardDao.delete(no);
   }
-
+  
   @Override
-  public int size() {
-    return boardDao.countAll();
+  public int size(String search) {
+    return boardDao.countAll(search);
   }
 }
 

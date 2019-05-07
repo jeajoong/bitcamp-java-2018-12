@@ -29,7 +29,7 @@ public class PhotoBoardController {
   
   @GetMapping("form")
   public void form(Model model) {
-    List<Lesson> lessons = lessonService.list(0, lessonService.size());
+    List<Lesson> lessons = lessonService.list(1, 100, null);
     model.addAttribute("lessons", lessons);
   }
   
@@ -38,8 +38,9 @@ public class PhotoBoardController {
 
     ArrayList<PhotoFile> files = new ArrayList<>();
     
-    String uploadDir = servletContext.getRealPath("/upload/photoboard");
-    
+    String uploadDir = servletContext.getRealPath(
+        "/upload/photoboard");
+
     for (Part part : photo) {
       if (part.getSize() == 0) 
         continue;
@@ -76,90 +77,42 @@ public class PhotoBoardController {
   }
   
   @GetMapping("{no}")
-  public String detail(@PathVariable int no, Model model) { 
-
-    PhotoBoard board = photoBoardService.get(no); 
-    // 수업 데이터를 가져오려면 size()로 DB에 있는 수업 정보 숫자를 돌려 받고 넘겨준다!!!
-    List<Lesson> lessons = lessonService.list(0, lessonService.size());
+  public String detail(@PathVariable int no, Model model) {
+    PhotoBoard board = photoBoardService.get(no);
+    List<Lesson> lessons = lessonService.list(1, 100, null);
     model.addAttribute("board", board);
     model.addAttribute("lessons", lessons);
-    
     return "photoboard/detail";
   }
   
   @GetMapping
   public String list(
-      @RequestParam(defaultValue="1") int pageNo, // 페이지의 대한 번호나 사이즈가 넘어오지 않는다면
-      @RequestParam(defaultValue="3") int pageSize, // 기본적으로 사이즈를 지정한다.
+      @RequestParam(defaultValue="1") int pageNo,
+      @RequestParam(defaultValue="3") int pageSize,
+      String search,
       Model model) {
     
-    if(pageSize < 3 || pageSize >8)
+    if (pageSize < 3 || pageSize > 8) 
       pageSize = 3;
     
-    int rowCount = photoBoardService.size();
+    int rowCount = photoBoardService.size(search);
     int totalPage = rowCount / pageSize;
     if (rowCount % pageSize > 0)
       totalPage++;
     
-    if(pageNo < 1)
-      pageNo=1;
-    else if (pageNo > totalPage)
+    if (pageNo > totalPage)
       pageNo = totalPage;
+    if (pageNo < 1) 
+      pageNo = 1;
     
-    List<PhotoBoard> boards = photoBoardService.list(0, null, pageNo, pageSize);
+    List<PhotoBoard> boards = photoBoardService.list(pageNo, pageSize, search);
     model.addAttribute("list", boards);
     model.addAttribute("pageNo", pageNo);
-    model.addAttribute("pageSize",pageSize);
-    model.addAttribute("totalPage",totalPage);
+    model.addAttribute("pageSize", pageSize);
+    model.addAttribute("totalPage", totalPage);
+    model.addAttribute("search", search);
     
     return "photoboard/list";
-  }
-  
-  
-  @GetMapping("search")
-  public void search(
-      @RequestParam(defaultValue="0") int lessonNo,
-      @RequestParam(defaultValue="1") int pageNo, // 페이지의 대한 번호나 사이즈가 넘어오지 않는다면
-      @RequestParam(defaultValue="3") int pageSize, // 기본적으로 사이즈를 지정한다.
-      String keyword,
-      Model model) {
-    
-    if(pageSize < 3 || pageSize >8)
-      pageSize = 3;
-
-    // 검색결과의 데이터 수에 맞춰 페이지를 딱 맞추려면
-    // 검색결과의 데이터 개수가 필요함...... 
-    
-    int rowCount = photoBoardService.size();
-    int totalPage = rowCount / pageSize; // 수업데이터 수를 3으로 나누고 totalPage에 담는다.
-    if (rowCount % pageSize > 0)   // 만약 수업데이터를 pageSize로 나눴을때 0이상이라면
-      totalPage++; // 페이지 수를 하나 더 늘려준다 (1,2개 남은 게시물을 위해서.)
-    
-    if(pageNo < 1) // pageNo가 0이라면
-      pageNo = 1; // pageNo는 1로 고정시켜준다.
-    else if (pageNo > totalPage) //
-      totalPage= pageNo; 
-    
-    String searchWord = null;
-    if (keyword.length() > 0) 
-      searchWord = keyword;
-    List<PhotoBoard> boards = photoBoardService.list(lessonNo, searchWord, pageNo, pageSize);
-    model.addAttribute("list", boards);
-    model.addAttribute("keyword", searchWord);
-    model.addAttribute("lessonNo", lessonNo);
-    model.addAttribute("pageSize", pageSize);
-    model.addAttribute("pageNo", pageNo);
-
-    List<PhotoBoard> searchBoards = photoBoardService.list(lessonNo, searchWord, 1, photoBoardService.size());
-   
-    int count = searchBoards.size() / pageSize;
-    if (searchBoards.size() % pageSize > 0) 
-      count ++;
-    
-      if (totalPage > count)
-        totalPage = count;
-    
-    model.addAttribute("totalPage", totalPage);
   }
   
   @PostMapping("update")

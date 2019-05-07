@@ -33,17 +33,12 @@ public class LessonServiceImpl implements LessonService {
   
   // 비지니스 객체에서 메서드 이름은 가능한 업무 용어를 사용한다.
   @Override
-  public List<Lesson> list(int pageNo, int pageSize) {
+  public List<Lesson> list(int pageNo, int pageSize, String search) {
+    
     HashMap<String,Object> params = new HashMap<>();
     params.put("size", pageSize);
-    
- // 0이 pageNo으로 들어오면 rowNo가 -값이 되기 때문에 오류가 난다.
- // 0을 받았을때 처리 해주어야 한다.
-    if ((pageNo - 1) < 0) {   
-      params.put("rowNo", 0);
-    } else {
-    params.put("rowNo", (pageNo-1) * pageSize);
-    }
+    params.put("rowNo", (pageNo - 1) * pageSize);
+    params.put("search", search);
     
     return lessonDao.findAll(params);
   }
@@ -66,6 +61,8 @@ public class LessonServiceImpl implements LessonService {
   @Override
   public int delete(int no) {
     HashMap<String,Object> params = new HashMap<>();
+    params.put("size", 100);
+    params.put("rowNo", 0);
     params.put("lessonNo", no);
     
     List<PhotoBoard> boards = photoBoardDao.findAll(params);
@@ -76,15 +73,13 @@ public class LessonServiceImpl implements LessonService {
     
     int count = lessonDao.delete(no);
     
-    
     return count;
   }
-
+  
   @Override
-  public int size() {
-    return lessonDao.countAll();
+  public int size(String search) {
+    return lessonDao.countAll(search);
   }
-
 }
 
 

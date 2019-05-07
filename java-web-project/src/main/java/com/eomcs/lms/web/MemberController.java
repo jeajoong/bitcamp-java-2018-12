@@ -58,39 +58,32 @@ public class MemberController {
   
   @GetMapping
   public String list(
-      @RequestParam(defaultValue="1") int pageNo, // 페이지의 대한 번호나 사이즈가 넘어오지 않는다면
-      @RequestParam(defaultValue="3") int pageSize, // 기본적으로 사이즈를 지정한다.
+      @RequestParam(defaultValue="1") int pageNo,
+      @RequestParam(defaultValue="3") int pageSize,
+      String search,
       Model model) {
     
-    if(pageSize < 3 || pageSize >8)
+    if (pageSize < 3 || pageSize > 8) 
       pageSize = 3;
     
-    int rowCount = memberService.size();
+    int rowCount = memberService.size(search);
     int totalPage = rowCount / pageSize;
     if (rowCount % pageSize > 0)
       totalPage++;
     
-    if(pageNo < 1)
-      pageNo=1;
-    else if (pageNo > totalPage)
+    if (pageNo > totalPage)
       pageNo = totalPage;
+    if (pageNo < 1) 
+      pageNo = 1;
     
-    
-    List<Member> members = memberService.list(null, pageNo, pageSize);
+    List<Member> members = memberService.list(pageNo, pageSize, search);
     model.addAttribute("list", members);
     model.addAttribute("pageNo", pageNo);
-    model.addAttribute("pageSize",pageSize);
-    model.addAttribute("totalPage",totalPage);
+    model.addAttribute("pageSize", pageSize);
+    model.addAttribute("totalPage", totalPage);
+    model.addAttribute("search", search);
     
     return "member/list";
-  }
-  
-  
-  
-  @GetMapping("search")
-  public void search(String keyword, Model model) {
-    List<Member> members = memberService.list(keyword, 0, 0);
-    model.addAttribute("list", members);
   }
 
   @PostMapping("update")

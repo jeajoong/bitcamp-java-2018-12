@@ -10,12 +10,14 @@
   
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active"><a class="nav-link" href="${contextRootPath}/app/auth/form">로그인</a></li>
-      <li class="nav-item active"><a class="nav-link" href="${contextRootPath}/app/auth/logout">로그아웃</a></li>
-      <li class="nav-item active"><a class="nav-link" href="${contextRootPath}/app/board/">게시판</a></li>
-      <li class="nav-item active"><a class="nav-link" href="${contextRootPath}/app/member/">회원관리</a></li>
-      <li class="nav-item active"><a class="nav-link" href="${contextRootPath}/app/lesson/">수업관리</a></li>
-      <li class="nav-item active"><a class="nav-link" href="${contextRootPath}/app/photoboard/">수업사진관리</a></li>
+      <li class="nav-item active">
+        <a class="nav-link" href="${contextRootPath}/app/board/">게시판</a></li>
+      <li class="nav-item active">
+        <a class="nav-link" href="${contextRootPath}/app/member/">회원관리</a></li>
+      <li class="nav-item active">
+        <a class="nav-link" href="${contextRootPath}/app/lesson/">수업관리</a></li>
+      <li class="nav-item active">
+        <a class="nav-link" href="${contextRootPath}/app/photoboard/">수업사진관리</a></li>
     </ul>
     
     <div id="bit-login-state">

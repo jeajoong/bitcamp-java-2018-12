@@ -29,11 +29,17 @@
       <include refid="default-columns"/> 
     from 
       lms_lesson
+    <where>
+      <if test="search != null">
+        <bind name="pattern1" value="'%' + search + '%'"/>
+        titl like #{pattern1}
+      </if>
+    </where> 
     order by 
       lesson_id desc
-      <if test="#{size != null || rowNo != null}">
-        limit #{rowNo}, #{size}
-      </if>
+    <if test="size != null and rowNo != null">
+      limit #{rowNo}, #{size}
+    </if>
   </select>
   
   <select id="findByNo" resultMap="lessonMap" parameterType="int">
@@ -82,11 +88,16 @@
     where lesson_id = #{value}
   </delete>
   
-      <select id="countAll" resultType="int">
-    select count(*) from lms_lesson;
+    <select id="countAll" resultType="int" parameterType="string">
+    select count(*) 
+    from lms_lesson
+    <where>
+      <if test="_parameter != null">
+        <bind name="pattern1" value="'%' + _parameter + '%'"/>
+        titl like #{pattern1}
+      </if>
+    </where> 
   </select>
-  
-  
 </mapper>
 
 

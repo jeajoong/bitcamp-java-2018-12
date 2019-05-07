@@ -10,10 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomeController {
 
   final static Logger logger = LogManager.getLogger(HomeController.class);
-  
+
   @GetMapping
   public void home() {
   }
+  
 }
 
 

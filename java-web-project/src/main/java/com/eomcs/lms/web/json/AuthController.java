@@ -1,21 +1,21 @@
-package com.eomcs.lms.web;
+package com.eomcs.lms.web.json;
+import java.util.HashMap;
 import javax.servlet.ServletContext;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import com.eomcs.lms.domain.Member;
 import com.eomcs.lms.service.MemberService;
 
-@Controller
-@RequestMapping("/auth")
+@RestController("json/AuthController")
+@RequestMapping("/json/auth")
 public class AuthController {
 
   final static Logger logger = LogManager.getLogger(AuthController.class);
@@ -40,52 +40,54 @@ public class AuthController {
   }
   
   @PostMapping("login")
-  public String login(
+  public Object login(
       String email,
       String password,
-      String saveEmail,
       HttpSession session,
       HttpServletResponse response) {
 
-    Cookie cookie;
-    if (saveEmail != null) {
-      cookie = new Cookie("email", email);
-      cookie.setMaxAge(60 * 60 * 24 * 15); // 15일간 쿠키를 보관한다.
-      
-    } else {
-      cookie = new Cookie("email", "");
-      cookie.setMaxAge(0); // 기존의 쿠키를 제거한다.
-    }
-    response.addCookie(cookie); 
-
     Member member = memberService.get(email, password);
 
+    HashMap<String,Object> content = new HashMap<>();
+    
     if (member == null) {
-      return "auth/fail";
-    }
-
-    session.setAttribute("loginUser", member);
-
-    String refererUrl = (String) session.getAttribute(REFERER_URL);
-    
-    logger.debug("refererUrl: " + refererUrl);
-    
-    if (refererUrl == null) {      
-      return "redirect:/"; // 웹 애플리케이션 루트(컨텍스트 루트)를 의미한다.
-      
+      content.put("status", "fail");
+      content.put("message", "이메일이 없거나 암호가 맞지 않습니다.");
     } else {
-      return "redirect:" + refererUrl;
+      session.setAttribute("loginUser", member);
+      content.put("status", "success");
     }
+
+    return content;
   }
   
   @GetMapping("logout")
-  public String logout(HttpSession session) throws Exception {
+  public Object logout(HttpSession session) throws Exception {
     
     logger.debug("세션 무효화시킴!");
     logger.debug("loginUser: " + session.getAttribute("loginUser"));
     session.invalidate();
     
-    return "redirect:/";
+    HashMap<String,Object> content = new HashMap<>();
+    content.put("status", "success");
+    
+    return content;
+  }
+  
+  @GetMapping("user")
+  public Object user(HttpSession session) throws Exception {
+    
+    Member loginUser = (Member)session.getAttribute("loginUser");
+    
+    HashMap<String,Object> content = new HashMap<>();
+
+    if (loginUser != null) {
+      content.put("status", "success");
+      content.put("user", loginUser);
+    } else {
+      content.put("status", "fail");
+    }
+    return content;
   }
 }
 
