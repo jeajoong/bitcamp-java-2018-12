@@ -28,6 +28,13 @@
 > select user from 데이터베이스명.테이블명;
 > select user from mysql.user;
 
+
+## 우분투에서 만약 에러가 뜬다면...
+> sudo mysql -u root -p
+> create database 새데이터베이스명;
+> GRANT ALL ON 데이터베이스명.* TO '사용자아이디'@'서버주소';
+
+
 ## MySQL 데이터베이스 생성
 > CREATE DATABASE 데이터베이스명
   DEFAULT CHARACTER SET utf8

@@ -1,6 +1,6 @@
 var pageNo = 1,
     pageSize = 3,
-    tbody = $('tbody'),
+    tbody = $('tbody'), //document.querySelector => Bitcamp => $ 기존 객체 값과 다른 리턴값
     prevPageLi = $('#prevPage'),
     nextPageLi = $('#nextPage'),
     currSpan = $('#currPage > span'),
@@ -70,12 +70,4 @@ $(document.body).bind('loaded-list', () => {
       $(e.target).attr('data-no');
   });
 });
-
-
-
-
-
-
-
-
 

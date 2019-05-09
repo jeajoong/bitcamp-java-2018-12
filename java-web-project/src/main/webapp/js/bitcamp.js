@@ -18,7 +18,8 @@ var Bitcamp = function(arg1) { // function = object + 함수 코드
       arr.push(e);
     }
   }
-  
+
+
   // 태그가 들어있는 배열에 그 태그들을 다룰 때 사용할 도구를 첨가한다.
   arr.html = function(value) {
     if (arguments.length > 0) {
@@ -32,6 +33,11 @@ var Bitcamp = function(arg1) { // function = object + 함수 코드
     }
   };
   
+
+
+
+// // 함수를 배열에 첨부해 기능 확장
+
   // 태그에 클래스 이름을 추가하는 함수를 배열에 첨부한다.
   arr.addClass = function(value) {
     for (var e of this) {
@@ -59,7 +65,7 @@ var Bitcamp = function(arg1) { // function = object + 함수 코드
     }
     return this;
   }
-  
+
   // click 리스너를 등록하는 함수를 배열에 첨부한다.
   arr.click = function(cb) {
     for (var e of this) {
@@ -95,7 +101,7 @@ var Bitcamp = function(arg1) { // function = object + 함수 코드
     }
     return this;
   };
-  
+
   // 태그에 자식 태그를 추가하는 함수를 배열에 첨부한다.
   arr.append = function(childs) {
     for (var parent of this) {
@@ -118,6 +124,11 @@ var Bitcamp = function(arg1) { // function = object + 함수 코드
   
   return arr;
 }; 
+
+// // 함수를 배열에 첨부해 기능 확장 끝
+
+
+
 
 Bitcamp.ajax = function(url, settings) {
   // XMLHttpRequest 객체를 사용하여 AJAX 요청하는 코드를 사용하기 쉽도록 캡슐화시킨다.
@@ -166,6 +177,8 @@ Bitcamp.ajax = function(url, settings) {
   xhr.send()
 };
 
+
+  
 Bitcamp.getJSON = function(url, success) {
   Bitcamp.ajax(url, {
     "dataType": 'json',
@@ -174,14 +187,6 @@ Bitcamp.getJSON = function(url, success) {
 };
 
 var $ = Bitcamp;
-
-
-
-
-
-
-
-
 
 
 
