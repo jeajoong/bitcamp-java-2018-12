@@ -97,6 +97,7 @@
       <max-file-size>10000000</max-file-size>
     </multipart-config>
   </servlet>
+  
   <servlet>
     <servlet-name>bitcamp.ex06.Servlet02</servlet-name>
     <servlet-class>bitcamp.ex06.Servlet02</servlet-class>
@@ -162,6 +163,21 @@
   <servlet-mapping>
     <servlet-name>HelloServlet</servlet-name>
     <url-pattern>/lib/hello</url-pattern>
+  </servlet-mapping>
+  
+  <!-- /webapp/fileupload/*.html 예제에서 사용할 파일 업로드를 처리하는 JSP -->
+  <servlet>
+    <servlet-name>upload.jsp</servlet-name> <!-- 요부분은 별명임 -->
+    <jsp-file>/fileupload/upload.jsp</jsp-file>
+    <!-- 멀티파트 데이터를 처리하려면 다음 태그를 선언해야 한다. -->
+    <multipart-config>
+      <max-file-size>100000000</max-file-size> <!-- 100mb 0이 8개-->
+    </multipart-config>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>upload.jsp</servlet-name>
+    <url-pattern>/fileupload/upload.jsp</url-pattern> <!-- 일관성 주려고 -->
   </servlet-mapping>
   
   <session-config>
