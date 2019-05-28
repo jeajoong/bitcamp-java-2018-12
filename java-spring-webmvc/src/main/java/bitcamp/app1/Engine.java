@@ -9,7 +9,6 @@ public class Engine {
   public String toString() {
     return "Engine [model=" + model + ", cc=" + cc + ", valve=" + valve + "]";
   }
-  
   public String getModel() {
     return model;
   }
@@ -28,5 +27,6 @@ public class Engine {
   public void setValve(int valve) {
     this.valve = valve;
   }
+  
   
 }

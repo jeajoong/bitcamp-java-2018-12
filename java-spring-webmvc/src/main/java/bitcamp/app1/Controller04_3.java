@@ -21,7 +21,7 @@ public class Controller04_3 {
   // 테스트:
   //    http://.../c04_3/h1?model=sonata&maker=hyundai&capacity=5&auto=true&engine.model=ok&engine.cc=1980&engine.valve=16
   @GetMapping("h1") 
-  @ResponseBody // 자바 객체를 Http 응답 객체로 변환해주는 놈
+  @ResponseBody 
   public void handler1(
       PrintWriter out,
       String model,
@@ -37,7 +37,6 @@ public class Controller04_3 {
                // 값 객체 안에 또 값 객체가 있을 때는 OGNL 방식으로 요청 파라미터 값을 
                // 지정하면 된다.
                // 예) ...&engine.model=ok&engine.cc=1980&engine.valve=16
-               // OGNL 동작 방식 예) engine.model=ok ==> getEngine.setModel("ok")
       ) {
     
     out.printf("model=%s\n", model);

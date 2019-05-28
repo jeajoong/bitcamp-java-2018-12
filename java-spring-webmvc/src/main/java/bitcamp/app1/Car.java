@@ -10,24 +10,10 @@ public class Car {
   protected Date createdDate;
   protected Engine engine;
   
-
   @Override
   public String toString() {
     return "Car [model=" + model + ", maker=" + maker + ", auto=" + auto + ", capacity=" + capacity
         + ", createdDate=" + createdDate + ", engine=" + engine + "]";
-  }
-  
-  public Engine getEngine() {
-    return engine;
-  }
-  public void setEngine(Engine engine) {
-    this.engine = engine;
-  }
-  public int getCapacity() {
-    return capacity;
-  }
-  public void setCapacity(int capacity) {
-    this.capacity = capacity;
   }
   public String getModel() {
     return model;
@@ -53,7 +39,18 @@ public class Car {
   public void setCreatedDate(Date createdDate) {
     this.createdDate = createdDate;
   }
-  
+  public int getCapacity() {
+    return capacity;
+  }
+  public void setCapacity(int capacity) {
+    this.capacity = capacity;
+  }
+  public Engine getEngine() {
+    return engine;
+  }
+  public void setEngine(Engine engine) {
+    this.engine = engine;
+  }
   
   
 }
