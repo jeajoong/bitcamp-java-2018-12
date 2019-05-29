@@ -1,0 +1,425 @@
+-- Jquery 에서.. 
+$(window).height() 와 $(document).height()의 차이점
+
+$(window).height() gets you an unit-less pixel value of the height of the (browser) window aka viewport.
+ With respect to the web browsers the viewport here is visible portion of the canvas(which often is smaller than the document being rendered).
+
+$(document).height() returns an unit-less pixel value of the height of the document being rendered.
+ However, if the actual document’s body height is less than the viewport height then it will return the viewport height instead.
+
+.trigger() 함수는 이벤트가 발생할 때 실행될 함수나 .bind() 함수로 연결된 어떤 이벤트 핸들러를 강제로 실행시켜 줍니다. 
+A call to .trigger() 함수를 사용해서 사용자가 일으킬 이벤트를 임의적으로 순서에 따라 발생시킬 수 있습니다
+
+
+--Dom 문서에서..
+● document.write( ) 문서가 로드된 후 사용하면 문서를 덮어쓰기 때문에 조심해야한다.
+: ()안에 것을 화면에 출력하라는 메서드
+● window.alert()  
+: 경고창을 띄워 ()안의 것을 출력하라는 메서드
+● innerHTML=" "
+: [홍길동]이라는 콘텐츠 HTML 요소에 접근하여 [이순신]으로 바꿔 출력할때 이 속성을 사용
+
+---innerHTML속성을 사용하면 <html>및을 포함한 모든 HTML 요소를 가져 오거나 변경할 수 있습니다
+
+<p class="intro">The DOM is very useful.</p>
+<p class="intro">This example demonstrates the <b>getElementsByClassName</b> method.</p>
+
+var x = document.getElementsByClassName("intro");
+document.getElementById("demo").innerHTML = 
+'The first paragraph (index 0) with class="intro": ' + x[0].innerHTML; 
+////'The ~~~ ": ' 까지 정상 출력되고 x[0].innerHTML은 The DOM is very useful. 출력됨~!////
+
+
+https://www.w3schools.com/js/js_htmldom_document.asp
+각종 요소를 찾고 변경하고 추가하고 삭제하는 법 (id,name 관련)
+
+---이벤트 핸들러 추가!
+document.getElementById(id).onclick = function(){code}
+
+
+Html 객체 찾기
+document.URL //URL 정보 찾아옴~
+document.inputEncoding //character set 정보 돌려줌~
+.... body, cookie, domain, forms, images
+
+
+--- 버튼을 누르고 데이터 출력하기
+<form id="frm1" action="/action_page.php">
+First Name: <input type="text" name="fname" value="Donald"><br>
+Last name: <input type="text" name="lname value="Duck"><br>
+<input type="submit" value="Submit">
+</form>
+
+<button onclick="myFunction()">Try it</button>
+// Try it 버튼을 누르면 Donald .Duck .submit 줄이 바뀌어서 출력된다.
+
+<script>
+function myFunction() {
+var x = document.forms["frm1"];
+var text = "";
+var i;
+for (i=0; i<x.length; i++) {
+text += x.elements[i].value + "<br>"; => text 에 얻어온 요소들을 담음
+}
+document.getElementById("demo").innerHTML = text; => 
+}
+</script>
+
+
+
+사진을 출력하거나 변경하고 싶을땐 document.getElementById("image").src = "사진명.jpg";
+src를 이용한다.
+문서의 스타일을 변경하고 싶을땐 document.getElementById("p2").style.color = "blue";
+style.color를 이용한다.
+
+
+클릭 이벤트 만들기.
+<h1 onclick="this.innerHTML='Ooops!'">Click on this text!</h1> 텍스트를 클릭하면 바뀜
+
+
+1111버튼 누르면 현재 시간 출력하기.
+<button onclick="displayDate()">The time is?</button>
+<script>
+function displayDate() {
+document.getElementById("demo").innerHTML = Date(); // Date()는 그냥 현재시간을 나타내나봄...
+}
+</script>
+
+
+2222버튼 누르면 현재 시간 출력하기.(이벤트 할당)
+<button id="myBtn">Try it</button>
+<script>
+document.getElementById("myBtn").onclick = displayDate; 그 현재 시간이 담긴 정보를 버튼을 누르면 전달. 
+
+function displayDate() {  
+document.getElementById("demo").innerHTML = Date(); // displayDate()는 현재시간을 담고있음 ↑
+}
+</script>
+
+
+
+onload와 onunload사용자가 입력하거나 페이지를 떠날 때 이벤트가 트리거됩니다.
+onload및 onunload이벤트는 쿠키를 처리하는 데 사용할 수 있습니다
+
+<script>
+function checkCookies() {
+  var text = "";
+  if (navigator.cookieEnabled == true) {
+    text = "Cookies are enabled.";
+  } else {
+    text = "Cookies are not enabled.";
+  }
+  document.getElementById("demo").innerHTML = text;
+}
+</script>
+
+
+
+<script>
+function myFunction() {
+var x = document.getElementById("fname");
+x.value = x.value.toUpperCase();
+}
+</script>
+
+Enter your name: <input type="text" id="fname" onchange="myFunction()">
+// 영어를 입력하면 대문자로 자동으로 바뀜.. onchange 이벤트로 인해서.
+
+
+
+<script>
+function mOver(obj) {
+  obj.innerHTML = "Thank You" // 마우스 올리면 땡큐
+}
+
+function mOut(obj) {
+  obj.innerHTML = "Mouse Over Me" // 마우스 치우면 마우스 올리라고 함
+}
+
+function mDown(obj) {
+  obj.innerHTML = "Release Me";
+}
+
+function mUp(obj) {
+  obj.innerHTML="Thank You";
+}
+</script>
+
+
+
+
+-------사용자가 버튼을 누를때 발생하는 이벤트 리스너를 추가.
+<button id="myBtn">Try it</button>
+<p id="demo"></p>
+
+<script>
+document.getElementById("myBtn").addEventListener("click", displayDate);
+//클릭할 때 displayDate를 가져와서 demo에 뿌리는듯.
+
+function displayDate() {
+document.getElementById("demo").innerHTML = Date();
+}
+</script>
+
+
+---- element.addEventListener(event, function, useCapture);
+첫 번째 매개 변수는 이벤트 유형입니다 (예 : " click"또는 " mousedown").
+두 번째 매개 변수는 이벤트가 발생할 때 호출 할 함수입니다.
+세 번째 매개 변수는 이벤트 버블링 또는 이벤트 캡처를 사용할 지 여부를 지정하는 값, 선택적인 조건.
+
+
+
+<button id="myBtn">Try it</button>
+<script>
+document.getElementById("myBtn").addEventListener("click", function() {
+	alert("Hello World!");
+ });  버튼을 누르면 alert 창이 빡 뜬다!
+</script>
+
+
+
+
+----------------------집에서 공부한거 넣기
+
+
+----------------------
+<div id="div1">
+<p id="p1">This is a paragraph.</p>
+<p id="p2">This is another paragraph.</p>
+
+var para = document.createElement("p"); // para 변수에 <p> 태그 요소 생성 
+var node = document.createTextNode("This is new."); //node에 텍스트 노드를 만들어 담음.
+para.appendChild(node);  // <p> 요소에 텍스트 노드를 추가한다. (para에 노드 자식 객체를 붙인다.)
+var element = document.getElementById("div1"); // div1 요소를 찾아 element를 넣는다.
+element.appendChild(para); // element에 para node 객체를 붙인다
+
+
+var para = document.createElement("p"); // <p> 태그 생성해서 para에 담고
+var node = document.createTextNode("This is new"); // text를 생성해 node에 담는다.
+para.appendChild(node); // para에 node 메세지를 붙인다. => This is new를 출력.
+- 새 요소를 부모의 마지막 자식순서로 추가했다
+
+var element = document.getElementById("div1"); // div1을 element에 담는다.
+var child = document.getElementById("p1"); // p1 태그의 값을 child에 넣는다.
+element.insertBefore(para,child); 
+- 새 요소를 만들었지만 insertBefore를 이용해 para 이전에 추가했다.
+
+
+
+
+
+----------jQuery
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+$(document).ready(function() {
+  $("button").click(function() {
+     $("test").hide();
+  });
+});
+
+-
+$(document).ready(function() {
+$("#p1").hover(function() { // 글자에 호버 걸었고,
+alert("You entered p1!"); // alert 창 뜸.
+},
+function() { // 이건 그냥 글자에 호버 걸은 alert 창 뜬거 끝나고 또 뜨게 하는 function.
+alert("Bye! You now leave p1!");
+});
+});
+
+-
+Name:<input type="text" name="fullname"><br>
+Email: <input type="text" name="email">
+
+$(document).ready(function() {
+  $("input").focus(function() {
+   $(this).css("background-color", "#cccccc");  // 마우스로 클릭하면 포커스 상태가 됨.(이때 색상이나 동작 지정가능.)
+});
+ $("input").blur(function() {
+   $(this).css("background-color", "#ffffff");  // 포커스 상태가 아닐때 상태를 지정함.(다시 흰 바탕으로 돌려둠.)
+});
+}); 
+
+-  맞다!!! 새로운 프로젝트 하면서 알게된 것,$(document).ready(function() {}); 이건 $(function() {}); 이렇게 쓸수 있음
+$(document).ready(function() {      
+   $("p").on("click", function() { 
+      $(this).hide();
+    });
+});
+<P> 태그 텍스트 3개 ... </p>
+
+
+jQuery on 함수는 1.7버전부터 추가 되었다. 앞으로 이벤트를 바인드 하려면 on 함수를 쓰는것이 좋아보인다. 
+기존에 있던 bind, live, delegate등의 함수들이 없어질 예정이니 on을 쓰자.
+
+-
+
+$(document).ready(function() {
+  $("p").on({
+   mouseenter: function() {
+    $(this).css("background-color", "lightgray");
+  },
+   mouseleave: function() {
+    $(this).css("background-color", "lightblue");
+  },
+   click: function() {
+    $(this).css("background-color", "yellow");
+  }
+  });
+});
+<p> 태그 문자메세지 하나</p> // 문자열에 마우스를 갖다 대는 순간 회색으로 바뀌고 클릭하면 노란색 벗어나면 파란색 뜸.
+
+
+--- jQuery 효과. 숨기기/표시
+
+$(document).ready(function() {
+  $("button").click(function() { //버튼 누르면 p태그 문자열 천천히 위쪽으로 사라짐
+    $("p").hide(1000);
+  });
+});
+
+
+$(document).ready(function() {
+  $("button").click(function() { // 버튼을 누르면 p태그 문자열이 사라졌다가 나타남.
+    $("p").toggle();
+  });
+});
+
+
+$(selector).toggle(speed,callback);   !!! speed에 밀리초 값, callback변수는 toggle() 완료 후에 실행될 함수
+
+
+--- jQuery 효과. 숨기기/표시 (페이드 인/아웃 적용)
+$(document).ready(function() {
+  $("button").click(function() {
+    $("#div1").fadeOut();     //$("#div1").fadeIn(); 빠르게 사라짐/나타남
+    $("#div2").fadeOut("slow"); //$("#div2").fadeIn(); 조금 천천히 사라짐/나타남
+    $("#div3").fadeOut(3000); //$("#div3").fadeIn(); 천천히 사라짐/나타남
+  });
+});
+
+
+
+$(document).ready(function() {
+  $("button").click(function() {
+    $("#div1").fadeToggle();     //
+    $("#div2").fadeToggle("slow"); //
+    $("#div3").fadeToggle(3000); //
+  });
+});
+
+
+$(selector).fadeTo(speed,opacity,callback);  !!! // 불투명도를 지정할 수 있음
+
+$("button").click(function() {
+  $("#div1").fadeTo("slow", 0.15);
+  $("#div2").fadeTo("slow", 0.4);
+  $("#div3").fadeTo("slow", 0.7);
+});
+
+
+--- jQuery 효과. 숨기기/표시 (슬라이드 적용)
+$("#flip").click(function() {
+  $("#panel").slideToggle(); // 버튼 누르면 천천히 펼쳤다 접힘 slideDown(),slideUp(),slideToggle()
+});
+
+
+--- jQuery 효과. 애니메이션 ////스킵스킵!
+$(selector).animate({params},speed,callback); !!!
+$(selector).stop(stopAll,goToEnd); !!!
+jQuery stop()메서드는 애니메이션 또는 효과가 끝나기 전에 중지하는 데 사용됩니다.
+
+
+--- jQuery 콜백 효과
+콜백 함수란 !!!?
+1. 다른 함수의 인자로써 이용되는 함수.
+2. 어떤 이벤트에 의해 호출되어지는 함수.
+
+$(document).ready(function(){
+  $("button").click(function() { // 버튼을 클릭하면 글자가 천천히 위로 사라짐
+     $("p").hide("slow", function() { // 대신 글자가 온전히 다 사라지고 나서야 alert 창이 뜨고 메세지가 출력됨.
+       alert("The paragraph is now hidden"); // 이미 닫힌 상태에서 버튼을 또 누르면 바로 alert 창이 출력 
+     });
+  });
+});
+
+
+아마도.. hide 하는데 천천히 옵션을 줬고, 함수는 alert 창을 띄우게 했다.
+그러니까 alert 창을 띄우려면 hide 해야한다.
+
+
+----//// jQuery - 내용 및 속성 가져오기 !!!!!
+jQuery DOM 컨트롤.
+
+
+<p id="test">This is some <b>bold</b> text in a paragraph.</p>
+
+<button id="btn1">Show Text</button>
+<button id="btn2">Show HTML</button>
+
+$(document).ready(function(){
+  $("#btn1").click(function(){
+     alert("Text: " + $("#test").text()); // 버튼1을 누르면 텍스트가 출력됨.
+  });
+  $("#btn2").click(function(){
+     alert("HTML: " + $("#test").html()); // 버튼2를 누르면 HTML 태그가 적용된 텍스트가 출력됨.
+  });
+});
+---
+
+<p>Name: <input type="text" id="test" value="Mickey Mouse"></p>
+<button>Show Value</button>
+ 
+$(document).ready(function() {  // inputbox에 글자 입력하고 버튼 누르면 alert 창에 글자 출력됨.
+  $("button").click(function() {
+    alert("Value: " + $("#test").val());
+  });
+});
+---
+
+<p><a href="https://www.w3schools.com" id="w3s">W3Schools.com</a></p>
+<button>Show href Value</button>
+
+$(document).ready(function(){
+  $("button").click(function(){ // 버튼을 누르면 해당 href로 지정한 경로의 값을 attr()를 이용해 속성 가져옴.
+     alert($("#w3s").attr("href"));
+  });
+});
+---
+
+버튼 3개, p태그 문자 텍스트 2개 , inputBox 하나
+
+$(document).ready(function(){
+  $("#btn1").click(function(){
+    $("#test1").text("Hello world!"); // 버튼1 누르면 바뀌고.
+  });
+  $("#btn2").click(function(){
+    $("#test2").html("<b>Hello world!</b>"); // 버튼2 누르면 진하게 바뀌고.
+  });
+  $("#btn3").click(function(){
+    $("#test3").val("Dolly Duck"); // 버튼3 누르면 인풋박스에 Dolly Duck으로 바뀐다.
+  });
+});
+
+
+-----text (), html (), val () 에 대한 콜백 함수 
+
+$(document).ready(function(){
+  $("#btn1").click(function() { // 버튼 누르면 
+    $("#test1").text(function(i, origText) { //test1 p 태그에 메세지를 뿌려줌. 
+       return "Old text: " + origText + " New text: Hello world! (index: " + i + ")";
+    });
+  });  // 버튼을 여러번 누르면 누르는 만큼 계속 추가됨.
+});
+
+---
+$(document).ready(function() {
+  $("button").click(function() {  // 버튼을 누르면 태그에 지정된 경로값을 바꿈.
+    $("#w3s").attr("href", "https://www.w3schools.com/jquery/");
+  }); 
+});
+
+
+
+
+
