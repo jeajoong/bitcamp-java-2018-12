@@ -1,6 +1,6 @@
 var pageNo = 1,
     pageSize = 3,
-    tbody = $('tbody'), //document.querySelector => Bitcamp => $ 기존 객체 값과 다른 리턴값
+    tbody = $('tbody'),
     prevPageLi = $('#prevPage'),
     nextPageLi = $('#nextPage'),
     currSpan = $('#currPage > span'),
@@ -70,4 +70,15 @@ $(document.body).bind('loaded-list', () => {
       $(e.target).attr('data-no');
   });
 });
+
+// 사용자 로그인 정보를 가져왔을 때 호출될 메서드 등록
+$(document.body).bind('loaded.loginuser', () => {
+  console.log("로그인 했다");
+});
+
+
+
+
+
+
 

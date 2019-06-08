@@ -739,9 +739,110 @@ function myFunction(xml) {
 }
 
 버튼을 누르면 해당 loadDoc() 기능이 실행되고,
-loadDoc() 함수는 XMLHttpRequest 객체를 생성하고 서버 응답이 준비 될 때 실행될 함수를 추가 한 다음 요청을 서버로 보냅니다.
+loadDoc() 함수는 XMLHttpRequest 객체를 생성하고 서버 응답이 준비 될 때 실행될 함수를 추가 한 다음 요청을 서버로 보냄.
 서버 응답이 준비되면 HTML 테이블이 작성되고 XML 파일에서 Nodes(요소)가 추출되며 마지막으로 XML 데이터로
-채워진 HTML 테이블로 "demo" 요소를 업데이트 합니다.
+채워진 HTML 테이블로 "demo" 요소를 업데이트.
+
+
+GET 요청
+var ta = document.querySelector("#ta");
+
+document.querySelector("#btn1").onclick = () => {
+    var xhr = new XMLHttpRequest();
+    
+    // GET 요청은 데이터를 URL에 붙인다.
+    xhr.open("GET", "test2.jsp?name=홍길동&age=20",false);
+    xhr.send(); // 동기방식으로 연결되었을때는 서버에서 응답할 때 까지 리턴이 안됨.
+    ta.value = xhr.responseText;
+};
+
+
+POST 요청
+-POST 요청은 데이터를 send()를 호출할 때 넘긴다.
+-POST 요청으로 데이터를 보낼 때는 반드시 Content-Type 헤더를 설정하여
+ 어떤 타입의 데이터를 보내는지 서버에 알려줘야 한다.
+var ta = document.querySelector("#ta");
+
+document.querySelector("#btn1").onclick = () => {
+    var xhr = new XMLHttpRequest();
+
+    xhr.open("POST","test2.jsp",false); // POST로 test2.jsp를 요청.
+    xhr.setRequestHeader(
+      "Content-Type",
+      "application/x-www-form-urlencoded");
+
+    var data = "name=" + window.encodeURlComponent("홍길동") + "&age=20";
+    console.log(data);
+    xhr.send(data);
+    ta.value = xhr.responseText;
+};
+
+
+
+
+<form action="">
+    <select name="customers" onchange="showCustomer(this.value)">
+    <option value="">고객을 선택:</option>
+    <option value="ALFKI">Alfreds Futterkiste</option>
+    </select>
+</form>
+<div id = "txtHint">고객을 선택하면 이곳에 정보를 가져옴</div>
+<script>
+function showCustomer(str) {
+
+    if (str == "") {
+       document.getElementById("txtHint").innerHTML = "";
+       return;
+    }
+    var xhttp = new XMLHRequest();
+    xhttp.onreadystatechange = function() {
+       if (this.readyState == 4 && this.status == 200) {
+          document.getElementById("txtHint").innerHTML = this.responseText;
+       }
+    };
+  xhttp.open("GET", "getcustomer.php?q=" +str, true);
+  xhttp.send();
+}
+
+// select 에서 값을 선택하면 onchage로 showCustomer 스크립트를 실행하고
+// this.value 선택된 값을 전달해준다 
+
+// id가 txtHint 인 부분에 서버가 정상적이라면 this.responseText; 응답된 메세지(db에서의 결과)를 출력
+//responseText에 값을 넣는건 
+//xhttp.open으로 값을 받아왔기 때문인데
+// "getcustomer.php?q=" +str, 경로에 select 부분에서 선택된 값을 주고 요청했다.
+// 서버에서 php 파일로 값을 전송하지만...
+
+
+자바로 서버에서 값을 전달?한다면...
+java-spring-webmvc, app2 controller05_1 참조하기
+
+@GetMapping("h1") // xhttp.open으로 h1을 적어주면 
+public Object handler1() {
+  return this.list; // 요 리스트를 뿌려준다.!
+}
+
+
+
+
+
+그러면 매치보드에서 사용자가 버튼을 누를때.
+중복을 체크하려면
+-서버에서 클라이언트로 정보를 보내기위해 
+매핑, 해당 글번호로 matchapply 정보를 가져오고 (여기까지 그냥 detail에서 해결하면 될듯)
+(클라이언트쪽에서? 서버쪽에서? 해결을? 어디서?)
+
+방법1 서버에서 로그인한 유저의 팀의 matchapply 목록을 싹다 가져와서 매치글의 matchapply 목록과 비교하거나
+        (이건 이미 신청보낸 팀을 내부적으로 출력되지 않게 하는 방법)
+
+방법2 먼저 select 부분에 자기 팀의 목록을 출력후에 onchange로 값이 바뀌면.
+        서버에 해당하는 팀번호로 값을 요청한다.
+        그러면 서버에서는 해당하는 팀 번호로 신청정보를 검색해보고 
+        만약 이미 신청해서 정보가 있다면 false를 돌려주고
+        아니라면 true를 보내주면 된다. 
+        그러면 클라이언트에서 responseText의 값이
+        true일때 false일때 구분해서 선택을 막는법.
+        
 
 
 
