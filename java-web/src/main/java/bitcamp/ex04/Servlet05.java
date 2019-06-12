@@ -11,10 +11,9 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 
-// 멀티파트 형식의 데이터를 처리할 서블릿으로 선언하라. 
+// 멀티파트 형식의 데이터를 처리할 서블릿으로 선언하라.
 // => web.xml에 설정할 수도 있고, 다음과 같이 애노테이션으로 설정할 수도 있다.
-//####################!!!! JSP 형식의 파일처리도 할수 있음
-
+//
 //@MultipartConfig(maxFileSize = 1024 * 1024 * 10)
 //@WebServlet("/ex04/s5")
 public class Servlet05 extends GenericServlet {

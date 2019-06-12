@@ -20,20 +20,18 @@
 <script>
 "use strict"
 
-// 태그의 속성 바꾸기 
+// 태그의 속성 바꾸기
 // 
 var e = document.querySelector("article:nth-child(2) a");
-                  // article 중에 n번째 자식중에 a태그의 값
 console.log(e.href)
 
 // 1) 방법1
-//e.href = "http://www.daum.net"; 
+//e.href = "http://www.daum.net";
 
 // 2) 방법2
 e.setAttribute("href", "http://www.google.com");
 
-// 현재 실행상태를 보여 주는것은 Elements ,
-// 원래의 상태를 보여 주는 것(소스) Sources
+
 </script>
 </body>
 </html>

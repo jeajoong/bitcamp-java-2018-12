@@ -54,7 +54,7 @@ $('#fileupload').fileupload({
         try {
           if (data.files[i].preview.toDataURL) {
             console.log(data.files[i].preview.toDataURL());
-            $("<img>").attr('src', data.files[i].preview.toDataURL()) // 바이너리 데이터를 변환
+            $("<img>").attr('src', data.files[i].preview.toDataURL())
                       .css('width', '100px')
                       .appendTo(imagesDiv);
           }
