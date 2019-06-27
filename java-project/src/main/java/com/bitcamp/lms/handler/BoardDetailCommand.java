@@ -8,8 +8,9 @@ public class BoardDetailCommand implements Command {
   Scanner keyboard;
   List<Board> list;
   
-  public BoardDetailCommand(Scanner keyboard) {
+  public BoardDetailCommand(Scanner keyboard, List<Board> list) {
     this.keyboard = keyboard;
+    this.list = list;
   }
 
   @Override

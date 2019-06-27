@@ -8,8 +8,9 @@ public class BoardUpdateCommand implements Command {
   Scanner keyboard;
   List<Board> list;
   
-  public BoardUpdateCommand(Scanner keyboard) {
+  public BoardUpdateCommand(Scanner keyboard, List<Board> list) {
     this.keyboard = keyboard;
+    this.list = list;
   }
   
   @Override

@@ -1,6 +1,4 @@
 package com.bitcamp.lms.handler;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.List;
 import java.util.Scanner;
 import com.bitcamp.lms.domain.Board;
@@ -10,12 +8,13 @@ public class BoardListCommand implements Command {
   Scanner keyboard;
   List<Board> list;
   
-  public BoardListCommand(Scanner keyboard) {
+  public BoardListCommand(Scanner keyboard, List<Board> list) {
     this.keyboard = keyboard;
+    this.list = list;
   }
   
   @Override
-  public void execute(ObjectInputStream in, ObjectOutputStream out) {
+  public void execute() {
     Board[] boards = list.toArray(new Board[] {});
     for (Board board : boards) {
       System.out.printf("%3d, %-20s, %s, %d\n", 
