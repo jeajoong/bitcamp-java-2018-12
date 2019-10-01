@@ -42,9 +42,10 @@
     
     
    ### DatabaseConfig에서 사용
-  @Configuration 
-      // Spring IoC 컨테이너 설정을 수행하는 클래스임을 표시한다.
-
+  @Configuration
+      // @Bean을 이용해 DataSource 설정을 해주어서 Spring과 관련된 설정파일임을 명시해준다.
+      // 이 어노테이션 또한 빈이 된다. 
+       
   @PropertySource("classpath:/com/eomcs/lms/conf/jdbc.properties")
       // Property 파일을 Environment로 로딩할 수 있다. 
       Environment env; 객체를 만든이유
@@ -54,15 +55,18 @@
       //트랜잭션 매니저를 지정해 줄 수 있다 (Bean으로 된 것들을 찾아서 트랜잭션 관리)
     
   @Autowired
-    //스프링이 빈의 요구 사항과 매칭 되는 애플리케이션 컨텍스트상에서
-    //다른 빈을 찾아 빈 간의 의존성을 자동으로 만족시키도록 하는 수단이다
+    // 다른 빈을 찾아 빈 간의 의존성을 부여
+    // -- 추가설명 스프링 컨테이너는 @Bean이 붙은 메서드에 대해 한 개의 객체만 생성한다.
+    //    다른 클래스에서 만들어둔 객체 하나를 이 필드에 할당하는 것이다.
+    
 
    @Bean ( 개발자가 컨트롤이 불가능한 외부 라이브러리들을 Bean으로 등록하고 싶은 경우 사용)
     //스프링에서 이 태그를 붙인 것들의 객체를 자동으로 생성해줌
     //(DatabaseConfig에서는 내부에 Environment 객체로 jdbc 드라이버 정보를 전달.)
     
    @MapperScan("com.eomcs.lms.dao")
-    //매퍼파일이 있는 경로 위치를 알려주고 매퍼파일을 읽어들임
+    // @Mapper로 명시된 interface를 스캔
+    // 두 개 이상의 MapperScan class 사용 시 명시를 안하면 오류
    
   
    
