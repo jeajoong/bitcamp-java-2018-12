@@ -10,9 +10,3 @@ import org.springframework.context.annotation.ImportResource;
 @ImportResource("classpath:/com/eomcs/lms/conf/tx-context.xml")
 public class AppConfig {
 }
-
-
-
-
-
-

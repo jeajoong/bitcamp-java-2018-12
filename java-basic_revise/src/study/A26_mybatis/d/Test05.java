@@ -1,0 +1,35 @@
+// select 결과 값을 Map 객체에 받기
+package study.A26_mybatis.d;
+
+import java.io.InputStream;
+import java.util.List;
+import java.util.Map;
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
+public class Test05 {
+
+  public static void main(String[] args) throws Exception {
+    
+    InputStream inputStream = Resources.getResourceAsStream("ch26/d/mybatis-config.xml");
+    SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+    SqlSession sqlSession = sqlSessionFactory.openSession();
+    
+    // select 결과를 맵 객체로 받을 수 있다.
+    Map<?,?> map = sqlSession.selectOne("board.select6"); 
+    
+    List<Map<?,?>> list = sqlSession.selectList("board.select7");
+    for (Map<?,?> m : list) { // SQL에서 출력되는 순서는 Map에 저장된 순서임
+      System.out.println(m);
+    }
+  }
+
+}
+
+
+
+
+
+
