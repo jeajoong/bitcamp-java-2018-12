@@ -1,0 +1,91 @@
+Ajax
+ 사용자가 입력하는 동시에
+ 서버와 통신하여 이미 있거나 정보를 알려주게 활용할 수 있음
+
+1. 객체 생성 : Request를 보낼 준비
+var xhr = new XMLHttpREquest();
+
+2. 서버에서 Response가 왔을 때 실행되는 함수
+xhr.onreadystatechange = function() {
+    if(xhr.readyState == 4) {
+        var myDiv = document.getElementById('mydiv');
+        myDiv.innerHTML = xhr.responseText;
+      }
+ }
+
+3. Request를 Open한다. HTTP method와 호출할 Server의
+  URL 정보를 전달
+xhr.open("GET", "user.do");
+
+4. Request를 Send 한다.
+xhr.send();
+
+Ajax로 코딩하게 되면 코딩량이 많아지고
+브라우저 별로 구현을 다르게 해주어야 하는 단점이 있다.
+=> jQuery를 이용하면 이러한 단점을 보완
+
+
+-----------------------------------------
+
+jQuery 기능
+ - Selector (선택)
+
+// 태그명 직접입력 선택
+$("div");
+
+// 클래스명으로 선택
+$(".class");
+
+// ID명으로 선택
+$("#id");
+
+// 모든 Element 선택 하여 CSS 적용
+$("*").css("border", "1px");
+
+// 다중 셀렉터 기준으로 해당 엘리먼트들 모두 선택
+$("div, span, p.myClass");
+
+//DIV요소중 3번째 이후 부터 ((index)보다 큰(이후) 요소)
+$("div:gt(2)");
+
+// <input type="checkbox">
+$(":checkbox");
+
+//attr(attrName), attr(attrName, value), attr(object) 함수
+  : 선택된 element의 속성의 값을 리턴, 설정한다.
+
+
+ - Manipulation (조작)
+
+append() 함수
+  :선택된 element의 content 맨 끝에 인자로 넘어온 내용을 추가
+
+appendTo() 함수
+  :선택된 element를 target에 해당하는 Element의 
+   content의 끝에 추가한다.
+
+html(), html(htmlString) 함수
+  : 선택된 Element의 html을 리턴, 설정한다.
+
+
+ - Loop
+
+.each(function(index, element)) 함수
+  :jQuery 객체들을 위해 반복 로직을 처리하는 함수
+
+
+ - Event 처리
+
+.on() 함수
+  : 선택된 element에 이벤트 핸들러를 묶어준다.
+   ex) $("div.test").on({
+         mouseenter: function() {
+           $(this).addClass("inside");
+         },
+          mouseleave: function() {
+           $(this).removeClass("inside");
+         }
+        });
+
+ 
+
