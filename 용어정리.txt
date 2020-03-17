@@ -45,14 +45,11 @@ Filter : 서블릿 필터는 DispatcherServlet 이전에 실행이 되는데 필
 Interceptor : 스프링의 DistpatcherServlet이 컨트롤러를 호출하기 전, 후로 끼어들기 때문에 
                 스프링 컨텍스트(Context, 영역) 내부에서 Controller(Handler)에 관한 요청과 응답에 대해 처리
 
-
 싱글톤 패턴 : 객체가 하나만 생성되어야 하는 경우, 이미 생성된 객체가 있으면 그 객체를 사용 하도록 하는 방식
 팩토리 패턴 : 객체끼리 의존성을 줄이기 위해 객체의 생성과 데이터 주입만 담당하는 팩토리 클래스를 정의하고, 생성된 객체를 가져다 사용,
 옵저버 패턴 : 하나의 객체가 변하면 다른 객체가 변했다는 사항을 알려주어야 하는 경우에 사용
 
 AJAX : 웹프로그래밍에서 정적인 페이지의 상태를 동적으로 만들기 위한 기술(부분적 request)
-
-AOP는 관점지향 프로그래밍 제어를 역전한다. => OOP를 보완하기 위해 나온 개념이다 중복을 줄일 수 없는 부분을 줄이기 위한 과정
 
 *MVC패턴
 MVC란 사용자가 이용하는 인터페이스에 효과적으로 데이터 모형에 관련시키기 위한 설계 방식
@@ -61,10 +58,37 @@ Model - 클래스로 논리적 데이터 기반 구조를 표현, 사용자 인�
 View - 사용자 인터페이스 내의 구성요소들을 표현(사용자에게 보여지는 화면 ex.JSP)
 Controller - Model과 View를 연결하고 있는 클래스, Model과 View 내의 클래스들 간 정보를 교환하는데 이용
 
-
 Framework
 - 특정한 틀을 만들어놓고 거기에 살을 붙여 놓음으로써 작업시간을 줄여주는 것.
 - 특정 개념들의 추상화를 제공하는 여러 클래스나 컴포넌트로 구성, 재사용이 가능
 특징 : 개발자들이 따라야할 가이드라인을 가짐, 개발할 수 있는 범위가 정해져 있음, 개발자를 위한 다양한 도구들 지원
 장점 : 개발시간을 줄이고 오류로 부터 자유로워진다.
 단점 : 프레임워크에 너무 의존하면 개발 능력이 떨어져 프레임워크 없이 개발하는 것이 불가능해짐.
+
+Spring
+
+AOP : 관점지향 프로그래밍이라고 하며 어떤 로직을 기준으로 핵심적인 관점, 부가적인 관점으로 나누어서 보고
+      그 관점을 기준으로 각각 모듈화하겠다는 것이다.
+      흩어진 관심사를 Aspect로 모듈화하고 핵심적인 비즈니스 로직에서 분리하여 재사용하겠다는 것이 AOP의 취지
+Container : 컨테이너는 적절한 설정만 되어 있다면 프로그래머가 작성한 코드를 스스로 참조한 뒤 알아서
+            객체의 생성과 생명주기를 관리해준다.
+IoC : 제어의 역전이라고 하며 객체의 생성과 생명주기 관리에 대한 제어를 컨테이너로 넘긴다.
+DI  : 의존성 주입이라고 하며 프로그래밍에서 구성요소간의 의존 관계가 내부가 아닌 외부의 설정파일 등을 통해
+      정의되게 하는 디자인 패턴 중의 하나이다.
+
+웹어플리케이션 동작원리
+1. 웹 애플리케이션이 실행되면 Tomcat(WAS)에 의해 web.xml이 loading 된다.
+2. web.xml에 등록되어 있는 ContextLoaderListener(JAVA Class)가 생성된다.
+   ContextLoaderListener클래스는 ServletContextListener 인터페이스를 구현하고 있으며,
+   ApplicationContext를 생성하는 역할을 수행한다.
+3. 생성된 ContextLoaderListener는 root-context.xml을 loading한다.
+4. root-context.xml에 등록되어 있는 Spring Container가 구동된다. 이 때 개발자가 작성한
+   비즈니스 로직에 대한 부분과 DAO, VO 객체들이 생성된다.
+5. 클라이언트로부터 요청이 들어온다.
+6. DispatcherServlet이 생성된다. DispatcherServlet은 FrontCOntroller의 역할을 수행한다.
+   클라이언트로부터 요청 온 메세지를 분석하여 알맞은 PageController에게 전달하고 응답을 받아
+   요청에 따른 응답을 어떻게 할 지 결정하는데 HandlerMapping, ViewResolver 클래스가 담당한다.
+7. DispatcherServlet은 servlet-context.xml을 loading 한다.
+8. 두번째 Spring Container가 구동되며 응답에 맞는 PageController들이 동작한다.
+   이 때 첫번째 Spring Container가 구동되면서 생성된 DAO, VO(DTO), ServiceImpl 클래스들과 협업하여
+   작업을 처리하게 된다.
