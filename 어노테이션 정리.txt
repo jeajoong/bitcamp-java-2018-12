@@ -3,8 +3,21 @@
  @Controller - Presentation Layer에서 Contoller를 명시하기 위해서 사용 (클래스)
     -> 명시가능 @RequestMapping - 특정 URL에 매칭되는 클래스나 메소드임을 명시하기 위해 사용(클래스,메소드)
 
+ @PathVariable - @RequestMapping에서 {템플릿변수}를 사용하는데. 해당 {템플릿변수} 동일한 이름을 갖는 파라미터 이름을 사용한다.
+                 @RequestMapping에서 {템플릿변수}는 url 경로 지정에 있어서 변수값이 존재할 때 사용하는데 이를 
+                 파라미터 객체로 메서드 내부에서 활용하기 위한 방법이다. 
 
-
+ @RequestBody, @ResponseBody - 컨트롤러에서 요청, 응답을 처리.
+   @RequestBody로 데이터를 받을 때, JSON 설정을 미리 해두어야 하며(xml이나 다른곳에 설정), 주로 파라미터에 이용된다?
+   ajax 함수를 작성할 때 data는 JSON.stringify 로 사용되어야 하며, contentType을 application/json로 설정을 해두어야지만
+   컨트롤러로 요청을 보낼 수 있다. 
+   JSON 받을 변수를 Map이나 다른 형태(객체)로 받아도 자동으로 변환해 준다.
+   @ResponseBody는 보통 메서드에 선언되고. return 값을 지정해주면 넘어간다.
+   Map 객체는 자동으로 JSON 객체로 변환되어 넘어가고,
+   객체 정보는 넘어가면 복잡하므로 Map 객체로 만들어 넘기는게 좋다.
+   
+   
+   
   @Service - Business Layer에서 Service를 명시하기 위해서 사용 (클래스)
       // 스프링 IoC 컨테이너가 관리하는 객체 중에서 비즈니스 로직을 담당하는 객체는 
       // 특별히 그 역할을 표시하기 위해 @Component 대신에 @Service 애노테이션을 붙인다.
