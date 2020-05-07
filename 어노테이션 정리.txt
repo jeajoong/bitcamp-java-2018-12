@@ -74,11 +74,28 @@
     //     예외 처리를 막거나 자바8의 의존 주입 대상에 Optional 속성을 이용해도 된다(값이 없는 Optional을 인자로 전달)
     //     또는 @Nullable 애노테이션을 이용해도 된다.(존재하지 않을시 null 전달)
     
-
+  @Resource(name="보통service 객체 이름")
+  @Inject
+--------------
+  @Resource, @Autowired, @Inject 공통점은 의존주입이며, 각자 차이점이 존재
+    @Resource  - Java에서 지원하는 어노테이션
+                 사용하는 위치 : 필드, 한개의 파라미터인 빈 프로퍼티 setter 메소드
+                 연결 또는 검색 방식 : 이름으로 연결 안되면 타입
+                 강제 연결 : name 값 지정
+    @Autowired - Spring Framework 에서 지원하는 Dependency 정의 용도의 어노테이션 자동주입이며 종속적
+                 사용하는 위치 : 필드, 생성자, 여러개인 파라미터 메소드
+                 연결 또는 검색 방식 : 타입으로 연결 안되면 이름
+                 특이사항 : 스프링프레임워크 종속적이다.
+                 강제 연결 : Qualifier("")이용하여 값 지정
+    @Inject    - Java에서 지원하는 어노테이션
+                 사용하는 위치 : 필드, 생성자, 메소드
+                 연결 또는 검색방식 : 타입으로 연결 안되면 이름
+--------------
    @Bean ( 개발자가 컨트롤이 불가능한 외부 라이브러리들을 Bean으로 등록하고 싶은 경우 사용)
     //스프링에서 이 태그를 붙인 것들의 객체를 자동으로 생성해줌
     //(DatabaseConfig에서는 내부에 Environment 객체로 jdbc 드라이버 정보를 전달.)
     
+   
    @MapperScan("com.eomcs.lms.dao")
     // @Mapper로 명시된 interface를 스캔
     // 두 개 이상의 MapperScan class 사용 시 명시를 안하면 오류
